@@ -2,57 +2,71 @@ package com.library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
-import java.io.IOException;
+import javafx.scene.control.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
-    @FXML
-    private TextField txtUsername;
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
 
     @FXML
-    private PasswordField txtPassword;
-
-    private String correctUsername = "admin";
-    private String correctPassword = "1234";
-
+    private Button LoginButton;
     @FXML
-    public void handleLogin(ActionEvent event) throws IOException {
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
+    private Label LoginMessageLabel; // Label to print login successful,etc
+    @FXML
+    private PasswordField PasswordField;
+    @FXML
+    private TextField UsernameField;
 
-        if (username.equals(correctUsername) && password.equals(correctPassword)) {
-            // Switch to library scene
-            Stage stage = (Stage) txtUsername.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("library-view.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+    /**
+     * Use to login.
+     * @param event an event?
+     */
+    public void loginButtonAction(ActionEvent event) {
+        if (!UsernameField.getText().isBlank() && !PasswordField.getText().isBlank()) {
+            ValidateLogin();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password");
+            LoginMessageLabel.setText("Invalid login. Please try again!!!");
         }
     }
 
-    @FXML
-    public void handleRegister(ActionEvent event) throws IOException {
-        // Switch to register scene
-        Stage stage = (Stage) txtUsername.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
+    public void ValidateLogin() {
+        databaseConnection.connect(); // Connect before call getConnection
+        Connection con = databaseConnection.getConnection();
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+        if (con == null) {
+            LoginMessageLabel.setText("Could not connect to the database.");
+            return; // Exit if cannot connect
+        }
+        ///Check if username and password == data in mysql
+        String verifyLogin = "SELECT count(1) FROM loginschema.user_account WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
+            preparedStatement.setString(1, UsernameField.getText());
+            preparedStatement.setString(2, PasswordField.getText());
 
+            ResultSet queryResult = preparedStatement.executeQuery();
+            if (queryResult.next()) {
+                if (queryResult.getInt(1) == 1) {
+                    LoginMessageLabel.setText("Login Successful");
+                } else {
+                    LoginMessageLabel.setText("Login Failed! Try again.");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LoginMessageLabel.setText("Database error: " + e.getMessage());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close(); // close connection
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
