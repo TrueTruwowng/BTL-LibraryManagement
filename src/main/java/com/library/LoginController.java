@@ -2,17 +2,16 @@ package com.library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
 
 public class LoginController {
     private DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -46,8 +45,7 @@ public class LoginController {
             LoginMessageLabel.setText("Could not connect to the database.");
             return; // Exit if cannot connect
         }
-
-        ///Check if username and password == data in mysql
+        // Check if username and password == data in mysql
         String verifyLogin = "SELECT count(1) FROM loginschema.user_account WHERE username = ? AND password = ?";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
@@ -58,8 +56,7 @@ public class LoginController {
             if (queryResult.next()) {
                 if (queryResult.getInt(1) == 1) {
                     LoginMessageLabel.setText("Login Successful");
-                    // Load the new FXML view
-                    loadLibraryView();
+                    loadLibraryView(); // Call the method to load the new view
                 } else {
                     LoginMessageLabel.setText("Login Failed! Try again.");
                 }
@@ -81,18 +78,19 @@ public class LoginController {
 
     private void loadLibraryView() {
         try {
-            // Load the library-view FXML file
+            // Load the FXML for library view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("library-view.fxml"));
-            Parent root = loader.load();
+            Parent libraryView = loader.load();
 
-            // Get the current stage and set the new scene
+            // Get the current stage
             Stage stage = (Stage) LoginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.setScene(new Scene(libraryView));
+            stage.setTitle("Library View");
+            stage.show(); // Display the new scene
+
         } catch (IOException e) {
             e.printStackTrace();
-            LoginMessageLabel.setText("Failed to load the library view: " + e.getMessage());
+            LoginMessageLabel.setText("Error loading library view: " + e.getMessage());
         }
     }
-
 }
