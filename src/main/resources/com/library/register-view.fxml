@@ -72,7 +72,7 @@
                   <Font name="Times New Roman Italic" size="18.0" />
                </font>
             </Text>
-            <Label fx:id="RegisterMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="134.0" text="-----Set up your account-----" textFill="WHITE">
+            <Label fx:id="RegisterMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="134.0" text="-----Set up your account-----" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="27.0" />
                </font>

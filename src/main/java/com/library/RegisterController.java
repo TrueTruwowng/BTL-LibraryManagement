@@ -45,20 +45,26 @@ public class RegisterController {
     private DatabaseConnection databaseConnection = new DatabaseConnection();
 
     public void registerButtonOnAction(ActionEvent event) {
-        if(passwordField.getText().equals(confirmPasswordField.getText())) {
-            RegisterUser();
-            MatchingLabel.setText("You are set");
-            /// wait for transition
-            PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2sec
-            pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
-            pause.play();
-        } else {
-            MatchingLabel.setText("Passwords do not match");
-        }
+        // Check if is the textfield is blank
+        if (FirstnameField.getText().isEmpty() || LastnameField.getText().isEmpty() ||
+                UsernameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
+                confirmPasswordField.getText().isEmpty()) {
 
+            RegisterMessageLabel.setText("Please fill in all fields");
+        } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
+            MatchingLabel.setText("Passwords do not match");
+        } else {
+            if (RegisterUser()) {  // Điều chỉnh phương thức RegisterUser trả về boolean
+                MatchingLabel.setText("You are set");
+                // Chỉ thực hiện chuyển đổi sau khi tài khoản được tạo thành công
+                PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2sec
+                pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
+                pause.play();
+            }
+        }
     }
 
-    public void RegisterUser() {
+    public boolean RegisterUser() {
         databaseConnection.connect(); // Kết nối trước khi gọi getConnection
         Connection con = databaseConnection.getConnection();
 
@@ -67,11 +73,9 @@ public class RegisterController {
         String username = UsernameField.getText();
         String password = passwordField.getText();
 
-        // Kiểm tra xem username đã tồn tại hay chưa
         String checkUsernameQuery = "SELECT COUNT(*) FROM loginschema.user_account WHERE username = ?";
 
         try {
-            // Sử dụng PreparedStatement để bảo vệ khỏi SQL Injection
             PreparedStatement checkStatement = con.prepareStatement(checkUsernameQuery);
             checkStatement.setString(1, username);
 
@@ -80,13 +84,11 @@ public class RegisterController {
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
                 if (count > 0) {
-                    // Username đã tồn tại
                     RegisterMessageLabel.setText("Account already exists");
-                    return; // Thoát khỏi phương thức
+                    return false;
                 }
             }
 
-           ///if username did not exit then insert new one
             String insertField = "INSERT INTO loginschema.user_account(lastname, firstname, username, password)" +
                     " VALUES (?, ?, ?, ?)";
 
@@ -98,13 +100,15 @@ public class RegisterController {
 
             insertStatement.executeUpdate();
             RegisterMessageLabel.setText("Create account successfully");
+            return true;  // Register successfully
 
         } catch(Exception e) {
             e.printStackTrace();
             RegisterMessageLabel.setText("An error occurred during registration.");
+            return false;  // ERROR OCCURS
         } finally {
             try {
-                con.close(); // Đảm bảo đóng kết nối
+                con.close(); // Close connection
             } catch (Exception e) {
                 e.printStackTrace();
             }
