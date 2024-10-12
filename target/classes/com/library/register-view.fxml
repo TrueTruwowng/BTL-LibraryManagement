@@ -7,20 +7,51 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="body" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LoginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="body" stylesheets="@../../Registerstyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.RegisterController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="HARD_LIGHT" fill="#0022fc" height="470.0" layoutX="138.0" layoutY="65.0" stroke="BLACK" strokeLineJoin="BEVEL" width="624.0" AnchorPane.bottomAnchor="64.5" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="64.00000000000006" />
-            <Button fx:id="LoginButton" layoutX="338.0" layoutY="380.0" mnemonicParsing="false" onAction="#ValidateLogin" prefHeight="34.0" prefWidth="90.0" style="-fx-background-color: #fdfefe;" text="LOGIN" textAlignment="CENTER">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="HARD_LIGHT" fill="#bf2121f2" height="484.0" layoutX="138.0" layoutY="64.5" stroke="BLACK" strokeLineJoin="BEVEL" width="625.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="64.0">
+               <effect>
+                  <Blend mode="RED" />
+               </effect></Rectangle>
+            <Label layoutX="349.0" layoutY="84.0" text="LIBRARY" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="44.0" />
+               </font>
+            </Label>
+            <TextField fx:id="FirstnameField" layoutX="349.0" layoutY="184.0" prefHeight="34.0" prefWidth="248.0" promptText="Enter your username">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="LastnameField" layoutX="349.0" layoutY="245.0" prefHeight="34.0" prefWidth="248.0" promptText="Enter your lastname">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="UsernameField" layoutX="349.0" layoutY="307.0" prefHeight="34.0" prefWidth="248.0" promptText="Enter your username">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="passwordField" layoutX="349.0" layoutY="374.0" prefHeight="34.0" prefWidth="248.0" promptText="Enter your password">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </PasswordField>
+            <PasswordField fx:id="confirmPasswordField" layoutX="349.0" layoutY="442.0" prefHeight="34.0" prefWidth="248.0" promptText="Enter your password">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </PasswordField>
+            <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" layoutX="388.0" layoutY="497.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="34.0" prefWidth="126.0" style="-fx-background-color: #fdfefe;" text="REGISTER" textAlignment="CENTER">
                <font>
                   <Font name="Times New Roman Bold" size="19.0" />
                </font>
@@ -31,46 +62,46 @@
                   <Blend />
                </effect>
             </Button>
-            <Label layoutX="349.0" layoutY="101.0" text="LIBRARY" textFill="WHITE">
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="250.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
                <font>
-                  <Font name="Times New Roman Bold" size="44.0" />
-               </font>
-            </Label>
-            <TextField fx:id="UsernameField" layoutX="291.0" layoutY="275.0" onAction="#loginButtonAction" prefHeight="34.0" prefWidth="203.0" promptText="Enter your username">
-               <font>
-                  <Font name="Times New Roman" size="15.0" />
-               </font>
-            </TextField>
-            <PasswordField fx:id="PasswordField" layoutX="291.0" layoutY="333.0" onAction="#loginButtonAction" prefHeight="33.0" prefWidth="203.0" promptText="Enter your password">
-               <font>
-                  <Font name="Times New Roman" size="15.0" />
-               </font>
-            </PasswordField>
-            <Hyperlink fx:id="RegisterLink" layoutX="257.0" layoutY="431.0" text="Didn't have account yet? Register" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light Italic" size="18.0" />
-               </font>
-            </Hyperlink>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="164.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
-               <font>
-                  <Font name="Times New Roman Italic" size="28.0" />
+                  <Font name="Times New Roman Italic" size="18.0" />
                </font>
             </Text>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="164.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="251.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
-                  <Font name="Times New Roman Italic" size="28.0" />
+                  <Font name="Times New Roman Italic" size="18.0" />
                </font>
             </Text>
-            <ImageView fitHeight="268.0" fitWidth="197.0" layoutX="538.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../howToUse_qr.jpg" />
-               </image>
-            </ImageView>
-            <Label fx:id="LoginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="229.0" text="-----Set up your account-----" textFill="WHITE">
+            <Label fx:id="RegisterMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="134.0" text="-----Set up your account-----" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="27.0" />
                </font>
             </Label>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="194.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="249.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="251.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="MatchingLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="351.0" layoutY="414.0" prefHeight="20.0" prefWidth="248.0" textFill="WHITE">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="BacktoLoginHyperlink" layoutX="530.0" layoutY="502.0" onAction="#onHyperLinkClick" text="Already have account? Login" textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </Hyperlink>
          </children></AnchorPane>
    </children>
 </StackPane>

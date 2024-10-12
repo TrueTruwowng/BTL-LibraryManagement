@@ -46,9 +46,9 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </PasswordField>
-            <Hyperlink fx:id="RegisterLink" layoutX="257.0" layoutY="431.0" text="Didn't have account yet? Register" textFill="WHITE">
+            <Hyperlink fx:id="RegisterLink" layoutX="198.0" layoutY="448.0" onAction="#onHyperLinkClick" text="Didn't have account yet? Register" textFill="WHITE">
                <font>
-                  <Font name="Calibri Light Italic" size="18.0" />
+                  <Font name="Arial Bold" size="18.0" />
                </font>
             </Hyperlink>
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="164.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
@@ -66,7 +66,7 @@
                   <Image url="@../../howToUse_qr.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="LoginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="229.0" text="-----Set up your account-----" textFill="WHITE">
+            <Label fx:id="LoginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="227.0" text="-----Log into your account-----" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="27.0" />
                </font>

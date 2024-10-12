@@ -24,9 +24,12 @@ public class LoginController {
     private PasswordField PasswordField;
     @FXML
     private TextField UsernameField;
+    @FXML
+    private Hyperlink RegisterLink;
 
     /**
      * Use to login.
+     *If username and password is blank then check validatelogin.
      * @param event an event?
      */
     public void loginButtonAction(ActionEvent event) {
@@ -37,15 +40,19 @@ public class LoginController {
         }
     }
 
+    /**
+     * connect to the database,
+     * if there is only 1 username and password can count in the database then login successful.
+     */
     public void ValidateLogin() {
-        databaseConnection.connect(); // Connect before call getConnection
+        databaseConnection.connect(); // Connect before calling getConnection
         Connection con = databaseConnection.getConnection();
 
         if (con == null) {
             LoginMessageLabel.setText("Could not connect to the database.");
             return; // Exit if cannot connect
         }
-        // Check if username and password == data in mysql
+        // Check if username and password match data in mysql
         String verifyLogin = "SELECT count(1) FROM loginschema.user_account WHERE username = ? AND password = ?";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
@@ -91,6 +98,30 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
             LoginMessageLabel.setText("Error loading library view: " + e.getMessage());
+        }
+    }
+
+    //when u clink the hyperlink
+    public void onHyperLinkClick(ActionEvent event) {
+        // Call the method to load the registration view
+        loadRegisterView(event);
+    }
+
+    // Load the registration view
+    private void loadRegisterView(ActionEvent event) {
+        try {
+            // Load register-view.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
+            Parent registerView = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) RegisterLink.getScene().getWindow();
+            stage.setScene(new Scene(registerView));
+            stage.setTitle("Register");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            LoginMessageLabel.setText("Error loading registration view: " + e.getMessage());
         }
     }
 }
