@@ -28,11 +28,18 @@ public class LoginController {
         String password = txtPassword.getText();
 
         if (username.equals(correctUsername) && password.equals(correctPassword)) {
-            // Switch to library scene
+            // Switch to menu scene
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("library-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
             Scene scene = new Scene(root);
+
             stage.setScene(scene);
+
+            stage.setWidth(180);
+            stage.setHeight(750);
+            stage.centerOnScreen();
+
+            stage.show();
         } else {
             showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password");
         }
