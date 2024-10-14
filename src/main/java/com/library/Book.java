@@ -1,11 +1,13 @@
 package com.library;
 
 public class Book {
+    private String ISBN;
     private String title;
     private String author;
     private String year;
 
-    public Book(String title, String author, String year) {
+    public Book(String ISBN, String title, String author, String year) {
+        this.ISBN = ISBN;
         this.title = title;
         this.author = author;
         this.year = year;

@@ -6,11 +6,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 //import com.library.Book;
 
 public class LibraryController {
     @FXML
     private TableView<Book> tableBooks;
+
+    @FXML
+    private TableColumn<Book, String> colISBN;
 
     @FXML
     private TableColumn<Book, String> colTitle;
@@ -20,6 +24,9 @@ public class LibraryController {
 
     @FXML
     private TableColumn<Book, String> colYear;
+
+    @FXML
+    private TextField txtISBN;
 
     @FXML
     private TextField txtTitle;
@@ -32,17 +39,19 @@ public class LibraryController {
 
     @FXML
     public void initialize() {
+        colISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 
         // Dữ liệu mẫu
-        tableBooks.getItems().add(new Book("Clean Code", "Robert C. Martin", "2008"));
-        tableBooks.getItems().add(new Book("Head First Java", "Kathy Sierra", "2005"));
+        tableBooks.getItems().add(new Book("1000","Clean Code", "Robert C. Martin", "2008"));
+        tableBooks.getItems().add(new Book("1001","Head First Java", "Kathy Sierra", "2005"));
     }
 
     @FXML
     public void handleAddBook() {
+        String isbn = txtISBN.getText();
         String title = txtTitle.getText();
         String author = txtAuthor.getText();
         String year = txtYear.getText();
@@ -52,7 +61,7 @@ public class LibraryController {
             return;
         }
 
-        Book newBook = new Book(title, author, year);
+        Book newBook = new Book(isbn, title, author, year);
         tableBooks.getItems().add(newBook);
 
         clearFields();
