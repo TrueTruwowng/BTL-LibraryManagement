@@ -1,14 +1,28 @@
 package com.library;
 
 public class Book {
+    private String ISBN;
     private String title;
-    private String author;
-    private String year;
+    private String description;
+    private int category;
+    private String edition;
+    private int publisherId;
 
-    public Book(String title, String author, String year) {
+    public Book(String ISBN, String title, String description, int category, String edition, int publisherId) {
+        this.ISBN = ISBN;
         this.title = title;
-        this.author = author;
-        this.year = year;
+        this.description = description;
+        this.category = category;
+        this.edition = edition;
+        this.publisherId = publisherId;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
     public String getTitle() {
@@ -19,19 +33,35 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getYear() {
-        return year;
+    public int getCategory() {
+        return category;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public int getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
     }
 }

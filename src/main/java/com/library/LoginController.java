@@ -2,57 +2,126 @@ package com.library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.stage.Stage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML
-    private TextField txtUsername;
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
 
     @FXML
-    private PasswordField txtPassword;
-
-    private String correctUsername = "admin";
-    private String correctPassword = "1234";
-
+    private Button LoginButton;
     @FXML
-    public void handleLogin(ActionEvent event) throws IOException {
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
+    private Label LoginMessageLabel; // Label to print login successful,etc
+    @FXML
+    private PasswordField PasswordField;
+    @FXML
+    private TextField UsernameField;
+    @FXML
+    private Hyperlink RegisterLink;
 
-        if (username.equals(correctUsername) && password.equals(correctPassword)) {
-            // Switch to library scene
-            Stage stage = (Stage) txtUsername.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("library-view.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+    /**
+     * Use to login.
+     *If username and password is blank then check validatelogin.
+     * @param event an event?
+     */
+    public void loginButtonAction(ActionEvent event) {
+        if (!UsernameField.getText().isBlank() && !PasswordField.getText().isBlank()) {
+            ValidateLogin();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password");
+            LoginMessageLabel.setText("Invalid login. Please try again!!!");
         }
     }
 
-    @FXML
-    public void handleRegister(ActionEvent event) throws IOException {
-        // Switch to register scene
-        Stage stage = (Stage) txtUsername.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+    /**
+     * connect to the database,
+     * if there is only 1 username and password can count in the database then login successful.
+     */
+    public void ValidateLogin() {
+        databaseConnection.connect(); // Connect before calling getConnection
+        Connection con = databaseConnection.getConnection();
+
+        if (con == null) {
+            LoginMessageLabel.setText("Could not connect to the database.");
+            return; // Exit if cannot connect
+        }
+        // Check if username and password match data in mysql
+        String verifyLogin = "SELECT count(1) FROM login.user_account WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
+            preparedStatement.setString(1, UsernameField.getText());
+            preparedStatement.setString(2, PasswordField.getText());
+
+            ResultSet queryResult = preparedStatement.executeQuery();
+            if (queryResult.next()) {
+                if (queryResult.getInt(1) == 1) {
+                    LoginMessageLabel.setText("Login Successful");
+                    loadLibraryView(); // Call the method to load the new view
+                } else {
+                    LoginMessageLabel.setText("Login Failed! Try again.");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LoginMessageLabel.setText("Database error: " + e.getMessage());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close(); // close connection
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void loadLibraryView() {
+        try {
+            // Load the FXML for library view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("searchbook-view.fxml"));
+            Parent searchView = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) LoginButton.getScene().getWindow();
+            stage.setScene(new Scene(searchView));
+            stage.setTitle("Search View");
+            stage.show(); // Display the new scene
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            LoginMessageLabel.setText("Error loading search view: " + e.getMessage());
+        }
     }
 
+    //when u clink the hyperlink
+    public void onHyperLinkClick(ActionEvent event) {
+        // Call the method to load the registration view
+        loadRegisterView(event);
+    }
+
+    // Load the registration view
+    private void loadRegisterView(ActionEvent event) {
+        try {
+            // Load register-view.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
+            Parent registerView = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) RegisterLink.getScene().getWindow();
+            stage.setScene(new Scene(registerView));
+            stage.setTitle("Register");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            LoginMessageLabel.setText("Error loading registration view: " + e.getMessage());
+        }
+    }
 }

@@ -1,0 +1,7 @@
+.body {
+    -fx-background-image: url("BACKGROUND.jpg"); /* Thay đổi đường dẫn đến ảnh của bạn */
+    -fx-background-size: cover; /* Để ảnh chiếm toàn bộ không gian */
+
+    /* Để ảnh căn giữa */
+}
+
