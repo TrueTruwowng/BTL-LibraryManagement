@@ -1,0 +1,32 @@
+/* File CSS (label-style.css) */
+.rounded-label-x-mark {
+    -fx-background-radius: 10px;                     /* Bo tròn 4 góc */
+    -fx-background-color: linear-gradient(to right, #f3e5f5, #e1bee7); /* Gradient từ tím nhạt sang hồng nhạt */
+    -fx-opacity: 0.8;                                /* Độ mờ (0.0 là hoàn toàn trong suốt, 1.0 là không mờ) */
+    -fx-padding: 10px 15px;                          /* Khoảng cách padding bên trong label */
+    -fx-text-fill: #ff0000;                          /* Màu chữ xám đậm */
+    -fx-font-size: 17px;                             /* Cỡ chữ */
+    -fx-font-weight: bold;                           /* Chữ đậm */
+}
+/* File CSS (label-style.css) */
+.rounded-label-loginbutton {
+    -fx-background-radius: 10px;                              /* Bo tròn 4 góc */
+    -fx-background-color: linear-gradient(to right, #333333, #000000); /* Gradient từ xám đậm sang đen */
+    -fx-opacity: 0.9;                                         /* Độ mờ */
+    -fx-padding: 10px 15px;                                   /* Khoảng cách padding */
+    -fx-text-fill: #ffffff;                                   /* Màu chữ trắng */
+    -fx-font-size: 12px;                                      /* Cỡ chữ */
+    -fx-font-weight: bold;                                    /* Chữ đậm */
+}
+
+/* File CSS (label-style.css) */
+/* File CSS (label-style.css) */
+.rounded-label-check-mark {
+    -fx-background-radius: 10px;                                 /* Bo tròn 4 góc */
+    -fx-background-color: linear-gradient(to right, #64b5f6, #bbdefb); /* Gradient từ xanh biển sang xanh dương nhạt */
+    -fx-opacity: 0.9;                                            /* Độ mờ */
+    -fx-padding: 10px 15px;                                      /* Khoảng cách padding bên trong */
+    -fx-text-fill: #ffffff;                                      /* Màu chữ xanh đậm */
+    -fx-font-size: 17px;                                         /* Cỡ chữ */
+    -fx-font-weight: bold;                                       /* Chữ đậm */
+}

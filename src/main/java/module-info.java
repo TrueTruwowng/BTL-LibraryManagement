@@ -8,6 +8,8 @@ module com.library {
     requires java.desktop;
     requires java.sql;
     requires mysql.connector.j;
+    requires fontawesomefx;
+    requires javafx.media;
 
     opens com.library to javafx.fxml;
     exports com.library;

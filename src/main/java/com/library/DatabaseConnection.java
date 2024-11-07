@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection con;
+    private static Connection con;
 
-    public void connect() {
+    public static void connectUserAccount() {
         try {
             String url = "jdbc:mysql://127.0.0.1:3306/loginschema"; // Create connection
             String user = "root"; // Tên người dùng của bạn
@@ -21,7 +21,8 @@ public class DatabaseConnection {
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return con;
     }
+
 }

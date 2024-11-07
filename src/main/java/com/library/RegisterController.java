@@ -1,5 +1,7 @@
 package com.library;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,18 +16,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class RegisterController {
-
     @FXML
-    private Button registerButton;
-
-    @FXML
-    private Label MatchingLabel;
-
-    @FXML
-    private Label RegisterMessageLabel;
+    private Label RegisterMessageLabelXMark;
 
     @FXML
     private Hyperlink BacktoLoginHyperlink;
@@ -41,33 +35,52 @@ public class RegisterController {
     private TextField LastnameField;
     @FXML
     private TextField UsernameField;
+    @FXML
+    private FontAwesomeIcon StatusIconXmark;
+    @FXML
+    private FontAwesomeIcon StatusIconCheckMark;
+    @FXML
+    private Label RegisterMessageLabelCheckMark;
 
-    private DatabaseConnection databaseConnection = new DatabaseConnection();
+    private Stage stage;
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    public void initialize() {
+        DatabaseConnection.connectUserAccount();
+        RegisterMessageLabelCheckMark.setVisible(false);
+        RegisterMessageLabelXMark.setVisible(false);
+        StatusIconCheckMark.setVisible(false);
+        StatusIconXmark.setVisible(false);
+    }
 
     public void registerButtonOnAction(ActionEvent event) {
         // Check if is the textfield is blank
+
         if (FirstnameField.getText().isEmpty() || LastnameField.getText().isEmpty() ||
                 UsernameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
                 confirmPasswordField.getText().isEmpty()) {
 
-            RegisterMessageLabel.setText("Please fill in all fields");
+            RegisterMessageLabelXMark.setText("Please fill in all fields");
+            showError();
         } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-            MatchingLabel.setText("Passwords do not match");
+            RegisterMessageLabelXMark.setText("Passwords do not match");
+            showError();
         } else {
             if (RegisterUser()) {  // Điều chỉnh phương thức RegisterUser trả về boolean
-                MatchingLabel.setText("You are set");
+                RegisterMessageLabelCheckMark.setText("Registered Successfully");
+                showSuccessful();
                 // Chỉ thực hiện chuyển đổi sau khi tài khoản được tạo thành công
-                PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2sec
+                PauseTransition pause = new PauseTransition(Duration.seconds(3)); // 2sec
                 pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
                 pause.play();
+
             }
         }
     }
 
     public boolean RegisterUser() {
-        databaseConnection.connect(); // Kết nối trước khi gọi getConnection
-        Connection con = databaseConnection.getConnection();
-
+        Connection con = DatabaseConnection.getConnection();
         String firstName = FirstnameField.getText();
         String lastName = LastnameField.getText();
         String username = UsernameField.getText();
@@ -84,7 +97,8 @@ public class RegisterController {
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
                 if (count > 0) {
-                    RegisterMessageLabel.setText("Account already exists");
+                    RegisterMessageLabelXMark.setText("Username already exists");
+                    showError();
                     return false;
                 }
             }
@@ -99,41 +113,126 @@ public class RegisterController {
             insertStatement.setString(4, password);
 
             insertStatement.executeUpdate();
-            RegisterMessageLabel.setText("Create account successfully");
+            RegisterMessageLabelXMark.setText("Registered Successfully");
+            showSuccessful();
             return true;  // Register successfully
 
         } catch(Exception e) {
             e.printStackTrace();
-            RegisterMessageLabel.setText("An error occurred during registration.");
+            RegisterMessageLabelXMark.setText("An error occurred during registration.");
             return false;  // ERROR OCCURS
-        } finally {
-            try {
-                con.close(); // Close connection
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
     public void onHyperLinkClick(ActionEvent event) {
-        // Call the method to load the registration view
-        loadLoginView(event);
+        loadLoginView();
     }
 
     // Load the registration view
-    private void loadLoginView(ActionEvent event) {
+    public void loadLoginView() {
         try {
-            // Load register-view.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/login-view.fxml"));
-            Parent registerView = loader.load();
+            Parent loginView = loader.load();
 
-            // Get the current stage
-            Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-            stage.setScene(new Scene(registerView));
-            stage.setTitle("Login");
-            stage.show();
+            // Get the current stage (window) from any component in the current scene
+            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow(); // Use another UI component if needed
+
+            if (stage != null) {
+                stage.setScene(new Scene(loginView));
+                stage.setTitle("Login");
+                stage.show();
+            } else {
+                RegisterMessageLabelXMark.setText("Stage is null.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            RegisterMessageLabel.setText("Error loading login view: " + e.getMessage());
+            RegisterMessageLabelXMark.setText("Error loading login view: " + e.getMessage());
         }
     }
+    
+    public void showSuccessful() {
+        // Thiết lập nội dung và hiển thị label, icon
+        RegisterMessageLabelCheckMark.setVisible(true);
+        StatusIconCheckMark.setVisible(true);
+
+        // Tạo hiệu ứng fade in cho label
+        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelCheckMark);
+        fadeInLabel.setFromValue(0);
+        fadeInLabel.setToValue(1);
+
+        // Tạo hiệu ứng fade out cho label
+        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelCheckMark);
+        fadeOutLabel.setFromValue(1);
+        fadeOutLabel.setToValue(0);
+
+        // Tạo hiệu ứng fade in cho StatusIcon
+        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5), StatusIconCheckMark);
+        fadeInIcon.setFromValue(0);
+        fadeInIcon.setToValue(1);
+
+        // Tạo hiệu ứng fade out cho StatusIcon
+        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5), StatusIconCheckMark);
+        fadeOutIcon.setFromValue(1);
+        fadeOutIcon.setToValue(0);
+
+        // Tạo thời gian chờ trước khi chuyển scene
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5)); // Thời gian chờ 1.5s
+
+        // Kết hợp các hiệu ứng
+        fadeInLabel.setOnFinished(event -> pause.play());        // Chạy pause sau khi fade in label
+        fadeInIcon.play();                                       // Chạy fade in cho icon cùng lúc với label
+        pause.setOnFinished(event -> {
+            fadeOutLabel.play();
+            fadeOutIcon.play();    // Chạy fade out cho icon cùng lúc với label
+        });
+        fadeOutLabel.setOnFinished(event -> loadLoginView());  // Chuyển scene sau khi fade out
+
+        // Bắt đầu hiệu ứng fade in cho label và icon
+        fadeInLabel.play();
+    }
+    public void showError() {
+        // Đặt thông báo lỗi
+
+        RegisterMessageLabelXMark.setVisible(true);
+        StatusIconXmark.setVisible(true);  // Đảm bảo StatusIcon cũng hiển thị
+
+        // Fade transition để làm label hiện dần ra
+        FadeTransition fadeInLabel = new FadeTransition();
+        fadeInLabel.setDuration(Duration.seconds(1.5)); // Thời gian làm rõ dần
+        fadeInLabel.setNode(RegisterMessageLabelXMark);
+        fadeInLabel.setFromValue(0); // Bắt đầu với độ mờ 0 (ẩn)
+        fadeInLabel.setToValue(1);   // Kết thúc với độ mờ 1 (hiện rõ)
+
+        // Fade transition để làm StatusIcon hiện dần ra
+        FadeTransition fadeInIcon = new FadeTransition();
+        fadeInIcon.setDuration(Duration.seconds(1.5)); // Thời gian làm rõ dần
+        fadeInIcon.setNode(StatusIconXmark);
+        fadeInIcon.setFromValue(0); // Bắt đầu với độ mờ 0 (ẩn)
+        fadeInIcon.setToValue(1);   // Kết thúc với độ mờ 1 (hiện rõ)
+
+        // Fade transition để làm label mờ dần đi
+        FadeTransition fadeOutLabel = new FadeTransition();
+        fadeOutLabel.setDuration(Duration.seconds(1.5)); // Thời gian làm mờ dần
+        fadeOutLabel.setNode(RegisterMessageLabelXMark);
+        fadeOutLabel.setFromValue(1); // Bắt đầu với độ mờ 1 (hiện rõ)
+        fadeOutLabel.setToValue(0);   // Kết thúc với độ mờ 0 (ẩn)
+
+        // Fade transition để làm StatusIcon mờ dần đi
+        FadeTransition fadeOutIcon = new FadeTransition();
+        fadeOutIcon.setDuration(Duration.seconds(1.5)); // Thời gian làm mờ dần
+        fadeOutIcon.setNode(StatusIconXmark);
+        fadeOutIcon.setFromValue(1); // Bắt đầu với độ mờ 1 (hiện rõ)
+        fadeOutIcon.setToValue(0);   // Kết thúc với độ mờ 0 (ẩn)
+
+        // Kết hợp các hiệu ứng
+        fadeInLabel.setOnFinished(event -> {
+            // Sau khi làm rõ dần, thực hiện mờ dần
+            fadeOutLabel.play();
+            fadeOutIcon.play();  // Mờ dần StatusIcon sau khi fadeIn hoàn tất
+        });
+
+        // Chạy hiệu ứng fadeIn đầu tiên
+        fadeInLabel.play();
+        fadeInIcon.play();  // Chạy fadeIn cho StatusIcon cùng lúc
+    }
+
 }
