@@ -92,7 +92,7 @@ public class LoginController {
             // Get the current stage
             Stage stage = (Stage) LoginButton.getScene().getWindow();
             stage.setScene(new Scene(searchView));
-            stage.setTitle("Search View");
+            stage.setTitle("Search Book View");
             stage.show(); // Display the new scene
 
         } catch (IOException e) {

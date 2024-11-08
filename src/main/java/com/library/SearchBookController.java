@@ -7,13 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +87,7 @@ public class SearchBookController implements Initializable {
                 bookObservableList.add(new Book(queryISBN, queryTitle, queryDescription, queryCategory, queryEdition, queryPublisherID));
             }
 
-            //Tạo cột
+            // Tạo cột
             bookISBNtableColumn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
             titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
             descriptionTableColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -118,6 +123,11 @@ public class SearchBookController implements Initializable {
             }
         }
 
+        // If no suggestions are found locally, fetch from Google Books API
+        if (suggestionList.isEmpty()) {
+            suggestionList.addAll(fetchBooksFromAPI(keyword));
+        }
+
         // If there are suggestions, show the ListView, otherwise hide it
         if (suggestionList.isEmpty()) {
             suggestionsListView.setVisible(false);
@@ -133,5 +143,51 @@ public class SearchBookController implements Initializable {
             suggestionsListView.setVisible(false);
         });
         return keyword;
+    }
+
+    private ObservableList<String> fetchBooksFromAPI(String keyword) {
+        ObservableList<String> apiSuggestions = FXCollections.observableArrayList();
+        try {
+            String apiKey = API.getApiKey(); // Assume Config is a class that stores API key
+            String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + keyword + "&key=" + apiKey;
+            URL url = new URL(urlString);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            conn.disconnect();
+
+            // Parse JSON response
+            JSONObject json = new JSONObject(content.toString());
+            JSONArray items = json.optJSONArray("items");
+
+            if (items != null) {
+                for (int i = 0; i < items.length(); i++) {
+                    JSONObject item = items.getJSONObject(i);
+                    JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+
+                    String title = volumeInfo.optString("title", "No Title");
+                    String description = volumeInfo.optString("description", "No Description");
+                    String ISBN = volumeInfo.optJSONArray("industryIdentifiers") != null ?
+                            volumeInfo.getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier") : "No ISBN";
+
+                    // Add book title to suggestion list
+                    apiSuggestions.add(title);
+
+                    // Optionally add the book to TableView for display
+                    bookObservableList.add(new Book(ISBN, title, description, 0, "", 0));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return apiSuggestions;
     }
 }

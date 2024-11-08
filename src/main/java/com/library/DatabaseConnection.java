@@ -11,7 +11,7 @@ public class DatabaseConnection {
         try {
             String url = "jdbc:mysql://127.0.0.1:3306/login"; // Create connection
             String user = "root"; // Tên người dùng của bạn
-            String password = "Chuanhtruong2005"; // Mật khẩu của bạn
+            String password = "nongsontung@24"; // Mật khẩu của bạn
 
             con = DriverManager.getConnection(url, user, password); //start to connect
             System.out.println("Connected to database");
