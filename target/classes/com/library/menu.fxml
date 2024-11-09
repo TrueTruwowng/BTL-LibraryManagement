@@ -54,7 +54,7 @@
                         <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="logout_btn" mnemonicParsing="false" onAction="#handAction" styleClass="alt_menu_btn" text="Logout">
+                  <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>

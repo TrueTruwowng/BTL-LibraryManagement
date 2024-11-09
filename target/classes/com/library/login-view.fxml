@@ -1,23 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml" fx:controller="com.library.LoginController">
-    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-
-    <Text text="Login" GridPane.columnIndex="1"/>
-
-    <Text text="Username:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <TextField fx:id="txtUsername" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-    <Text text="Password:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <PasswordField fx:id="txtPassword" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-    <Button text="Login" onAction="#handleLogin" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <Button text="Register" onAction="#handleRegister" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-</GridPane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="body" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LoginController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="HARD_LIGHT" fill="#0022fc" height="470.0" layoutX="138.0" layoutY="65.0" stroke="BLACK" strokeLineJoin="BEVEL" width="624.0" AnchorPane.bottomAnchor="64.5" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="64.00000000000006" />
+            <Button fx:id="LoginButton" layoutX="338.0" layoutY="380.0" mnemonicParsing="false" onAction="#ValidateLogin" prefHeight="34.0" prefWidth="90.0" style="-fx-background-color: #fdfefe;" text="LOGIN" textAlignment="CENTER">
+               <font>
+                  <Font name="Times New Roman Bold" size="19.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <effect>
+                  <Blend />
+               </effect>
+            </Button>
+            <Label layoutX="349.0" layoutY="101.0" text="LIBRARY" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="44.0" />
+               </font>
+            </Label>
+            <TextField fx:id="UsernameField" layoutX="291.0" layoutY="275.0" onAction="#loginButtonAction" prefHeight="34.0" prefWidth="203.0" promptText="Enter your username">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="PasswordField" layoutX="291.0" layoutY="333.0" onAction="#loginButtonAction" prefHeight="33.0" prefWidth="203.0" promptText="Enter your password">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </PasswordField>
+            <Hyperlink fx:id="RegisterLink" layoutX="198.0" layoutY="448.0" onAction="#onHyperLinkClick" text="Didn't have account yet? Register" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Hyperlink>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="164.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+               <font>
+                  <Font name="Times New Roman Italic" size="28.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="164.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="Times New Roman Italic" size="28.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="268.0" fitWidth="197.0" layoutX="538.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Image/howToUse_qr.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="LoginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="227.0" text="-----Log into your account-----" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="27.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+   </children>
+</StackPane>

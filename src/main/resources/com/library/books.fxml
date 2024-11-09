@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="120.0" styleClass="transperent" stylesheets="@../../styles/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="131.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" styleClass="rating-image">
+         <image>
+            <Image url="@../../Image/dacnhanhtam.jpg" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="5.0" left="15.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <VBox prefHeight="68.0" prefWidth="120.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="123.0" text="Đắc Nhân Tâm">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="139.0" text="Tác Giả">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
+            <ImageView fitHeight="19.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Image/five5rating-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</VBox>

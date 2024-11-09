@@ -1,10 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.library.Dashboard"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller">
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="7.0" prefHeight="50.0" prefWidth="850.0" styleClass="white_background" stylesheets="@../../styles/AllView.css" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="166.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="153.0" text="DASHBOARD">
+                     <font>
+                        <Font name="Algerian" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="35.0" prefWidth="11.0" />
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="30.0" prefWidth="425.0" styleClass="round_layout" stylesheets="@../../styles/AllView.css">
+               <children>
+                  <TextField prefHeight="26.0" prefWidth="377.0" promptText="search" styleClass="transperent" stylesheets="@../../styles/AllView.css" />
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Image/gg.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="251.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="181.0" text="Tài Khoản">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Image/photo-library-icon-3.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <Separator layoutX="36.0" layoutY="48.0" maxHeight="-Infinity" prefWidth="800.0" />
+      <VBox layoutY="51.0" prefHeight="700.0" prefWidth="850.0" stylesheets="@../../styles/AllView.css" AnchorPane.bottomAnchor="-0.599999999999909" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
+         <children>
+            <Label prefHeight="44.0" prefWidth="158.0" text="OverRating">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <ScrollPane maxHeight="-Infinity" prefHeight="200.0" prefWidth="800.0" styleClass="transperent" stylesheets="@../../styles/AllView.css">
+               <content>
+                  <HBox fx:id="Layout" alignment="CENTER_LEFT" prefHeight="178.0" prefWidth="1158.0" stylesheets="@../../styles/AllView.css">
+                     <children>
+                        <HBox fx:id="box" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="302.0" spacing="15.0" style="-fx-background-radius: 15;" stylesheets="@../../styles/AllView.css">
+                           <children>
+                              <ImageView fx:id="bookImage" fitHeight="132.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Image/dacnhanhtam.jpg" />
+                                 </image>
+                              </ImageView>
+                              <VBox prefHeight="150.0" prefWidth="176.0">
+                                 <children>
+                                    <Label fx:id="bookName" prefHeight="54.0" prefWidth="178.0" styleClass="book-name" stylesheets="@../../styles/AllView.css" text="ĐẮC NHÂN TÂM">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="authorName" prefHeight="42.0" prefWidth="180.0" styleClass="author-name" text="Tác Giả: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="42.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Image/pngtree-5-star-review-five-vector-picture-image_8352149.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <styleClass>
+                              <String fx:value="shadow" />
+                              <String fx:value="box" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox fx:id="box1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="302.0" spacing="15.0" style="-fx-background-radius: 15;" stylesheets="@../../styles/AllView.css">
+                           <children>
+                              <ImageView fx:id="bookImage1" fitHeight="132.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Image/dacnhanhtam.jpg" />
+                                 </image>
+                              </ImageView>
+                              <VBox prefHeight="150.0" prefWidth="176.0">
+                                 <children>
+                                    <Label fx:id="bookName1" prefHeight="54.0" prefWidth="178.0" styleClass="book-name" stylesheets="@../../styles/AllView.css" text="ĐẮC NHÂN TÂM">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="authorName1" prefHeight="42.0" prefWidth="180.0" styleClass="author-name" text="Tác Giả: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="42.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Image/pngtree-5-star-review-five-vector-picture-image_8352149.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <styleClass>
+                              <String fx:value="shadow" />
+                              <String fx:value="box" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                     <styleClass>
+                        <String fx:value="transperent" />
+                        <String fx:value="white_background" />
+                     </styleClass>
+                  </HBox>
+               </content>
+            </ScrollPane>
+            <Label prefHeight="44.0" prefWidth="158.0" text="OverRating">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <BorderPane prefHeight="415.0" prefWidth="850.0">
+               <left>
+                  <ScrollPane prefHeight="414.0" prefWidth="634.0" BorderPane.alignment="CENTER">
+                     <content>
+                        <VBox prefHeight="479.0" prefWidth="618.0">
+                           <children>
+                              <GridPane fx:id="bookContainer" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="1.0">
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </left>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

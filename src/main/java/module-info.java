@@ -6,6 +6,8 @@ module com.library {
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
     requires fontawesomefx;
+    requires java.sql;
+    requires java.desktop;
 
     opens com.library to javafx.fxml;
     exports com.library;

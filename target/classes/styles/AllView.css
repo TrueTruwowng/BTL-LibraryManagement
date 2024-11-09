@@ -1,0 +1,17 @@
+.white_background {
+    -fx-background-color: #ffffff;
+}
+
+.transperent {
+    -fx-background-color: rgba(0,0,0,0);
+
+}
+
+.round_layout {
+    -fx-border-radius: 50;
+    -fx-border-color: #D7D7D7D7;
+}
+.shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0),10,0,0,10);
+
+}
