@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.UUID;
 
 public class RegisterController {
     @FXML
@@ -42,10 +43,8 @@ public class RegisterController {
     @FXML
     private Label RegisterMessageLabelCheckMark;
 
-    private Stage stage;
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+    private boolean isAnimating = false; // Biến để kiểm tra trạng thái animation
+
     public void initialize() {
         DatabaseConnection.connectUserAccount();
         RegisterMessageLabelCheckMark.setVisible(false);
@@ -55,7 +54,6 @@ public class RegisterController {
     }
 
     public void registerButtonOnAction(ActionEvent event) {
-        // Check if is the textfield is blank
 
         if (FirstnameField.getText().isEmpty() || LastnameField.getText().isEmpty() ||
                 UsernameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
@@ -86,7 +84,8 @@ public class RegisterController {
         String username = UsernameField.getText();
         String password = passwordField.getText();
 
-        String checkUsernameQuery = "SELECT COUNT(*) FROM loginschema.user_account WHERE username = ?";
+        // Kiểm tra username đã tồn tại chưa
+        String checkUsernameQuery = "SELECT COUNT(*) FROM user_account WHERE username = ?";
 
         try {
             PreparedStatement checkStatement = con.prepareStatement(checkUsernameQuery);
@@ -103,26 +102,30 @@ public class RegisterController {
                 }
             }
 
-            String insertField = "INSERT INTO loginschema.user_account(lastname, firstname, username, password)" +
-                    " VALUES (?, ?, ?, ?)";
+            // Tạo account_id ngẫu nhiên bằng UUID
+            String accountId = UUID.randomUUID().toString(); // Tạo UUID cho account_id
 
+            // Câu lệnh insert để đăng ký tài khoản người dùng
+            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
-            insertStatement.setString(1, lastName);
-            insertStatement.setString(2, firstName);
-            insertStatement.setString(3, username);
-            insertStatement.setString(4, password);
+            insertStatement.setString(1, accountId);  // Thêm account_id UUID vào bảng
+            insertStatement.setString(2, lastName);
+            insertStatement.setString(3, firstName);
+            insertStatement.setString(4, username);
+            insertStatement.setString(5, password);
 
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
-            return true;  // Register successfully
+            return true;  // Đăng ký thành công
 
         } catch(Exception e) {
             e.printStackTrace();
             RegisterMessageLabelXMark.setText("An error occurred during registration.");
-            return false;  // ERROR OCCURS
+            return false;  // Có lỗi xảy ra
         }
     }
+
     public void onHyperLinkClick(ActionEvent event) {
         loadLoginView();
     }
@@ -150,89 +153,85 @@ public class RegisterController {
     }
     
     public void showSuccessful() {
-        // Thiết lập nội dung và hiển thị label, icon
         RegisterMessageLabelCheckMark.setVisible(true);
         StatusIconCheckMark.setVisible(true);
-
-        // Tạo hiệu ứng fade in cho label
-        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelCheckMark);
+        UsernameField.setDisable(true);
+        passwordField.setDisable(true);
+        LastnameField.setDisable(true);
+        FirstnameField.setDisable(true);
+        confirmPasswordField.setDisable(true);
+        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5)
+                , RegisterMessageLabelCheckMark);
         fadeInLabel.setFromValue(0);
         fadeInLabel.setToValue(1);
 
-        // Tạo hiệu ứng fade out cho label
-        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelCheckMark);
+        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5)
+                , RegisterMessageLabelCheckMark);
         fadeOutLabel.setFromValue(1);
         fadeOutLabel.setToValue(0);
 
-        // Tạo hiệu ứng fade in cho StatusIcon
-        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5), StatusIconCheckMark);
+        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5)
+                , StatusIconCheckMark);
         fadeInIcon.setFromValue(0);
         fadeInIcon.setToValue(1);
 
-        // Tạo hiệu ứng fade out cho StatusIcon
-        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5), StatusIconCheckMark);
+        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5)
+                , StatusIconCheckMark);
         fadeOutIcon.setFromValue(1);
         fadeOutIcon.setToValue(0);
 
-        // Tạo thời gian chờ trước khi chuyển scene
-        PauseTransition pause = new PauseTransition(Duration.seconds(1.5)); // Thời gian chờ 1.5s
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 
-        // Kết hợp các hiệu ứng
-        fadeInLabel.setOnFinished(event -> pause.play());        // Chạy pause sau khi fade in label
-        fadeInIcon.play();                                       // Chạy fade in cho icon cùng lúc với label
+        fadeInLabel.setOnFinished(event -> pause.play());
+        fadeInIcon.play();
         pause.setOnFinished(event -> {
             fadeOutLabel.play();
-            fadeOutIcon.play();    // Chạy fade out cho icon cùng lúc với label
+            fadeOutIcon.play();
         });
-        fadeOutLabel.setOnFinished(event -> loadLoginView());  // Chuyển scene sau khi fade out
+        fadeOutLabel.setOnFinished(event -> loadLoginView());
 
-        // Bắt đầu hiệu ứng fade in cho label và icon
         fadeInLabel.play();
     }
     public void showError() {
-        // Đặt thông báo lỗi
-
         RegisterMessageLabelXMark.setVisible(true);
-        StatusIconXmark.setVisible(true);  // Đảm bảo StatusIcon cũng hiển thị
+        StatusIconXmark.setVisible(true);
 
-        // Fade transition để làm label hiện dần ra
-        FadeTransition fadeInLabel = new FadeTransition();
-        fadeInLabel.setDuration(Duration.seconds(1.5)); // Thời gian làm rõ dần
-        fadeInLabel.setNode(RegisterMessageLabelXMark);
-        fadeInLabel.setFromValue(0); // Bắt đầu với độ mờ 0 (ẩn)
-        fadeInLabel.setToValue(1);   // Kết thúc với độ mờ 1 (hiện rõ)
+        passwordField.clear();
+        confirmPasswordField.clear();
+        FirstnameField.clear();
+        LastnameField.clear();
+        UsernameField.clear();
 
-        // Fade transition để làm StatusIcon hiện dần ra
-        FadeTransition fadeInIcon = new FadeTransition();
-        fadeInIcon.setDuration(Duration.seconds(1.5)); // Thời gian làm rõ dần
-        fadeInIcon.setNode(StatusIconXmark);
-        fadeInIcon.setFromValue(0); // Bắt đầu với độ mờ 0 (ẩn)
-        fadeInIcon.setToValue(1);   // Kết thúc với độ mờ 1 (hiện rõ)
 
-        // Fade transition để làm label mờ dần đi
-        FadeTransition fadeOutLabel = new FadeTransition();
-        fadeOutLabel.setDuration(Duration.seconds(1.5)); // Thời gian làm mờ dần
-        fadeOutLabel.setNode(RegisterMessageLabelXMark);
-        fadeOutLabel.setFromValue(1); // Bắt đầu với độ mờ 1 (hiện rõ)
-        fadeOutLabel.setToValue(0);   // Kết thúc với độ mờ 0 (ẩn)
+        if (!isAnimating) {
+            isAnimating = true;
 
-        // Fade transition để làm StatusIcon mờ dần đi
-        FadeTransition fadeOutIcon = new FadeTransition();
-        fadeOutIcon.setDuration(Duration.seconds(1.5)); // Thời gian làm mờ dần
-        fadeOutIcon.setNode(StatusIconXmark);
-        fadeOutIcon.setFromValue(1); // Bắt đầu với độ mờ 1 (hiện rõ)
-        fadeOutIcon.setToValue(0);   // Kết thúc với độ mờ 0 (ẩn)
+            FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelXMark);
+            fadeInLabel.setFromValue(0);
+            fadeInLabel.setToValue(1);
 
-        // Kết hợp các hiệu ứng
-        fadeInLabel.setOnFinished(event -> {
-            // Sau khi làm rõ dần, thực hiện mờ dần
-            fadeOutLabel.play();
-            fadeOutIcon.play();  // Mờ dần StatusIcon sau khi fadeIn hoàn tất
-        });
+            FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5), StatusIconXmark);
+            fadeInIcon.setFromValue(0);
+            fadeInIcon.setToValue(1);
 
-        // Chạy hiệu ứng fadeIn đầu tiên
-        fadeInLabel.play();
-        fadeInIcon.play();  // Chạy fadeIn cho StatusIcon cùng lúc
+            FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelXMark);
+            fadeOutLabel.setFromValue(1);
+            fadeOutLabel.setToValue(0);
+
+            FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5), StatusIconXmark);
+            fadeOutIcon.setFromValue(1);
+            fadeOutIcon.setToValue(0);
+
+            fadeInLabel.setOnFinished(event -> {
+                fadeOutLabel.play();
+                fadeOutIcon.play();
+            });
+
+            fadeOutLabel.setOnFinished(event -> isAnimating = false);
+
+            fadeInLabel.play();
+            fadeInIcon.play();
+        }
     }
 
 }
