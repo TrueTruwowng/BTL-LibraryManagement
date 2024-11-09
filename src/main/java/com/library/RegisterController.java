@@ -1,5 +1,7 @@
 package com.library;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,18 +16,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.UUID;
 
 public class RegisterController {
-
     @FXML
-    private Button registerButton;
-
-    @FXML
-    private Label MatchingLabel;
-
-    @FXML
-    private Label RegisterMessageLabel;
+    private Label RegisterMessageLabelXMark;
 
     @FXML
     private Hyperlink BacktoLoginHyperlink;
@@ -41,37 +36,58 @@ public class RegisterController {
     private TextField LastnameField;
     @FXML
     private TextField UsernameField;
+    @FXML
+    private FontAwesomeIcon StatusIconXmark;
+    @FXML
+    private FontAwesomeIcon StatusIconCheckMark;
+    @FXML
+    private Label RegisterMessageLabelCheckMark;
 
-    private DatabaseConnection databaseConnection = new DatabaseConnection();
+    private boolean isAnimating = false; // Biến để kiểm tra trạng thái animation
 
-    public void registerButtonOnAction(ActionEvent event) {
-        if(passwordField.getText().equals(confirmPasswordField.getText())) {
-            RegisterUser();
-            MatchingLabel.setText("You are set");
-            /// wait for transition
-            PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2sec
-            pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
-            pause.play();
-        } else {
-            MatchingLabel.setText("Passwords do not match");
-        }
-
+    public void initialize() {
+        DatabaseConnection.connectUserAccount();
+        RegisterMessageLabelCheckMark.setVisible(false);
+        RegisterMessageLabelXMark.setVisible(false);
+        StatusIconCheckMark.setVisible(false);
+        StatusIconXmark.setVisible(false);
     }
 
-    public void RegisterUser() {
-        databaseConnection.connect(); // Kết nối trước khi gọi getConnection
-        Connection con = databaseConnection.getConnection();
+    public void registerButtonOnAction(ActionEvent event) {
 
+        if (FirstnameField.getText().isEmpty() || LastnameField.getText().isEmpty() ||
+                UsernameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
+                confirmPasswordField.getText().isEmpty()) {
+
+            RegisterMessageLabelXMark.setText("Please fill in all fields");
+            showError();
+        } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
+            RegisterMessageLabelXMark.setText("Passwords do not match");
+            showError();
+        } else {
+            if (RegisterUser()) {  // Điều chỉnh phương thức RegisterUser trả về boolean
+                RegisterMessageLabelCheckMark.setText("Registered Successfully");
+                showSuccessful();
+                // Chỉ thực hiện chuyển đổi sau khi tài khoản được tạo thành công
+                PauseTransition pause = new PauseTransition(Duration.seconds(3)); // 2sec
+                pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
+                pause.play();
+
+            }
+        }
+    }
+
+    public boolean RegisterUser() {
+        Connection con = DatabaseConnection.getConnection();
         String firstName = FirstnameField.getText();
         String lastName = LastnameField.getText();
         String username = UsernameField.getText();
         String password = passwordField.getText();
 
-        // Kiểm tra xem username đã tồn tại hay chưa
-        String checkUsernameQuery = "SELECT COUNT(*) FROM login.user_account WHERE username = ?";
+        // Kiểm tra username đã tồn tại chưa
+        String checkUsernameQuery = "SELECT COUNT(*) FROM user_account WHERE username = ?";
 
         try {
-            // Sử dụng PreparedStatement để bảo vệ khỏi SQL Injection
             PreparedStatement checkStatement = con.prepareStatement(checkUsernameQuery);
             checkStatement.setString(1, username);
 
@@ -80,56 +96,142 @@ public class RegisterController {
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
                 if (count > 0) {
-                    // Username đã tồn tại
-                    RegisterMessageLabel.setText("Account already exists");
-                    return; // Thoát khỏi phương thức
+                    RegisterMessageLabelXMark.setText("Username already exists");
+                    showError();
+                    return false;
                 }
             }
 
-            ///if username did not exit then insert new one
-            String insertField = "INSERT INTO login.user_account(lastname, firstname, username, password)" +
-                    " VALUES (?, ?, ?, ?)";
+            // Tạo account_id ngẫu nhiên bằng UUID
+            String accountId = UUID.randomUUID().toString(); // Tạo UUID cho account_id
 
+            // Câu lệnh insert để đăng ký tài khoản người dùng
+            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
-            insertStatement.setString(1, lastName);
-            insertStatement.setString(2, firstName);
-            insertStatement.setString(3, username);
-            insertStatement.setString(4, password);
+            insertStatement.setString(1, accountId);  // Thêm account_id UUID vào bảng
+            insertStatement.setString(2, lastName);
+            insertStatement.setString(3, firstName);
+            insertStatement.setString(4, username);
+            insertStatement.setString(5, password);
 
             insertStatement.executeUpdate();
-            RegisterMessageLabel.setText("Create account successfully");
+            RegisterMessageLabelXMark.setText("Registered Successfully");
+            showSuccessful();
+            return true;  // Đăng ký thành công
 
         } catch(Exception e) {
             e.printStackTrace();
-            RegisterMessageLabel.setText("An error occurred during registration.");
-        } finally {
-            try {
-                con.close(); // Đảm bảo đóng kết nối
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            RegisterMessageLabelXMark.setText("An error occurred during registration.");
+            return false;  // Có lỗi xảy ra
         }
     }
+
     public void onHyperLinkClick(ActionEvent event) {
-        // Call the method to load the registration view
-        loadLoginView(event);
+        loadLoginView();
     }
 
     // Load the registration view
-    private void loadLoginView(ActionEvent event) {
+    public void loadLoginView() {
         try {
-            // Load register-view.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/login-view.fxml"));
-            Parent registerView = loader.load();
+            Parent loginView = loader.load();
 
-            // Get the current stage
-            Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-            stage.setScene(new Scene(registerView));
-            stage.setTitle("Login");
-            stage.show();
+            // Get the current stage (window) from any component in the current scene
+            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow(); // Use another UI component if needed
+
+            if (stage != null) {
+                stage.setScene(new Scene(loginView));
+                stage.setTitle("Login");
+                stage.show();
+            } else {
+                RegisterMessageLabelXMark.setText("Stage is null.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            RegisterMessageLabel.setText("Error loading login view: " + e.getMessage());
+            RegisterMessageLabelXMark.setText("Error loading login view: " + e.getMessage());
         }
     }
+
+    public void showSuccessful() {
+        RegisterMessageLabelCheckMark.setVisible(true);
+        StatusIconCheckMark.setVisible(true);
+        UsernameField.setDisable(true);
+        passwordField.setDisable(true);
+        LastnameField.setDisable(true);
+        FirstnameField.setDisable(true);
+        confirmPasswordField.setDisable(true);
+        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5)
+                , RegisterMessageLabelCheckMark);
+        fadeInLabel.setFromValue(0);
+        fadeInLabel.setToValue(1);
+
+        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5)
+                , RegisterMessageLabelCheckMark);
+        fadeOutLabel.setFromValue(1);
+        fadeOutLabel.setToValue(0);
+
+        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5)
+                , StatusIconCheckMark);
+        fadeInIcon.setFromValue(0);
+        fadeInIcon.setToValue(1);
+
+        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5)
+                , StatusIconCheckMark);
+        fadeOutIcon.setFromValue(1);
+        fadeOutIcon.setToValue(0);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+
+        fadeInLabel.setOnFinished(event -> pause.play());
+        fadeInIcon.play();
+        pause.setOnFinished(event -> {
+            fadeOutLabel.play();
+            fadeOutIcon.play();
+        });
+        fadeOutLabel.setOnFinished(event -> loadLoginView());
+
+        fadeInLabel.play();
+    }
+    public void showError() {
+        RegisterMessageLabelXMark.setVisible(true);
+        StatusIconXmark.setVisible(true);
+
+        passwordField.clear();
+        confirmPasswordField.clear();
+        FirstnameField.clear();
+        LastnameField.clear();
+        UsernameField.clear();
+
+
+        if (!isAnimating) {
+            isAnimating = true;
+
+            FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelXMark);
+            fadeInLabel.setFromValue(0);
+            fadeInLabel.setToValue(1);
+
+            FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.5), StatusIconXmark);
+            fadeInIcon.setFromValue(0);
+            fadeInIcon.setToValue(1);
+
+            FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5), RegisterMessageLabelXMark);
+            fadeOutLabel.setFromValue(1);
+            fadeOutLabel.setToValue(0);
+
+            FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.5), StatusIconXmark);
+            fadeOutIcon.setFromValue(1);
+            fadeOutIcon.setToValue(0);
+
+            fadeInLabel.setOnFinished(event -> {
+                fadeOutLabel.play();
+                fadeOutIcon.play();
+            });
+
+            fadeOutLabel.setOnFinished(event -> isAnimating = false);
+
+            fadeInLabel.play();
+            fadeInIcon.play();
+        }
+    }
+
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-242.23726.103">
-    <data-source name="gravity.db" uuid="c37c92af-705e-46fc-bc39-7a7d0851e545">
+    <data-source name="userInfo" uuid="4b2f5f14-ff2a-4eee-a388-50dc8a373b12">
       <database-info product="SQLite" version="3.45.1" jdbc-version="4.2" driver-name="SQLite JDBC" driver-version="3.45.1.0" dbms="SQLITE" exact-version="3.45.1" exact-driver-version="3.45">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
-      <secret-storage>master_key</secret-storage>
       <auth-provider>no-auth</auth-provider>
       <schema-mapping>
         <introspection-scope>

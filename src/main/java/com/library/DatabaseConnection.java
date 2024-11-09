@@ -5,45 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection con;
+    private static Connection con;
 
-    public void connect() {
+    public static Connection connectUserAccount() {
         try {
-            String url = "jdbc:mysql://127.0.0.1:3306/login"; // Create connection
-            String user = "root"; // Tên người dùng của bạn
-            String password = "nongsontung@24"; // Mật khẩu của bạn
+            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/Database/userInfo.db"; // Create connection
 
-            con = DriverManager.getConnection(url, user, password); //start to connect
+            con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
         } catch (SQLException e) {
             e.printStackTrace();
             con = null; // Đặt con thành null nếu không kết nối được
         }
+        return null;
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return con;
-    }
-
-
-
-
-    private Connection connectBookDatabase;
-
-    public void connectBookDatabase() {
-        try {
-            String url = "jdbc:mysql://127.0.0.1:3306/searchbook";
-            String user = "root";
-            String password = "nongsontung@24";
-            connectBookDatabase = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to database");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            connectBookDatabase = null;
-        }
-    }
-
-    public Connection getBookDatabase() {
-        return connectBookDatabase;
     }
 }

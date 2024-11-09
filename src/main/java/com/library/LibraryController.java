@@ -1,117 +1,58 @@
 package com.library;
 
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class LibraryController {
-    @FXML
-    private TableView<Book> tableBooks;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class LibraryController implements Initializable {
     @FXML
-    private TableColumn<Book, String> colISBN;
-
+    public JFXButton addBookButton;
     @FXML
-    private TableColumn<Book, String> colTitle;
-
+    public Hyperlink deleteHyperlink;
     @FXML
-    private TableColumn<Book, String> colDescription;
-
+    private TableView<Book> tableBookView;
     @FXML
-    private TableColumn<Book, Integer> colCategory;
-
+    private TableColumn<Book, CheckBox> checkBoxBookColumn;
     @FXML
-    private TableColumn<Book, String> colEdition;
-
+    private TableColumn<Book, String> bookIsbnColumn;
     @FXML
-    private TableColumn<Book, Integer> colPublisherId;
-
+    private TableColumn<Book, String> bookTitleColumn;
     @FXML
-    private TextField txtISBN;
-
+    private TableColumn<Book, String> bookAuthorColumn;
     @FXML
-    private TextField txtTitle;
-
+    private TableColumn<Book, String> bookYearColumn;
     @FXML
-    private TextField txtDescription;
+    private TableColumn<Book, Integer> bookPublisherIdColumn;
+    @FXML
+    private TableColumn<Book, Integer> bookQuantityColumn;
+    @FXML
+    private TableColumn<Book, Integer> bookCategoryColumn;
+    @FXML
+    private TableColumn<Book, String> bookAvailableColumn;
 
     @FXML
-    private TextField txtCategory;
+    private TextField bookSearchTextField;
+    @FXML
+    private FontAwesomeIcon searchIcon;
+
+    ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
+    ObservableList<Book> suggestedBookObservableList = FXCollections.observableArrayList();
 
     @FXML
-    private TextField txtEdition;
-
+    private ProgressBar progressBar;
     @FXML
-    private TextField txtPublisherId;
+    private CheckBox checkAllBook;
 
-    @FXML
-    public void initialize() {
-        colISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colEdition.setCellValueFactory(new PropertyValueFactory<>("edition"));
-        colPublisherId.setCellValueFactory(new PropertyValueFactory<>("publisherId"));
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Dữ liệu mẫu
-        tableBooks.getItems().add(new Book("1000", "Clean Code", "Robert C. Martin", 1, "1st", 1));
-        tableBooks.getItems().add(new Book("1001", "Head First Java", "Kathy Sierra", 2, "1st", 2));
-    }
-
-    @FXML
-    public void handleAddBook() {
-        String isbn = txtISBN.getText();
-        String title = txtTitle.getText();
-        String description = txtDescription.getText();
-        int category;
-        int publisherId;
-
-        try {
-            category = Integer.parseInt(txtCategory.getText());
-            publisherId = Integer.parseInt(txtPublisherId.getText());
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Category and Publisher ID must be numbers");
-            return;
-        }
-
-        if (isbn.isEmpty() || title.isEmpty() || description.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Please fill all fields");
-            return;
-        }
-
-        Book newBook = new Book(isbn, title, description, category, "", publisherId);
-        tableBooks.getItems().add(newBook);
-
-        clearFields();
-    }
-
-    @FXML
-    public void handleDeleteBook() {
-        Book selectedBook = tableBooks.getSelectionModel().getSelectedItem();
-        if (selectedBook != null) {
-            tableBooks.getItems().remove(selectedBook);
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select a book to delete");
-        }
-    }
-
-    private void clearFields() {
-        txtISBN.clear();
-        txtTitle.clear();
-        txtDescription.clear();
-        txtCategory.clear();
-        txtEdition.clear();
-        txtPublisherId.clear();
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

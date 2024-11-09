@@ -1,0 +1,43 @@
+/* File CSS (label-style.css) */
+.rounded-label-x-mark {
+    -fx-background-radius: 10px;                     /* Bo tròn 4 góc */
+    -fx-background-color: linear-gradient(to right, #f3e5f5, #e1bee7); /* Gradient từ tím nhạt sang hồng nhạt */
+    -fx-opacity: 0.8;                                /* Độ mờ */
+    -fx-padding: 10px 15px;                          /* Khoảng cách padding bên trong */
+    -fx-text-fill: #ff0000;                          /* Màu chữ đỏ */
+    -fx-font-size: 17px;                             /* Cỡ chữ */
+    -fx-font-weight: bold;                           /* Chữ đậm */
+    -fx-font-family: "Britannic Bold";               /* Phông chữ */
+}
+/* File CSS (label-style.css) */
+.rounded-label-loginbutton {
+    -fx-background-radius: 10px;
+    -fx-background-color: linear-gradient(to right, #333333, #000000);
+    -fx-opacity: 0.9;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand; /* Đổi thành biểu tượng bàn tay khi hover */
+    -fx-transition: all 0.3s ease; /* Hiệu ứng chuyển mượt */
+}
+.rounded-label-loginbutton:hover {
+    -fx-background-color: linear-gradient(to right, #666666, #222222); /* Gradient màu nền mới khi hover */
+    -fx-text-fill: #ffffff; /* Thay đổi màu chữ khi hover */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 3);
+}
+
+/* File CSS (label-style.css) */
+/* File CSS (label-style.css) */
+.rounded-label-check-mark {
+    -fx-background-radius: 10px;                                 /* Bo tròn 4 góc */
+    -fx-background-color: linear-gradient(to right, #64b5f6, #bbdefb); /* Gradient từ xanh biển sang xanh dương nhạt */
+    -fx-opacity: 0.9;                                            /* Độ mờ */
+    -fx-padding: 10px 15px;                                      /* Khoảng cách padding bên trong */
+    -fx-text-fill: #ffffff;                                      /* Màu chữ trắng */
+    -fx-font-size: 17px;                                         /* Cỡ chữ */
+    -fx-font-weight: bold;                                       /* Chữ đậm */
+    -fx-font-family: "Britannic Bold";                           /* Phông chữ */
+}
