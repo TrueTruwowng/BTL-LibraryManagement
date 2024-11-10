@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="651.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profile.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profile.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileController">
     <top>
         <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
@@ -79,7 +79,7 @@
         </VBox>
     </top>
     <right>
-        <VBox prefHeight="496.0" prefWidth="324.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="496.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
             <children>
                 <Label style="-fx-text-fill: #2b579a;" text="User information">
                     <font>

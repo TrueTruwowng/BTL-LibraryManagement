@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="651.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/library.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/library.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
    <top>
       <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +35,7 @@
                <children>
                   <HBox prefHeight="117.0" prefWidth="953.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="73.0" prefWidth="147.0" style="-fx-text-fill: #2b579a;" text="Books">
+                        <Label alignment="CENTER" prefHeight="73.0" prefWidth="200.0" style="-fx-text-fill: #2b579a;" text="Books">
                            <font>
                               <Font name="Segoe UI Semilight" size="46.0" />
                            </font>
@@ -51,7 +51,7 @@
                            <children>
                               <VBox prefHeight="85.0" prefWidth="794.0" HBox.hgrow="NEVER">
                                  <children>
-                                    <HBox prefHeight="26.0" prefWidth="564.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                    <HBox prefHeight="26.0" prefWidth="700.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <FontAwesomeIcon fx:id="searchIcon" fill="#2b579a" glyphName="SEARCH" size="26">
                                              <HBox.margin>
@@ -112,11 +112,11 @@
          <columns>
             <TableColumn fx:id="checkBoxBookColumn" maxWidth="1500.0" minWidth="-1.0" prefWidth="33.0" />
             <TableColumn fx:id="bookIsbnColumn" prefWidth="113.95263671875" text="Book ISBN" />
-            <TableColumn fx:id="bookTitleColumn" prefWidth="186.0" text="Book Title" />
-            <TableColumn fx:id="bookAuthorColumn" prefWidth="204.0" text="Book Author" />
-            <TableColumn fx:id="bookYearColumn" prefWidth="80.5" text="Year" />
-            <TableColumn fx:id="bookPublisherIdColumn" prefWidth="119.5" text="Book Publisher ID" />
-            <TableColumn fx:id="bookQuantityColumn" prefWidth="81.5" text="Quantity" />
+            <TableColumn fx:id="bookTitleColumn" prefWidth="192.5" text="Book Title" />
+            <TableColumn fx:id="bookAuthorColumn" prefWidth="122.5" text="Book Author" />
+            <TableColumn fx:id="bookYearColumn" prefWidth="70.5" text="Year" />
+            <TableColumn fx:id="bookPublisherIdColumn" prefWidth="110.5" text="Book Publisher ID" />
+            <TableColumn fx:id="bookQuantityColumn" prefWidth="71.5" text="Quantity" />
             <TableColumn fx:id="bookCategoryColumn" prefWidth="78.5" text="Category" />
             <TableColumn fx:id="bookAvailableColumn" prefWidth="115.0" text="Availability" />
          </columns>
