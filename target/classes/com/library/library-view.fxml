@@ -1,63 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
-   <children>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/library.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
+   <top>
+      <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="bookIsbn" promptText="Book ISBN" style="-fx-background-color: #ffffff;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="bookTitle" promptText="Book Title" style="-fx-background-color: #ffffff;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="bookAuthor" promptText="Book Author" style="-fx-background-color: #ffffff;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="bookYear" promptText="Book Year" style="-fx-background-color: #ffffff;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="publisherId" promptText="Publisher ID" style="-fx-background-color: #ffffff;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <Line endX="450.0" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
-            </Line>
-            <HBox prefHeight="45.0" prefWidth="600.0">
+            <BorderPane maxHeight="67.0" prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: white;">
+               <center>
+                  <Label text="TUY-LIBRARY" textFill="#a1a1a1" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI Semilight" size="23.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <VBox prefHeight="117.0" prefWidth="1000.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton fx:id="addBookCancel_button" onAction="#cancelAddBook" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #1976D2;" stylesheets="@../../ScreenUI/css/addBook.css" text="Cancel" textFill="WHITE">
-                     <HBox.margin>
+                  <HBox prefHeight="117.0" prefWidth="953.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="73.0" prefWidth="200.0" style="-fx-text-fill: #2b579a;" text="Books">
+                           <font>
+                              <Font name="Segoe UI Semilight" size="46.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Region prefHeight="85.0" prefWidth="14.0" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="85.0" prefWidth="789.0" spacing="10.0" HBox.hgrow="NEVER">
+                           <children>
+                              <VBox prefHeight="85.0" prefWidth="794.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <HBox prefHeight="26.0" prefWidth="700.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <FontAwesomeIcon fx:id="searchIcon" fill="#2b579a" glyphName="SEARCH" size="26">
+                                             <HBox.margin>
+                                                <Insets top="25.0" />
+                                             </HBox.margin></FontAwesomeIcon>
+                                          <TextField fx:id="bookSearchTextField" onKeyTyped="#searchBook" prefHeight="26.0" prefWidth="500.0" promptText="Search book" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                             <HBox.margin>
+                                                <Insets top="25.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="12.1" />
+                                             </font>
+                                          </TextField>
+                                          <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <JFXButton fx:id="addBookButton" onAction="#loadBookDataentry" prefHeight="25.0" prefWidth="125.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Book">
+                                                   <HBox.margin>
+                                                      <Insets right="20.0" top="25.0" />
+                                                   </HBox.margin>
+                                                   <graphic>
+                                                      <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="17" />
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="Segoe UI Semilight" size="12.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="6.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox maxWidth="3000.0" prefHeight="45.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                     <children>
+                        <ProgressBar fx:id="progressBar" maxWidth="10000.0" prefWidth="1000.0" progress="1.0" scaleY="0.4" stylesheets="@../../ScreenUI/css/library.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="3.0" right="5.0" />
+                           </HBox.margin>
+                        </ProgressBar>
+                     </children>
+                     <VBox.margin>
                         <Insets />
-                     </HBox.margin></JFXButton>
-                  <JFXButton fx:id="addBookSave_button" onAction="#saveAddBook" prefHeight="45.0" prefWidth="300.0" stylesheets="@../../ScreenUI/css/addBook.css" text="Save" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin></JFXButton>
+                     </VBox.margin></HBox>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
+            </VBox>
          </children>
       </VBox>
-   </children>
-</AnchorPane>
+   </top>
+   <center>
+      <TableView fx:id="tableBookView" prefHeight="523.0" prefWidth="990.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="checkBoxBookColumn" maxWidth="1500.0" minWidth="-1.0" prefWidth="33.0" />
+            <TableColumn fx:id="bookIsbnColumn" prefWidth="113.95263671875" text="Book ISBN" />
+            <TableColumn fx:id="bookTitleColumn" prefWidth="192.5" text="Book Title" />
+            <TableColumn fx:id="bookAuthorColumn" prefWidth="122.5" text="Book Author" />
+            <TableColumn fx:id="bookYearColumn" prefWidth="70.5" text="Year" />
+            <TableColumn fx:id="bookPublisherIdColumn" prefWidth="110.5" text="Book Publisher ID" />
+            <TableColumn fx:id="bookQuantityColumn" prefWidth="71.5" text="Quantity" />
+            <TableColumn fx:id="bookCategoryColumn" prefWidth="78.5" text="Category" />
+            <TableColumn fx:id="bookAvailableColumn" prefWidth="115.0" text="Availability" />
+         </columns>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <contextMenu>
+            <ContextMenu>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#loadUpdateBook" text="Update Book" />
+                  <MenuItem mnemonicParsing="false" onAction="#DeleteBook" text="Delete Book" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox prefHeight="32.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <CheckBox fx:id="checkAllBook" mnemonicParsing="false" text="Check all" textFill="#2b579a">
+               <HBox.margin>
+                  <Insets left="50.0" top="5.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Hyperlink fx:id="deleteHyperlink" onAction="#deleteselectedBooks" text="Delete" textFill="#2b579a">
+               <graphic>
+                  <FontAwesomeIcon glyphName="TRASH" size="15" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="50.0" top="2.0" />
+               </HBox.margin>
+            </Hyperlink>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

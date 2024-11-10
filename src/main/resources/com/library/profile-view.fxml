@@ -23,11 +23,11 @@
     <top>
         <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <BorderPane prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                <BorderPane prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right,#2b579a , #4facfe); -fx-background-radius: 10 10 0 0;">
                     <center>
-                        <Label text="TUY-LIBRARY" textFill="#a1a1a1" BorderPane.alignment="CENTER">
+                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="Segoe UI Semilight" size="23.0" />
+                                <Font name="System Bold" size="23.0" />
                             </font>
                             <BorderPane.margin>
                                 <Insets top="2.0" />

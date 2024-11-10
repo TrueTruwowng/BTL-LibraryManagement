@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static Connection con;
 
-    public static Connection connectUserAccount() {
+    public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/Database/userInfo.db"; // Create connection
+            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
@@ -17,10 +17,10 @@ public class DatabaseConnection {
             e.printStackTrace();
             con = null; // Đặt con thành null nếu không kết nối được
         }
-        return null;
     }
 
     public static Connection getConnection() {
         return con;
     }
+
 }

@@ -38,6 +38,7 @@ public class LoginController {
 
 
     public void initialize() {
+        DatabaseConnection.connectUserAccount();
         StatusIconCheckMark.setVisible(false);
         StatusIconXmark.setVisible(false);
         LoginMessageLabelXmark.setVisible(false);
