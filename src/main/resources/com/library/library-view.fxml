@@ -67,7 +67,7 @@
                                           </TextField>
                                           <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <JFXButton fx:id="addBookButton" onAction="#loadBookDataentry" prefHeight="25.0" prefWidth="125.0" style="-fx-background-radius: 0;" text="Add Book">
+                                                <JFXButton fx:id="addBookButton" onAction="#loadBookDataentry" prefHeight="25.0" prefWidth="125.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Book">
                                                    <HBox.margin>
                                                       <Insets right="20.0" top="25.0" />
                                                    </HBox.margin>
@@ -108,7 +108,7 @@
       </VBox>
    </top>
    <center>
-      <TableView fx:id="tableBookView" prefHeight="523.0" prefWidth="990.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableBookView" prefHeight="523.0" prefWidth="990.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="checkBoxBookColumn" maxWidth="1500.0" minWidth="-1.0" prefWidth="33.0" />
             <TableColumn fx:id="bookIsbnColumn" prefWidth="113.95263671875" text="Book ISBN" />
@@ -139,7 +139,7 @@
    <bottom>
       <HBox prefHeight="32.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox fx:id="checkAllBook" mnemonicParsing="false" text="Check all">
+            <CheckBox fx:id="checkAllBook" mnemonicParsing="false" text="Check all" textFill="#2b579a">
                <HBox.margin>
                   <Insets left="50.0" top="5.0" />
                </HBox.margin>
