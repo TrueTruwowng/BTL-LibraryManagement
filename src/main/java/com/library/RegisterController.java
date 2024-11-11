@@ -54,7 +54,6 @@ public class RegisterController {
     }
 
     public void registerButtonOnAction(ActionEvent event) {
-
         if (FirstnameField.getText().isEmpty() || LastnameField.getText().isEmpty() ||
                 UsernameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
                 confirmPasswordField.getText().isEmpty()) {
@@ -65,26 +64,23 @@ public class RegisterController {
             RegisterMessageLabelXMark.setText("Passwords do not match");
             showError();
         } else {
-            if (RegisterUser()) {  // Điều chỉnh phương thức RegisterUser trả về boolean
+            if (registerUser()) {
                 RegisterMessageLabelCheckMark.setText("Registered Successfully");
                 showSuccessful();
-                // Chỉ thực hiện chuyển đổi sau khi tài khoản được tạo thành công
-                PauseTransition pause = new PauseTransition(Duration.seconds(3)); // 2sec
-                pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
+                PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                pause.setOnFinished(e -> onHyperLinkClick());
                 pause.play();
-
             }
         }
     }
 
-    public boolean RegisterUser() {
+    public boolean registerUser() {
         Connection con = DatabaseConnection.getConnection();
         String firstName = FirstnameField.getText();
         String lastName = LastnameField.getText();
         String username = UsernameField.getText();
         String password = passwordField.getText();
 
-        // Kiểm tra username đã tồn tại chưa
         String checkUsernameQuery = "SELECT COUNT(*) FROM user_account WHERE username = ?";
 
         try {
@@ -93,51 +89,48 @@ public class RegisterController {
 
             ResultSet resultSet = checkStatement.executeQuery();
 
-            if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                if (count > 0) {
-                    RegisterMessageLabelXMark.setText("Username already exists");
-                    showError();
-                    return false;
-                }
+            if (resultSet.next() && resultSet.getInt(1) > 0) {
+                RegisterMessageLabelXMark.setText("Username already exists");
+                showError();
+                return false;
             }
 
-            // Tạo account_id ngẫu nhiên bằng UUID
-            String accountId = UUID.randomUUID().toString(); // Tạo UUID cho account_id
+            String accountId = UUID.randomUUID().toString();
 
-            // Câu lệnh insert để đăng ký tài khoản người dùng
-            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password) VALUES (?, ?, ?, ?, ?)";
+            // Lấy ảnh mặc định từ ImageUtils
+            byte[] defaultImageBytes = ImageUtils.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
+
+            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password, userPicture) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
-            insertStatement.setString(1, accountId);  // Thêm account_id UUID vào bảng
+            insertStatement.setString(1, accountId);
             insertStatement.setString(2, lastName);
             insertStatement.setString(3, firstName);
             insertStatement.setString(4, username);
             insertStatement.setString(5, password);
+            insertStatement.setBytes(6, defaultImageBytes); // Lưu ảnh mặc định vào cột userPicture
 
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
-            return true;  // Đăng ký thành công
+            return true;
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             RegisterMessageLabelXMark.setText("An error occurred during registration.");
-            return false;  // Có lỗi xảy ra
+            return false;
         }
     }
 
-    public void onHyperLinkClick(ActionEvent event) {
+    public void onHyperLinkClick() {
         loadLoginView();
     }
 
-    // Load the registration view
     public void loadLoginView() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/login-view.fxml"));
             Parent loginView = loader.load();
 
-            // Get the current stage (window) from any component in the current scene
-            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow(); // Use another UI component if needed
+            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow();
 
             if (stage != null) {
                 stage.setScene(new Scene(loginView));
