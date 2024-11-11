@@ -8,6 +8,7 @@ module com.library {
     requires fontawesomefx;
     requires java.sql;
     requires java.desktop;
+    requires java.smartcardio;
 
     opens com.library to javafx.fxml;
     exports com.library;

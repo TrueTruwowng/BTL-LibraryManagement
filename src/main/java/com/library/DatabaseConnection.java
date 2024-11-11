@@ -5,15 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection con;
+    private static Connection con;
 
-    public void connect() {
+    public static void connectUserAccount() {
         try {
-            String url = "jdbc:mysql://127.0.0.1:3306/loginschema"; // Create connection
-            String user = "root"; // Tên người dùng của bạn
-            String password = "123456"; // Mật khẩu của bạn
+            String url = "jdbc:sqlite:D:/OOP/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
 
-            con = DriverManager.getConnection(url, user, password); //start to connect
+            con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -21,7 +19,8 @@ public class DatabaseConnection {
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return con;
     }
+
 }

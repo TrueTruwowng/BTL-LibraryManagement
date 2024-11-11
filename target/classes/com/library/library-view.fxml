@@ -4,23 +4,30 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
+<AnchorPane prefHeight="602.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LibraryController">
   <children>
-    <TableView fx:id="tableBooks" layoutX="20" layoutY="20" prefHeight="400.0" prefWidth="800.0">
+    <TableView fx:id="tableBooks" layoutX="70.0" layoutY="14.0" prefHeight="390.0" prefWidth="662.0" AnchorPane.rightAnchor="243.0">
       <columns>
+        <TableColumn fx:id="colISBN" prefWidth="150" text="ISBN" />
         <TableColumn fx:id="colTitle" prefWidth="150" text="Title" />
         <TableColumn fx:id="colAuthor" prefWidth="150" text="Author" />
         <TableColumn fx:id="colYear" prefWidth="184.0" text="Year" />
       </columns>
+      <columnResizePolicy>
+        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
     </TableView>
 
-    <TextField fx:id="txtTitle" layoutX="49.0" layoutY="446.0" prefHeight="26.0" prefWidth="220.0" promptText="Book Title" />
-    <TextField fx:id="txtAuthor" layoutX="320.0" layoutY="446.0" prefHeight="26.0" prefWidth="220.0" promptText="Author" />
-    <TextField fx:id="txtYear" layoutX="591.0" layoutY="446.0" prefHeight="26.0" prefWidth="220.0" promptText="Year" />
+    <TextField fx:id="txtTitle" layoutX="234.0" layoutY="419.0" prefHeight="26.0" prefWidth="220.0" promptText="Book Title" />
+    <TextField fx:id="txtAuthor" layoutX="473.0" layoutY="419.0" prefHeight="26.0" prefWidth="160.0" promptText="Author" />
+    <TextField fx:id="txtYear" layoutX="642.0" layoutY="419.0" prefHeight="26.0" prefWidth="110.0" promptText="Year" />
 
-    <Button layoutX="727.0" layoutY="527.0" onAction="#handleAddBook" prefHeight="26.0" prefWidth="84.0" text="Add Book" />
-    <Button layoutX="617.0" layoutY="527.0" onAction="#handleDeleteBook" text="Delete Book" />
+    <Button layoutX="710.0" layoutY="476.0" onAction="#handleAddBook" prefHeight="26.0" prefWidth="84.0" text="Add Book" />
+    <Button layoutX="616.0" layoutY="477.0" onAction="#handleDeleteBook" text="Delete Book" />
+    <TextField fx:id="txtISBN" layoutX="77.0" layoutY="419.0" prefHeight="26.0" prefWidth="142.0" promptText="ISBN" />
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="740.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
   </children>
 </AnchorPane>

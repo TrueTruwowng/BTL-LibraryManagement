@@ -1,7 +1,0 @@
-.body {
-    -fx-background-image: url("Image/Register_background.png"); /* Thay đổi đường dẫn đến ảnh của bạn */
-    -fx-background-size: cover; /* Để ảnh chiếm toàn bộ không gian */
-
-    /* Để ảnh căn giữa */
-}
-

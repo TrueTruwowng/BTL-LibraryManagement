@@ -18,8 +18,8 @@ public class LibraryApplication extends Application {
 
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("Dashboard.fxml"));
-            Scene scene = new Scene((Parent)fxmlLoader.load(), 850, 750);
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("Dashboard-view.fxml"));
+            Scene scene = new Scene((Parent)fxmlLoader.load(), 913, 600);
             stage.setTitle("Library Application");
             stage.setScene(scene);
             stage.show();
