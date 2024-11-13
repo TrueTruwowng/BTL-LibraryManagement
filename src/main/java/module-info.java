@@ -11,6 +11,8 @@ module com.library {
     requires fontawesomefx;
     requires javafx.media;
     requires org.json;
+    requires java.net.http;
+    requires java.smartcardio;
 
     opens com.library to javafx.fxml;
     exports com.library;
