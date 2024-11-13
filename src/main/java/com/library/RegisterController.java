@@ -5,18 +5,16 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
+
+import static com.library.SceneLoader.loadLoginView;
 
 public class RegisterController {
     @FXML
@@ -98,7 +96,7 @@ public class RegisterController {
             String accountId = UUID.randomUUID().toString();
 
             // Lấy ảnh mặc định từ ImageUtils
-            byte[] defaultImageBytes = ImageUtils.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
+            byte[] defaultImageBytes = UserController.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
 
             String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password, userPicture) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
@@ -122,28 +120,10 @@ public class RegisterController {
     }
 
     public void onHyperLinkClick() {
-        loadLoginView();
+        Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
+        loadLoginView(stage);  // Sử dụng SceneLoader thay vì tự mình load
     }
 
-    public void loadLoginView() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/login-view.fxml"));
-            Parent loginView = loader.load();
-
-            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow();
-
-            if (stage != null) {
-                stage.setScene(new Scene(loginView));
-                stage.setTitle("Login");
-                stage.show();
-            } else {
-                RegisterMessageLabelXMark.setText("Stage is null.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            RegisterMessageLabelXMark.setText("Error loading login view: " + e.getMessage());
-        }
-    }
 
     public void showSuccessful() {
         RegisterMessageLabelCheckMark.setVisible(true);
@@ -181,10 +161,13 @@ public class RegisterController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        fadeOutLabel.setOnFinished(event -> loadLoginView());
+        Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
+        fadeOutLabel.setOnFinished(event -> loadLoginView(stage));
 
         fadeInLabel.play();
     }
+
+
     public void showError() {
         RegisterMessageLabelXMark.setVisible(true);
         StatusIconXmark.setVisible(true);

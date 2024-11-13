@@ -5,9 +5,12 @@ module com.library {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
-    requires fontawesomefx;
-    requires java.sql;
     requires java.desktop;
+    requires java.sql;
+    requires mysql.connector.j;
+    requires fontawesomefx;
+    requires javafx.media;
+    requires org.json;
     requires java.smartcardio;
 
     opens com.library to javafx.fxml;
