@@ -5,16 +5,18 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
-
-import static com.library.SceneLoader.loadLoginView;
 
 public class RegisterController {
     @FXML
@@ -62,23 +64,26 @@ public class RegisterController {
             RegisterMessageLabelXMark.setText("Passwords do not match");
             showError();
         } else {
-            if (registerUser()) {
+            if (RegisterUser()) {  // Điều chỉnh phương thức RegisterUser trả về boolean
                 RegisterMessageLabelCheckMark.setText("Registered Successfully");
                 showSuccessful();
-                PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                pause.setOnFinished(e -> onHyperLinkClick());
+                // Chỉ thực hiện chuyển đổi sau khi tài khoản được tạo thành công
+                PauseTransition pause = new PauseTransition(Duration.seconds(3)); // 2sec
+                pause.setOnFinished(e -> onHyperLinkClick(event)); // change to login screen
                 pause.play();
+
             }
         }
     }
 
-    public boolean registerUser() {
+    public boolean RegisterUser() {
         Connection con = DatabaseConnection.getConnection();
         String firstName = FirstnameField.getText();
         String lastName = LastnameField.getText();
         String username = UsernameField.getText();
         String password = passwordField.getText();
 
+        // Kiểm tra username đã tồn tại chưa
         String checkUsernameQuery = "SELECT COUNT(*) FROM user_account WHERE username = ?";
 
         try {
@@ -87,44 +92,65 @@ public class RegisterController {
 
             ResultSet resultSet = checkStatement.executeQuery();
 
-            if (resultSet.next() && resultSet.getInt(1) > 0) {
-                RegisterMessageLabelXMark.setText("Username already exists");
-                showError();
-                return false;
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                if (count > 0) {
+                    RegisterMessageLabelXMark.setText("Username already exists");
+                    showError();
+                    return false;
+                }
             }
 
-            String accountId = UUID.randomUUID().toString();
+            // Tạo account_id ngẫu nhiên bằng UUID
+            String accountId = UUID.randomUUID().toString(); // Tạo UUID cho account_id
 
-            // Lấy ảnh mặc định từ ImageUtils
-            byte[] defaultImageBytes = UserController.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
-
-            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password, userPicture) VALUES (?, ?, ?, ?, ?, ?)";
+            // Câu lệnh insert để đăng ký tài khoản người dùng
+            String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
-            insertStatement.setString(1, accountId);
+            insertStatement.setString(1, accountId);  // Thêm account_id UUID vào bảng
             insertStatement.setString(2, lastName);
             insertStatement.setString(3, firstName);
             insertStatement.setString(4, username);
             insertStatement.setString(5, password);
-            insertStatement.setBytes(6, defaultImageBytes); // Lưu ảnh mặc định vào cột userPicture
 
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
-            return true;
+            return true;  // Đăng ký thành công
 
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             RegisterMessageLabelXMark.setText("An error occurred during registration.");
-            return false;
+            return false;  // Có lỗi xảy ra
         }
     }
 
-    public void onHyperLinkClick() {
-        Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-        loadLoginView(stage);  // Sử dụng SceneLoader thay vì tự mình load
+    public void onHyperLinkClick(ActionEvent event) {
+        loadLoginView();
     }
 
+    // Load the registration view
+    public void loadLoginView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/login-view.fxml"));
+            Parent loginView = loader.load();
 
+            // Get the current stage (window) from any component in the current scene
+            Stage stage = (Stage) RegisterMessageLabelCheckMark.getScene().getWindow(); // Use another UI component if needed
+
+            if (stage != null) {
+                stage.setScene(new Scene(loginView));
+                stage.setTitle("Login");
+                stage.show();
+            } else {
+                RegisterMessageLabelXMark.setText("Stage is null.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            RegisterMessageLabelXMark.setText("Error loading login view: " + e.getMessage());
+        }
+    }
+    
     public void showSuccessful() {
         RegisterMessageLabelCheckMark.setVisible(true);
         StatusIconCheckMark.setVisible(true);
@@ -161,13 +187,10 @@ public class RegisterController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-        fadeOutLabel.setOnFinished(event -> loadLoginView(stage));
+        fadeOutLabel.setOnFinished(event -> loadLoginView());
 
         fadeInLabel.play();
     }
-
-
     public void showError() {
         RegisterMessageLabelXMark.setVisible(true);
         StatusIconXmark.setVisible(true);
