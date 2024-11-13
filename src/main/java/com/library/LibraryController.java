@@ -5,33 +5,33 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.stream.Collectors;
+//import com.library.Book;
 
 public class LibraryController {
     @FXML
     public ImageView userImageView;
     @FXML
-    private Label firstNameLabel;
+    private TableColumn<Book, String> colISBN;
+
+    @FXML
+    private TableColumn<Book, String> colTitle;
+
     @FXML
     private Label lastNameLabel;
     @FXML
     private Label usernameLabel;
     @FXML
-    private Label userIDLabel;
+    private TextField txtISBN;
+
+    @FXML
+    private TextField txtTitle;
+
     @FXML
     private TextField newPasswordField;
     private final String imagesDirectory = "D:/OOP/BTL-LibraryManagement/src/main/resources/ScreenUI/Picture/Avatar";
@@ -39,17 +39,41 @@ public class LibraryController {
 
     @FXML
     public void initialize() {
-        User currentUser = UserController.getCurrentUser();
+        colISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 
-        if (currentUser != null) {
-            firstNameLabel.setText(currentUser.getFirstname());
-            lastNameLabel.setText(currentUser.getLastname());
-            usernameLabel.setText(currentUser.getUsername());
-            userIDLabel.setText(currentUser.getUserID());
+        // Dữ liệu mẫu
+        tableBooks.getItems().add(new Book("1000","Clean Code", "Robert C. Martin", "2008"));
+        tableBooks.getItems().add(new Book("1001","Head First Java", "Kathy Sierra", "2005"));
+    }
 
-            if (currentUser.getUserPicture() != null) {
-                userImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
-            }
+    @FXML
+    public void handleAddBook() {
+        String isbn = txtISBN.getText();
+        String title = txtTitle.getText();
+        String author = txtAuthor.getText();
+        String year = txtYear.getText();
+
+        if (title.isEmpty() || author.isEmpty() || year.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Please fill all fields");
+            return;
+        }
+
+        Book newBook = new Book(isbn, title, author, year);
+        tableBooks.getItems().add(newBook);
+
+        clearFields();
+    }
+
+    @FXML
+    public void handleDeleteBook() {
+        Book selectedBook = tableBooks.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            tableBooks.getItems().remove(selectedBook);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select a book to delete");
         }
     }
 

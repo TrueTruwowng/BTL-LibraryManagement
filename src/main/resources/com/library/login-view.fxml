@@ -83,7 +83,7 @@
                   <Font name="Book Antiqua Bold Italic" size="12.0" />
                </font>
             </FontAwesomeIcon>
-            <ImageView fx:id="cutePic" blendMode="MULTIPLY" fitHeight="90.0" fitWidth="74.0" layoutX="587.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView blendMode="MULTIPLY" fitHeight="129.0" fitWidth="74.0" layoutX="587.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ScreenUI/Picture/bongo-cat-typing.gif" />
                </image>

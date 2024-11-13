@@ -16,78 +16,78 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane fx:id="LoginContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.LoginController">
-    <children>
-        <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
-            <image>
-                <Image url="@../../ScreenUI/Picture/LoginBackgroundGIF.gif" />
-            </image>
-        </ImageView>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
-            <children>
-                <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="517.0" layoutX="227.0" layoutY="48.0" opacity="0.9" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="446.0" AnchorPane.bottomAnchor="34.5" AnchorPane.leftAnchor="226.5" AnchorPane.rightAnchor="226.5" AnchorPane.topAnchor="47.5" />
-                <Button fx:id="LoginButton" layoutX="399.0" layoutY="376.0" mnemonicParsing="false" onAction="#ValidateLogin" prefHeight="30.0" prefWidth="102.0" styleClass="rounded-label-loginbutton" stylesheets="@../../ScreenUI/css/Label.css" text="LOGIN" textAlignment="CENTER">
-                    <font>
-                        <Font name="Calibri Bold" size="12.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                    </cursor>
-                </Button>
-                <Label layoutX="311.0" layoutY="155.0" text="TUY-LIBRARY">
-                    <font>
-                        <Font name="Algerian" size="44.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="UsernameField" layoutX="371.0" layoutY="277.0" onAction="#loginButtonAction" prefHeight="34.0" prefWidth="203.0" promptText="Enter your username">
-                    <font>
-                        <Font name="Times New Roman" size="15.0" />
-                    </font>
-                </TextField>
-                <PasswordField fx:id="PasswordField" layoutX="371.0" layoutY="319.0" onAction="#loginButtonAction" prefHeight="33.0" prefWidth="203.0" promptText="Enter your password">
-                    <font>
-                        <Font name="Times New Roman" size="15.0" />
-                    </font>
-                </PasswordField>
-                <Hyperlink fx:id="RegisterLink" layoutX="340.0" layoutY="446.0" onAction="#onHyperLinkClick" text="Didn't have account yet? Register">
-                    <font>
-                        <Font name="Bell MT Bold" size="14.0" />
-                    </font>
-                </Hyperlink>
-                <Text fontSmoothingType="LCD" layoutX="275.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
-                    <font>
-                        <Font name="Times New Roman Italic" size="18.0" />
-                    </font>
-                </Text>
-                <Text fontSmoothingType="LCD" layoutX="276.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
-                    <font>
-                        <Font name="Times New Roman Italic" size="18.0" />
-                    </font>
-                </Text>
-                <Label fx:id="LoginMessageLabelXmark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="588.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="298.0" styleClass="rounded-label-x-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Invalid Login. Please try again" textFill="RED" wrapText="true">
-                    <font>
-                        <Font name="Britannic Bold" size="17.0" />
-                    </font>
-                </Label>
-                <FontAwesomeIcon fx:id="StatusIconXmark" fill="RED" glyphName="CLOSE" layoutX="607.0" layoutY="62.0" size="38" text="" wrappingWidth="33.599963378906295">
-                    <font>
-                        <Font name="Book Antiqua Bold Italic" size="12.0" />
-                    </font>
-                </FontAwesomeIcon>
-                <Label fx:id="LoginMessageLabelCheckMark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="674.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="211.0" styleClass="rounded-label-check-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Login Successful!" textFill="#56f700" wrapText="true">
-                    <font>
-                        <Font name="Britannic Bold" size="17.0" />
-                    </font>
-                </Label>
-                <FontAwesomeIcon fx:id="StatusIconCheckMark" fill="#00ff04" glyphName="CHECK" layoutX="687.0" layoutY="62.0" size="38" wrappingWidth="33.599963378906295">
-                    <font>
-                        <Font name="Book Antiqua Bold Italic" size="12.0" />
-                    </font>
-                </FontAwesomeIcon>
-                <ImageView blendMode="MULTIPLY" fitHeight="129.0" fitWidth="74.0" layoutX="587.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../ScreenUI/Picture/bongo-cat-typing.gif" />
-                    </image>
-                </ImageView>
-            </children></AnchorPane>
-    </children>
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../ScreenUI/Picture/LoginBackgroundGIF.gif" />
+         </image>
+      </ImageView>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
+         <children>
+            <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="517.0" layoutX="227.0" layoutY="48.0" opacity="0.9" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="446.0" AnchorPane.bottomAnchor="34.5" AnchorPane.leftAnchor="226.5" AnchorPane.rightAnchor="226.5" AnchorPane.topAnchor="47.5" />
+            <Button fx:id="LoginButton" layoutX="399.0" layoutY="376.0" mnemonicParsing="false" onAction="#ValidateLogin" prefHeight="30.0" prefWidth="102.0" styleClass="rounded-label-loginbutton" stylesheets="@../../ScreenUI/css/Label.css" text="LOGIN" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Button>
+            <Label layoutX="311.0" layoutY="155.0" text="TUY-LIBRARY">
+               <font>
+                  <Font name="Algerian" size="44.0" />
+               </font>
+            </Label>
+            <TextField fx:id="UsernameField" layoutX="371.0" layoutY="277.0" onAction="#loginButtonAction" prefHeight="34.0" prefWidth="203.0" promptText="Enter your username">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="PasswordField" layoutX="371.0" layoutY="319.0" onAction="#loginButtonAction" prefHeight="33.0" prefWidth="203.0" promptText="Enter your password">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </PasswordField>
+            <Hyperlink fx:id="RegisterLink" layoutX="340.0" layoutY="446.0" onAction="#onHyperLinkClick" text="Didn't have account yet? Register">
+               <font>
+                  <Font name="Bell MT Bold" size="14.0" />
+               </font>
+            </Hyperlink>
+            <Text fontSmoothingType="LCD" layoutX="275.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Text>
+            <Text fontSmoothingType="LCD" layoutX="276.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="LoginMessageLabelXmark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="588.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="298.0" styleClass="rounded-label-x-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Invalid Login. Please try again" textFill="RED" wrapText="true">
+               <font>
+                  <Font name="Britannic Bold" size="17.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fx:id="StatusIconXmark" fill="RED" glyphName="CLOSE" layoutX="607.0" layoutY="62.0" size="38" text="" wrappingWidth="33.599963378906295">
+               <font>
+                  <Font name="Book Antiqua Bold Italic" size="12.0" />
+               </font>
+            </FontAwesomeIcon>
+            <Label fx:id="LoginMessageLabelCheckMark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="674.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="211.0" styleClass="rounded-label-check-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Login Successful!" textFill="#56f700" wrapText="true">
+               <font>
+                  <Font name="Britannic Bold" size="17.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon fx:id="StatusIconCheckMark" fill="#00ff04" glyphName="CHECK" layoutX="687.0" layoutY="62.0" size="38" wrappingWidth="33.599963378906295">
+               <font>
+                  <Font name="Book Antiqua Bold Italic" size="12.0" />
+               </font>
+            </FontAwesomeIcon>
+            <ImageView blendMode="MULTIPLY" fitHeight="129.0" fitWidth="74.0" layoutX="587.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ScreenUI/Picture/bongo-cat-typing.gif" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+   </children>
 </StackPane>

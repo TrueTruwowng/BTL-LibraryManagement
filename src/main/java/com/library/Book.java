@@ -1,7 +1,7 @@
 package com.library;
 
 public class Book {
-    private String isbn;
+    private String ISBN;
     private String title;
     private String author;
     private int year;
@@ -9,16 +9,8 @@ public class Book {
     private int available;
     private byte[] image;
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public Book(String isbn, String title, String author, int year, String description, int available, byte[] image) {
-        this.isbn = isbn;
+    public Book(String ISBN, String title, String author, String year) {
+        this.ISBN = ISBN;
         this.title = title;
         this.author = author;
         this.year = year;
