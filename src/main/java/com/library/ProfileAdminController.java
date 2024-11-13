@@ -3,15 +3,22 @@ package com.library;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ProfileController implements Initializable {
-
+public class ProfileAdminController implements Initializable {
     int select = 0;
     @FXML
     public JFXButton updateButton;
@@ -48,12 +55,13 @@ public class ProfileController implements Initializable {
     public TableColumn<User, String> userFname;
     public TableColumn<User, String> userLname;
     public TableColumn<User, String> userName;
-    public TableColumn<User, String> userEmail;
-    public TableColumn<User, String> userPhone;
+    public TableColumn<User, String> userPassword;
 
     ObservableList<User> user_data = FXCollections.observableArrayList();
     ObservableList<User> users_ = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

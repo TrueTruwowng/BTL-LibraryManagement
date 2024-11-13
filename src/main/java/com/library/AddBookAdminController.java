@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddBookController implements Initializable {
+public class AddBookAdminController implements Initializable {
     @FXML
     private TextField bookIsbnTextField;
     @FXML

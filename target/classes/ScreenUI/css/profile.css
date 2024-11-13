@@ -1,7 +1,3 @@
-#close:hover{
-    -fx-background-color:#F44336;
-}
-
 .jfx-button:hover{
     -fx-background-color: #219297;
     -fx-text-fill: white;

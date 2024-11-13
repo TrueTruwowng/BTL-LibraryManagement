@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profile.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profileAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileAdminController">
     <top>
         <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
@@ -172,8 +172,7 @@
                 <TableColumn fx:id="userFname" prefWidth="112.0" text="First Name" />
                 <TableColumn fx:id="userLname" prefWidth="116.5" text="Last Name" />
                 <TableColumn fx:id="userName" prefWidth="123.5" text="Username" />
-                <TableColumn fx:id="userEmail" prefWidth="166.0" text="Email" />
-            <TableColumn fx:id="userPhone" prefWidth="116.5" text="Phone" />
+                <TableColumn fx:id="userPassword" prefWidth="166.0" text="Password" />
             </columns>
             <BorderPane.margin>
                 <Insets bottom="5.0" left="4.0" top="3.0" />

@@ -9,6 +9,9 @@ module com.library {
     requires java.sql;
     requires mysql.connector.j;
     requires fontawesomefx;
+    requires javafx.media;
+    requires java.net.http;
+    requires java.smartcardio;
     requires org.json;
     requires com.jfoenix;
 
