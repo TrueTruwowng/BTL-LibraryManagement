@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 public class UserController {
-    private static User currentUser;
+    static User currentUser;
 
     // Getter và setter cho currentUser
     public static User getCurrentUser() {

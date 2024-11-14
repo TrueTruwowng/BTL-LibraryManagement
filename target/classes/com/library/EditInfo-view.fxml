@@ -109,7 +109,7 @@
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="48.0" prefWidth="120.0" style="-fx-background-radius: 10;" text="Cancel">
+                        <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="48.0" prefWidth="120.0" style="-fx-background-radius: 10;" text="Cancel">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>

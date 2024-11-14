@@ -31,9 +31,7 @@ public class DatabaseConnection {
 
         String updateQuery = "UPDATE user_account SET userPicture = ? WHERE account_id = ?";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-
+        try (PreparedStatement preparedStatement = con.prepareStatement(updateQuery)) {
             preparedStatement.setBytes(1, newImageBytes); // Đặt ảnh mới vào cột userPicture
             preparedStatement.setString(2, userID); // Đặt userID để tìm đúng người dùng
 
@@ -48,9 +46,14 @@ public class DatabaseConnection {
         }
     }
 
-    public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) {
+    public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
+        // Kiểm tra kết nối và mở lại nếu cần
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
         String updateSQL = "UPDATE user_account SET firstname = ?, lastname = ?, email = ?, phone = ?, password = ? WHERE account_id = ?";
-        try (PreparedStatement statement = getConnection().prepareStatement(updateSQL)) {
+        try (PreparedStatement statement = con.prepareStatement(updateSQL)) {
             statement.setString(1, newFirstname);
             statement.setString(2, newLastname);
             statement.setString(3, newEmail);
@@ -74,8 +77,5 @@ public class DatabaseConnection {
             con.close();
         }
     }
-
-
-
 
 }

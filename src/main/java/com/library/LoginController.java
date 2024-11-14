@@ -17,6 +17,8 @@ import java.io.IOException;
 import javafx.util.Duration;
 
 import static com.library.DatabaseConnection.connectUserAccount;
+import static com.library.SceneLoader.stage;
+
 public class LoginController {
     @FXML
     private Label LoginMessageLabelXmark;
@@ -100,14 +102,14 @@ public class LoginController {
         // Đảm bảo fadeOutLabel kết thúc trước khi chuyển scene
         fadeOutLabel.setOnFinished(event -> {
             // Lấy Stage hiện tại từ RegisterLink
-            Stage stage = (Stage) LoginButton.getScene().getWindow();
+             stage = (Stage) LoginButton.getScene().getWindow();
 
             // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
             String username = UsernameField.getText();
             if ("admin".equals(username)) {
                 SceneLoader.loadScreen("/com/library/library-view.fxml", stage, "Admin Dashboard");
             } else {
-                SceneLoader.loadScreen("/com/library/EditInfo-view.fxml", stage, "Library");
+                SceneLoader.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
             }
         });
 
@@ -215,7 +217,7 @@ public class LoginController {
 
     public void onHyperLinkClick() throws IOException {
         // Lấy Stage hiện tại từ RegisterLink
-        Stage stage = (Stage) RegisterLink.getScene().getWindow();
+         stage = (Stage) RegisterLink.getScene().getWindow();
 
         // Load giao diện đăng ký mới
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));

@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
+import static com.library.SceneLoader.stage;
 import static com.library.SceneLoader.loadLoginView;
 
 public class RegisterController {
@@ -161,7 +162,7 @@ public class RegisterController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
+        SceneLoader.stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
         fadeOutLabel.setOnFinished(event -> loadLoginView(stage));
 
         fadeInLabel.play();
