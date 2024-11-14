@@ -1,7 +1,9 @@
 .white_background {
     -fx-background-color: #ffffff;
 }
-
+.black_background {
+    -fx-background-color: #000000;
+}
 .transperent {
     -fx-background-color: rgba(0,0,0,0);
 

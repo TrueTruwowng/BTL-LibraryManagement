@@ -34,7 +34,7 @@ public class DashboardController {
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
-        username.setText(currentUser.getUsername());
+        username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
     }
 
     public void onDashboardBtnClick() {

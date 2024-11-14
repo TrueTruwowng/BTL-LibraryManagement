@@ -63,7 +63,7 @@ public class SettingController {
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
             lastNameLabel.setText(currentUser.getLastname());
-            usernameLabel.setText(currentUser.getUsername());
+            usernameLabel.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
             userIDLabel.setText(currentUser.getUserID());
             emailLabel.setText(currentUser.getEmail());
             phoneLabel.setText(currentUser.getPhone());
@@ -193,7 +193,7 @@ public class SettingController {
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
             lastNameLabel.setText(currentUser.getLastname());
-            usernameLabel.setText(currentUser.getUsername());
+            usernameLabel.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
             userIDLabel.setText(currentUser.getUserID());
             emailLabel.setText(currentUser.getEmail());
             phoneLabel.setText(currentUser.getPhone());

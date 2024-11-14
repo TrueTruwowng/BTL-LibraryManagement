@@ -59,6 +59,9 @@ public class RegisterController {
 
             RegisterMessageLabelXMark.setText("Please fill in all fields");
             showError();
+        } else if (passwordField.getText().length() < 6 || passwordField.getText().length() > 8) {
+            RegisterMessageLabelXMark.setText("Password must be 6-8 characters");
+            showError();
         } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
             RegisterMessageLabelXMark.setText("Passwords do not match");
             showError();
@@ -72,6 +75,7 @@ public class RegisterController {
             }
         }
     }
+
 
     public boolean registerUser() {
         Connection con = DatabaseConnection.getConnection();

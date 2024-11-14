@@ -104,10 +104,13 @@
                   <Font name="Times New Roman Italic" size="18.0" />
                </font>
             </Text>
-            <Label fx:id="RegisterMessageLabelXMark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="602.0" layoutY="28.0" opacity="0.8" prefHeight="62.0" prefWidth="270.0" styleClass="rounded-label-x-mark" stylesheets="@../../ScreenUI/css/Label.css" text="X" textFill="RED">
+            <Label fx:id="RegisterMessageLabelXMark" alignment="BASELINE_CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="568.0" layoutY="28.0" opacity="0.8" prefHeight="62.0" prefWidth="331.0" styleClass="rounded-label-x-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Password must be 6-8 characters" textFill="RED">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIcon fx:id="StatusIconXmark" fill="RED" glyphName="CLOSE" opacity="0.8" selectionStart="1" size="38" text="" translateX="-145.0" />
+               </graphic>
             </Label>
             <Hyperlink fx:id="BacktoLoginHyperlink" layoutX="535.0" layoutY="499.0" onAction="#onHyperLinkClick" text="Already have account? Login">
                <font>
@@ -115,7 +118,6 @@
                </font>
             </Hyperlink>
             <FontAwesomeIcon fx:id="StatusIconCheckMark" fill="#07ff00" glyphName="CHECK" layoutX="610.0" layoutY="74.0" opacity="0.8" selectionFill="BLACK" size="38" tabSize="0" text="" wrappingWidth="37.971452713012695" />
-            <FontAwesomeIcon fx:id="StatusIconXmark" fill="RED" glyphName="CLOSE" layoutX="614.0" layoutY="74.0" opacity="0.8" selectionStart="1" size="38" text="" />
          </children></AnchorPane>
    </children>
 </StackPane>

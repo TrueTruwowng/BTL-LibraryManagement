@@ -57,7 +57,7 @@
                      <children>
                         <Label fx:id="username" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="Account">
                            <font>
-                              <Font name="Berlin Sans FB" size="14.0" />
+                              <Font name="Times New Roman Bold" size="14.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="smallUserImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -76,7 +76,7 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
+                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #eefeee;" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -88,8 +88,8 @@
                         <URL value="@../../ScreenUI/css/AllView.css" />
                      </stylesheets>
                      <styleClass>
-                        <String fx:value="white_background" />
                         <String fx:value="mouse-moved" />
+                        <String fx:value="white_background" />
                         <String fx:value="selected" />
                      </styleClass>
                   </Button>
