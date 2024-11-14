@@ -42,6 +42,7 @@ public class EditController {
 
             Platform.runLater(() -> {
                 showAlert(Alert.AlertType.INFORMATION, "Update Successful", "User info updated successfully.");
+                Platform.exit();
             });
         }
     }

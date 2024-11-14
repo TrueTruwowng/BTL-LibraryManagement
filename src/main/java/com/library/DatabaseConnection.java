@@ -69,6 +69,12 @@ public class DatabaseConnection {
         }
     }
 
+    public static void closeConnection() throws SQLException {
+        if (con != null && !con.isClosed()) {
+            con.close();
+        }
+    }
+
 
 
 

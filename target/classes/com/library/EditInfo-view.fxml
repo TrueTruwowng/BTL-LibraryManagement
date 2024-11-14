@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.EditController">
+<AnchorPane prefHeight="640.0" prefWidth="372.0" styleClass="text-field" stylesheets="@../../ScreenUI/css/EditInfo.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.EditController">
    <children>
       <VBox layoutX="356.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +30,7 @@
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="newFirstname" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" promptText="Enter new first name" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <TextField fx:id="newFirstname" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" promptText="Enter new first name" styleClass="text-field" stylesheets="@../../ScreenUI/css/AllView.css">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
@@ -43,10 +43,10 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="newLastname" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" promptText="Enter new last name">
+                  <TextField fx:id="newLastname" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" promptText="Enter new last name">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
@@ -62,7 +62,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="newEmail" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" promptText="Enter new email" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <TextField fx:id="newEmail" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" promptText="Enter new email" stylesheets="@../../ScreenUI/css/AllView.css">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -72,13 +72,13 @@
                   </TextField>
                   <Label prefHeight="40.0" prefWidth="138.0" text="Phone">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="newPhone" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" promptText="Enter new phone">
+                  <TextField fx:id="newPhone" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" promptText="Enter new phone">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -88,13 +88,13 @@
                   </TextField>
                   <Label prefHeight="40.0" prefWidth="138.0" text="Password">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="newPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" promptText="Enter new password">
+                  <TextField fx:id="newPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" promptText="Enter new password">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -104,19 +104,19 @@
                   </TextField>
                   <HBox alignment="CENTER_RIGHT" prefHeight="71.0" prefWidth="450.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleUserUpdateInfo" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #EEEE;" text="Save changes">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleUserUpdateInfo" prefHeight="48.0" prefWidth="145.0" style="-fx-background-radius: 10;" stylesheets="@../../ScreenUI/css/AllView.css" text="Save changes">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #EEEE;" text="Cancel">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="48.0" prefWidth="120.0" style="-fx-background-radius: 10;" text="Cancel">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
                </children>
