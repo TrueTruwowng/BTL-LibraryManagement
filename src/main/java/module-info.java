@@ -6,7 +6,6 @@ module com.library {
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
-    requires java.sql;
     requires mysql.connector.j;
     requires fontawesomefx;
     requires javafx.media;
@@ -14,6 +13,8 @@ module com.library {
     requires java.smartcardio;
     requires org.json;
     requires com.jfoenix;
+    requires com.google.gson;
+    requires java.sql;
 
     opens com.library to javafx.fxml;
     exports com.library;

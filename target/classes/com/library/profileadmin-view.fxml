@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profile.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profileAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileAdminController">
     <top>
         <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
@@ -89,7 +89,7 @@
                         <Insets left="17.0" top="5.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="userIdTextField" layoutX="30.0" layoutY="250.0" promptText="User ID*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                <TextField fx:id="userNameTextField" layoutX="30.0" layoutY="250.0" promptText="Username*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                     <font>
                         <Font name="Segoe UI Semilight" size="13.0" />
                     </font>
@@ -97,7 +97,7 @@
                         <Insets left="20.0" right="20.0" top="20.0" />
                     </VBox.margin>
                 </TextField>
-                <TextField fx:id="userNameTextField" layoutX="30.0" layoutY="250.0" promptText="Username*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                <TextField fx:id="userEmailTextField" layoutX="30.0" layoutY="250.0" promptText="Email*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                     <font>
                         <Font name="Segoe UI Semilight" size="13.0" />
                     </font>
@@ -105,7 +105,7 @@
                         <Insets left="20.0" right="20.0" top="15.0" />
                     </VBox.margin>
                 </TextField>
-                <TextField fx:id="emailTextField" layoutX="30.0" layoutY="250.0" promptText="User Email*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                <TextField fx:id="userPhoneTextField" layoutX="30.0" layoutY="250.0" promptText="Phone Number*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                     <font>
                         <Font name="Segoe UI Semilight" size="13.0" />
                     </font>
@@ -113,7 +113,7 @@
                         <Insets left="20.0" right="20.0" top="15.0" />
                     </VBox.margin>
                 </TextField>
-                <TextField fx:id="phoneNumberTextField" layoutX="30.0" layoutY="250.0" promptText="Phone Number*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                <TextField fx:id="newPasswordTextField" layoutX="30.0" layoutY="250.0" promptText="New Password*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                     <VBox.margin>
                         <Insets left="20.0" right="20.0" top="15.0" />
                     </VBox.margin>
@@ -121,6 +121,14 @@
                         <Font name="Segoe UI Semilight" size="13.0" />
                     </font>
                 </TextField>
+            <TextField fx:id="confirmPasswordTextField" promptText="Confirm Password*" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+               <font>
+                  <Font name="Segoe UI Semilight" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="15.0" />
+               </VBox.margin>
+            </TextField>
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="352.0" spacing="8.0">
                     <VBox.margin>
                         <Insets top="10.0" />
@@ -133,7 +141,7 @@
                             <font>
                                 <Font name="Segoe UI Semilight" size="12.0" />
                             </font></JFXButton>
-                        <JFXButton fx:id="saveButton" onAction="#saveStudent" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Save">
+                        <JFXButton fx:id="saveButton" onAction="#saveUser" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Save">
                             <HBox.margin>
                                 <Insets left="3.0" right="20.0" />
                             </HBox.margin>
@@ -150,13 +158,13 @@
                 </Separator>
                 <HBox alignment="CENTER" layoutX="10.0" layoutY="284.0" prefHeight="50.0" prefWidth="352.0" spacing="10.0">
                     <children>
-                        <JFXButton fx:id="deleteButton" layoutX="10.0" layoutY="10.0" onAction="#deleteStudent" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 0;" text="Archieve" visible="false">
+                        <JFXButton fx:id="deleteButton" layoutX="10.0" layoutY="10.0" onAction="#deleteUser" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Archieve" visible="true">
                             <HBox.margin>
-                                <Insets right="4.0" />
+                                <Insets left="20.0" right="4.0" />
                             </HBox.margin></JFXButton>
-                        <JFXButton fx:id="updateButton" onAction="#updateStudent" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 0;" text="Update" visible="false">
+                        <JFXButton fx:id="updateButton" onAction="#updateUser" prefHeight="25.0" prefWidth="151.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Update" visible="true">
                             <HBox.margin>
-                                <Insets left="3.0" />
+                                <Insets left="3.0" right="20.0" />
                             </HBox.margin>
                         </JFXButton>
                     </children>
@@ -165,15 +173,16 @@
         </VBox>
     </right>
     <center>
-        <TableView fx:id="user_tableView" onContextMenuRequested="#requestMenu" onKeyReleased="#fetchStudentWithKey" onMouseClicked="#fetchStudentFeesDetails" prefHeight="200.0" prefWidth="740.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+        <TableView fx:id="user_tableView" onContextMenuRequested="#requestMenu" prefHeight="200.0" prefWidth="740.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@../../ScreenUI/css/TableViewSstyle.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="checkUserColumn" maxWidth="900.0" minWidth="-Infinity" prefWidth="33.4842529296875" />
                 <TableColumn fx:id="userId" prefWidth="74.0" text="User ID" />
                 <TableColumn fx:id="userFname" prefWidth="112.0" text="First Name" />
                 <TableColumn fx:id="userLname" prefWidth="116.5" text="Last Name" />
                 <TableColumn fx:id="userName" prefWidth="123.5" text="Username" />
-                <TableColumn fx:id="userEmail" prefWidth="166.0" text="Email" />
-            <TableColumn fx:id="userPhone" prefWidth="116.5" text="Phone" />
+                <TableColumn fx:id="userPassword" prefWidth="166.0" text="Password" />
+            <TableColumn fx:id="userEmail" prefWidth="123.5" text="Email" />
+            <TableColumn fx:id="userPhone" prefWidth="123.5" text="Phone" />
             </columns>
             <BorderPane.margin>
                 <Insets bottom="5.0" left="4.0" top="3.0" />
@@ -181,7 +190,7 @@
             <contextMenu>
                 <ContextMenu fx:id="selectUserContext">
                     <items>
-                        <MenuItem fx:id="selectMenu" mnemonicParsing="false" onAction="#deleteStudentRecord" text="Delete record" />
+                        <MenuItem fx:id="selectMenu" mnemonicParsing="false" text="Delete record" />
                     </items>
                 </ContextMenu>
             </contextMenu>
@@ -198,7 +207,7 @@
                         <Insets left="50.0" top="5.0" />
                     </HBox.margin>
                 </CheckBox>
-                <Hyperlink onAction="#deleteselectedStudents" text="Delete" textFill="#2b579a">
+                <Hyperlink onAction="#deleteSelectedUsers" text="Delete" textFill="#2b579a">
                     <graphic>
                         <FontAwesomeIcon glyphName="TRASH" size="15" />
                     </graphic>

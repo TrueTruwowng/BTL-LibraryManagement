@@ -1,28 +1,32 @@
 package com.library;
 
+import javafx.scene.control.CheckBox;
+
 public class Book {
-    private String ISBN;
+    private CheckBox checkBox;
+    private String isbn;
     private String title;
     private String author;
     private int year;
     private String description;
     private int available;
-    private byte[] image;
+    private byte[] bookImage;
 
-    public Book(String ISBN, String title, String author, String year) {
-        this.ISBN = ISBN;
+    public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
+        this.checkBox = new CheckBox();
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.year = year;
         this.description = description;
         this.available = available;
-        this.image = image;
+        this.bookImage = bookImage;
     }
 
     // Getters and setters
-    public String getIsbn() {
-        return isbn;
-    }
+    public CheckBox getCheckBox() { return checkBox; }
+
+    public String getIsbn() {return isbn;}
 
     public String getTitle() {
         return title;
@@ -43,6 +47,8 @@ public class Book {
     public int getAvailable() {
         return available;
     }
+
+    public byte[] getBookImage() { return bookImage; }
 
     // Thêm setter cho available
     public void setAvailable(int available) {

@@ -179,7 +179,7 @@ public class LoginController {
             Stage stage = (Stage) LoginButton.getScene().getWindow();
             stage.setScene(new Scene(libraryView));
             stage.setTitle("Library View");
-            stage.show(); 
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -198,83 +198,5 @@ public class LoginController {
             stage.setTitle("Register");
             stage.show();
     }
-
-    /**
-     * Connect to the database,
-     * If there is only 1 username and password match in the database then login successful.
-     */
-    public void ValidateLogin() {
-        Connection con = DatabaseConnection.getConnection();
-        if (con == null) {
-            System.out.println("Không thể kết nối tới cơ sở dữ liệu.");
-            showError();
-            return;
-        }
-
-        String verifyLogin = "SELECT count(1) FROM user_account WHERE username = ? AND password = ?";
-
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
-            preparedStatement.setString(1, UsernameField.getText());
-            preparedStatement.setString(2, PasswordField.getText());
-
-            ResultSet queryResult = preparedStatement.executeQuery();
-
-            if (queryResult.next() && queryResult.getInt(1) == 1) {
-                String addUser = "SELECT account_id, username, firstname, lastname, password, userPicture, email, phone FROM user_account WHERE username = ? AND password = ?";
-                PreparedStatement preparedStatement2 = con.prepareStatement(addUser);
-                preparedStatement2.setString(1, UsernameField.getText());
-                preparedStatement2.setString(2, PasswordField.getText());
-                ResultSet queryResult2 = preparedStatement2.executeQuery();
-
-                String userID = queryResult2.getString("account_id");
-                String username = queryResult2.getString("username");
-                String firstname = queryResult2.getString("firstname");
-                String lastname = queryResult2.getString("lastname");
-                String password = queryResult2.getString("password");
-                byte[] userPicture = queryResult2.getBytes("userPicture");
-
-                // Kiểm tra email và phone nếu là null
-                String email = queryResult2.getString("email");
-                String phone = queryResult2.getString("phone");
-
-                // Tạo đối tượng User, nếu email hoặc phone null thì giữ nguyên giá trị null
-                User currentUser = new User(userID, username, firstname, lastname, userPicture,
-                        email != null ? email : null,
-                        phone != null ? phone : null,
-                        password);
-
-                // Lưu trữ user vào UserUtils
-                UserController.setCurrentUser(currentUser);
-                System.out.println(currentUser);
-                showSuccessful();
-            } else {
-                showError();  // Đăng nhập thất bại
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showError(); // Hiển thị thông báo lỗi trong trường hợp xảy ra lỗi SQL
-        }
-
-    }
-
-
-    public void onHyperLinkClick() throws IOException {
-        // Lấy Stage hiện tại từ RegisterLink
-        Stage stage = (Stage) RegisterLink.getScene().getWindow();
-
-        // Load giao diện đăng ký mới
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
-        Parent registerView = loader.load();
-
-        // Thay đổi scene trong cùng một cửa sổ
-        stage.setScene(new Scene(registerView));
-        stage.setTitle("Register");
-        stage.show();  // Có thể không cần thiết nếu Stage không bị ẩn
-    }
-
-
-
 
 }

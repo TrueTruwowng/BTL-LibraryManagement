@@ -1,6 +1,9 @@
 package com.library;
 
+import javafx.scene.control.CheckBox;
+
 public class User implements Person {
+    private CheckBox checkBox;
     private  String userID;
     private String username;
     private String password;
@@ -10,16 +13,19 @@ public class User implements Person {
     private String email;
     private String phone;
 
-    User(String userID, String username, String firstname, String lastname, byte[] userPicture, String email, String phone, String password) {
+    User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
+        this.checkBox = new CheckBox();
         this.userID = userID;
-        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.username = username;
         this.password = password;
         this.userPicture = userPicture;
         this.email = email;
         this.phone = phone;
     }
+
+    public CheckBox getCheckBox() { return checkBox; }
 
     public String getUserID() {
         return userID;
