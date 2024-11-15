@@ -10,6 +10,10 @@ module com.library {
     requires mysql.connector.j;
     requires fontawesomefx;
     requires javafx.media;
+    requires org.json;
+    requires java.net.http;
+    requires java.smartcardio;
+    requires com.jfoenix;
 
     opens com.library to javafx.fxml;
     exports com.library;

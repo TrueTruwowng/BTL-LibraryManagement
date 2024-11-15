@@ -7,6 +7,7 @@
 
 }
 
+
 .round_layout {
     -fx-border-radius: 50;
     -fx-border-color: #D7D7D7D7;
@@ -41,15 +42,23 @@
 }
 
 .selected {
-    -fx-background-color: #F3F3F3
+    -fx-background-color: #eefeee
 }
 
 .mouse-moved:hover {
-    -fx-background-color: #E4E4E4;
+    -fx-background-color: #eefeee;
 }
 
 .round_layout_achi {
     -fx-border-radius: 15;
     -fx-border-color: #D7D7D7D7;
+}
+.text-area {
+    -fx-background-color:  #fcf3cf; /* Làm nền trong suốt */
+    -fx-border-color:  #fcf3cf;    /* Xóa viền */
+    -fx-focus-color:  #fcf3cf;     /* Xóa màu khi focus */
+    -fx-faint-focus-color:  #fcf3cf; /* Xóa màu mờ khi focus */
+    -fx-text-fill: black;             /* Màu chữ, có thể thay đổi theo ý thích */
+    -fx-padding: 0;                   /* Loại bỏ padding nếu cần */
 }
 

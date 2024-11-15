@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static com.library.DatabaseConnection.connectUserAccount;
 
@@ -23,7 +24,7 @@ public class LibraryApplication extends Application {
         connectUserAccount();
         Connection con = DatabaseConnection.getConnection();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("login-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("bookInfo-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 600);
             stage.setTitle("Library Application");
             stage.setScene(scene);
@@ -35,6 +36,11 @@ public class LibraryApplication extends Application {
 
     }
 
+    @Override
+    public void stop() throws SQLException {
+        // Đóng kết nối khi ứng dụng kết thúc
+        DatabaseConnection.closeConnection();
+    }
     public static void main(String[] args) {
         launch(args);
     }

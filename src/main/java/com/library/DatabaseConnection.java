@@ -1,20 +1,15 @@
 package com.library;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 
 public class DatabaseConnection {
     private static Connection con;
 
     public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:F:/BTL/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
+            String url = "jdbc:sqlite:D:/OOP/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
@@ -27,7 +22,6 @@ public class DatabaseConnection {
     public static Connection getConnection() {
         return con;
     }
-
     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
         // Kiểm tra kết nối và mở lại nếu cần
         if (con == null || con.isClosed()) {
@@ -36,9 +30,7 @@ public class DatabaseConnection {
 
         String updateQuery = "UPDATE user_account SET userPicture = ? WHERE account_id = ?";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-
+        try (PreparedStatement preparedStatement = con.prepareStatement(updateQuery)) {
             preparedStatement.setBytes(1, newImageBytes); // Đặt ảnh mới vào cột userPicture
             preparedStatement.setString(2, userID); // Đặt userID để tìm đúng người dùng
 
@@ -53,9 +45,14 @@ public class DatabaseConnection {
         }
     }
 
-    public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) {
+    public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
+        // Kiểm tra kết nối và mở lại nếu cần
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
         String updateSQL = "UPDATE user_account SET firstname = ?, lastname = ?, email = ?, phone = ?, password = ? WHERE account_id = ?";
-        try (PreparedStatement statement = getConnection().prepareStatement(updateSQL)) {
+        try (PreparedStatement statement = con.prepareStatement(updateSQL)) {
             statement.setString(1, newFirstname);
             statement.setString(2, newLastname);
             statement.setString(3, newEmail);
@@ -79,11 +76,33 @@ public class DatabaseConnection {
             con.close();
         }
     }
-
-
     public static List<Book> getBooks() throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
+        }
+        String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
+        List<Book> books = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql); // Kết nối đến cơ sở dữ liệu
+             ResultSet resultSet = preparedStatement.executeQuery()) { // Thực thi truy vấn
+
+            while (resultSet.next()) {
+                Book book = new Book(); // Tạo đối tượng Book mới
+                book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
+                book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
+                book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage từ ResultSet
+                books.add(book); // Thêm đối tượng Book vào danh sách
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        } finally {
+            closeConnection();
+        }
+        return books; // Trả về danh sách sách
+    }
+    public static Book getBookByISBN(String isbn) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount(); // Đảm bảo kết nối với cơ sở dữ liệu
         }
         String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
         List<Book> books = new ArrayList<>();
@@ -112,6 +131,29 @@ public class DatabaseConnection {
     }
 
 
+        String sql = "SELECT title, author, year, bookImage, available, isbn, description FROM book_info WHERE isbn = ?";
+        Book book = null;
 
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, isbn); // Đặt giá trị ISBN vào câu lệnh truy vấn
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    book = new Book();
+                    book.setTitle(resultSet.getString("title")); // Lấy title
+                    book.setAuthor(resultSet.getString("author")); // Lấy author
+                    book.setYear(resultSet.getInt("year")); // Lấy year
+                    book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage
+                    book.setAvailable(resultSet.getInt("available")); // Lấy available
+                    book.setISBN(resultSet.getString("isbn")); // Lấy isbn
+                    book.setDescription(resultSet.getString("description")); // Lấy description
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi nếu có
+        } finally {
+            closeConnection(); // Đóng kết nối sau khi hoàn thành
+        }
+
+        return book; // Trả về đối tượng Book (null nếu không tìm thấy)
+    }
 }
-
