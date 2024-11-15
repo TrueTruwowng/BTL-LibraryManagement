@@ -7,6 +7,7 @@
 
 }
 
+
 .round_layout {
     -fx-border-radius: 50;
     -fx-border-color: #D7D7D7D7;
@@ -41,11 +42,11 @@
 }
 
 .selected {
-    -fx-background-color: #F3F3F3
+    -fx-background-color: #eefeee
 }
 
 .mouse-moved:hover {
-    -fx-background-color: #E4E4E4;
+    -fx-background-color: #eefeee;
 }
 
 .round_layout_achi {
@@ -53,32 +54,3 @@
     -fx-border-color: #D7D7D7D7;
 }
 
-.text-field {
-    -fx-background-color: #f9f9f9; /* Màu nền nhẹ */
-    -fx-border-color: #cccccc; /* Màu viền */
-    -fx-border-radius: 10; /* Bo góc hơn */
-    -fx-padding: 10; /* Khoảng cách bên trong */
-    -fx-font-size: 16px; /* Kích thước font chữ */
-    -fx-text-fill: #333; /* Màu chữ */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1); /* Hiệu ứng bóng */
-}
-
-.text-field:focused {
-    -fx-border-color: #007bff; /* Màu viền khi được chọn */
-    -fx-background-color: #ffffff; /* Màu nền khi được chọn */
-    -fx-effect: innershadow(gaussian, rgba(0, 123, 255, 0.5), 5, 0, 0, 0); /* Hiệu ứng bóng */
-}
-
-.text-field:disabled {
-    -fx-background-color: #e0e0e0; /* Màu nền khi không hoạt động */
-    -fx-border-color: #b0b0b0; /* Màu viền khi không hoạt động */
-    -fx-text-fill: #7a7a7a; /* Màu chữ khi không hoạt động */
-}
-
-.text-field:hover {
-    -fx-border-color: #0056b3; /* Màu viền khi hover */
-}
-
-.text-field:focused:hover {
-    -fx-border-color: #0056b3; /* Màu viền khi hover và được chọn */
-}
