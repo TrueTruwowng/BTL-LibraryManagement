@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,7 +26,7 @@
                <children>
                   <Label alignment="CENTER" prefHeight="40.0" prefWidth="164.0" text="TUYLIBRARY">
                      <font>
-                        <Font name="Algerian" size="16.0" />
+                        <Font name="Algerian" size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -38,15 +37,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Separator>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
-                     <children>
-                        <TextField prefHeight="26.0" prefWidth="491.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../ScreenUI/Picture/look.png" />
-                           </image>
-                        </ImageView>
-                     </children>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" stylesheets="@../../ScreenUI/css/AllView.css">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -74,7 +65,8 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
+                  <Separator maxWidth="-Infinity" prefWidth="120.0" />
+                  <Button alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -91,7 +83,7 @@
                      </font>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" text="MY COLLECTION">
+                  <Button alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" style="-fx-background-radius: 10;" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
@@ -105,33 +97,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="158.0" text="GAME">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="163.0" text="HISTORY">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="HISTORY" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
@@ -144,7 +110,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="184.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
@@ -157,7 +123,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Pane prefHeight="118.0" prefWidth="128.0" />
+                  <Pane prefHeight="77.0" prefWidth="154.0" />
                   <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
@@ -173,94 +139,11 @@
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="671.0" prefWidth="730.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="54.0" prefWidth="142.0" text="My Book List">
-                     <font>
-                        <Font name="Berlin Sans FB" size="21.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane prefHeight="220.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
-                     <content>
-                        <HBox alignment="CENTER_LEFT" prefHeight="190.0" prefWidth="1062.0">
-                           <children>
-                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="95.0" styleClass="round_layout_achi" stylesheets="@../../ScreenUI/css/AllView.css">
-                                 <children>
-                                    <ImageView fitHeight="101.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="rating-image">
-                                       <image>
-                                          <Image url="@../../ScreenUI/Picture/dacnhanhtam.jpg" />
-                                       </image>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </ImageView>
-                                    <VBox prefHeight="68.0" prefWidth="120.0">
-                                       <children>
-                                          <Label prefHeight="18.0" prefWidth="75.0" text="Đắc Nhân Tâm">
-                                             <VBox.margin>
-                                                <Insets left="5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label prefHeight="18.0" prefWidth="75.0" text="Tác Giả">
-                                             <VBox.margin>
-                                                <Insets left="5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <ImageView fitHeight="19.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../ScreenUI/Picture/5StarRating.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="95.0" styleClass="round_layout_achi" stylesheets="@../../ScreenUI/css/AllView.css">
-                                 <children>
-                                    <ImageView fitHeight="101.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="rating-image">
-                                       <image>
-                                          <Image url="@../../ScreenUI/Picture/dacnhanhtam.jpg" />
-                                       </image>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </ImageView>
-                                    <VBox prefHeight="68.0" prefWidth="120.0">
-                                       <children>
-                                          <Label prefHeight="18.0" prefWidth="75.0" text="Đắc Nhân Tâm">
-                                             <VBox.margin>
-                                                <Insets left="5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label prefHeight="18.0" prefWidth="75.0" text="Tác Giả">
-                                             <VBox.margin>
-                                                <Insets left="5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <ImageView fitHeight="19.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../ScreenUI/Picture/5StarRating.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
-                  <Label alignment="CENTER" prefHeight="54.0" prefWidth="142.0" text="Achievement">
-                     <font>
-                        <Font name="Berlin Sans FB" size="21.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="130.0" prefWidth="746.0" styleClass="round_layout_achi" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="730.0" styleClass="round_layout_achi" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="130.0" prefWidth="373.0">
+                        <VBox alignment="CENTER" prefHeight="130.0" prefWidth="373.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
                            <children>
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="120.0" text="BOOK READ">
                                  <font>
@@ -273,11 +156,14 @@
                                  </font>
                               </Label>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </VBox>
                         <Separator maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="110.0" />
                         <VBox alignment="CENTER" prefHeight="129.0" prefWidth="365.0">
                            <children>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="BOOK SAVED">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="BOOK BORROWED">
                                  <font>
                                     <Font name="Berlin Sans FB" size="14.0" />
                                  </font>
@@ -290,16 +176,39 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <opaqueInsets>
+                        <Insets left="10.0" right="10.0" />
+                     </opaqueInsets>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="133.0" prefWidth="746.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../ScreenUI/Picture/gryuen.gif" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                  <Label prefHeight="55.0" prefWidth="745.0" text="Borrowing">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane prefHeight="196.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
+                     <content>
+                        <HBox prefHeight="177.0" prefWidth="930.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
+                     </content>
+                  </ScrollPane>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="730.0" text="History">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane prefHeight="162.0" prefWidth="746.0" styleClass="Scrollpane" stylesheets="@../../ScreenUI/css/AllView.css">
+                     <content>
+                        <VBox prefHeight="273.0" prefWidth="730.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
          </center>
