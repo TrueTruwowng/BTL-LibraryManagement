@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import com.library.Book;
 
+import java.util.Arrays;
+
 public class BookController {
 
     @FXML
@@ -18,8 +20,8 @@ public class BookController {
     private Label bookTitle;
 
     public void setData(Book book) {
-        if (book.getImageSrc() != null) {
-            bookImage.setImage(new Image(book.getImageSrc()));
+        if (book.getBookImage() != null) {
+            bookImage.setImage(new Image(Arrays.toString(book.getBookImage())));
         } else {
 
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
