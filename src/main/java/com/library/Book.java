@@ -1,10 +1,12 @@
 package com.library;
 
+import javafx.scene.control.CheckBox;
+
 public class Book {
     private String ISBN;
     private String title;
     private String author;
-    private String ImageSrc;
+    private byte[] bookImage;
     private int year;
     private String description;
     private int available;
@@ -15,6 +17,16 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public Book(CheckBox checkBox, String ISBN, String title, String author, byte[] bookImage, int year, String description, int available) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.author = author;
+        this.bookImage = bookImage;
+        this.year = year;
+        this.description = description;
+        this.available = available;
     }
 
     public Book() {
@@ -45,12 +57,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getImageSrc() {
-        return ImageSrc;
+    public byte[] getBookImage() {
+        return bookImage;
     }
 
-    public void setImageSrc(String imageSrc) {
-        ImageSrc = imageSrc;
+    public void setImageSrc(byte[] bookImage) {
+        this.bookImage = bookImage; // Gán mảng byte cho bookImage
     }
 
     public int getYear() {
