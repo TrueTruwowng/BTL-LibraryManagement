@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +30,12 @@ public class Controller implements Initializable {
         // Kết nối đến cơ sở dữ liệu
         DatabaseConnection.connectUserAccount(); // Nếu cần thiết
 
-        List<Book> allBooks = DatabaseConnection.getBooks();
+        List<Book> allBooks = null;
+        try {
+            allBooks = DatabaseConnection.getBooks();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         // Lấy tất cả sách từ cơ sở dữ liệu
         recentlyAdded = new ArrayList<>(allBooks); // Giả sử bạn muốn hiển thị tất cả sách ở đây
         recommended = new ArrayList<>(allBooks); // Tương tự cho sách được đề xuất
