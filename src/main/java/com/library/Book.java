@@ -3,7 +3,6 @@ package com.library;
 import javafx.scene.control.CheckBox;
 
 public class Book {
-    private CheckBox checkBox;
     private String isbn;
     private String title;
     private String author;
@@ -13,7 +12,6 @@ public class Book {
     private byte[] bookImage;
 
     public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
-        this.checkBox = new CheckBox();
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -24,8 +22,6 @@ public class Book {
     }
 
     // Getters and setters
-    public CheckBox getCheckBox() { return checkBox; }
-
     public String getIsbn() {return isbn;}
 
     public String getTitle() {

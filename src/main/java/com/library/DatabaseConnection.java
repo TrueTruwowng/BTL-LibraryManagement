@@ -21,6 +21,13 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection() {
+        try {
+            if (con == null || con.isClosed()) {
+                connectUserAccount();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return con;
     }
     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {

@@ -43,8 +43,6 @@ public class LibraryAdminController implements Initializable {
     @FXML
     private TableView<Book> tableBookView;
     @FXML
-    private TableColumn<Book, CheckBox> checkBoxBookColumn;
-    @FXML
     private TableColumn<Book, String> bookIsbnColumn;
     @FXML
     private TableColumn<Book, String> bookTitleColumn;
@@ -69,19 +67,15 @@ public class LibraryAdminController implements Initializable {
 
     @FXML
     private ProgressBar progressBar;
-    @FXML
-    private CheckBox checkAllBook;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumn();
-        initCheckAllBook();
         loadBook();
-        Connection con = DatabaseConnection.getConnection();
+        DatabaseConnection.connectUserAccount();
     }
 
     public void initColumn() {
-        checkBoxBookColumn.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         bookIsbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         bookTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         bookAuthorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -103,14 +97,6 @@ public class LibraryAdminController implements Initializable {
             }
         });
         tableBookView.setItems(suggestedBookObservableList);
-    }
-
-    private void initCheckAllBook() {
-        checkAllBook.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            for (Book book : bookObservableList) {
-                book.getCheckBox().setSelected(newValue);
-            }
-        });
     }
 
     private void loadBook() {
@@ -213,8 +199,16 @@ public class LibraryAdminController implements Initializable {
         List<Book> books = new ArrayList<>();
         String query = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
 
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            searchTerm = "%";
+        }
+
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
+
+            if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
+                DatabaseConnection.connectUserAccount();
+            }
 
             preparedStatement.setString(1, "%" + searchTerm + "%");
             preparedStatement.setString(2, "%" + searchTerm + "%");
@@ -342,7 +336,6 @@ public class LibraryAdminController implements Initializable {
         }
         if (isBookExists(book)) {
             updateBookAvailable(book);
-            return;
         } else {
             String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -357,14 +350,12 @@ public class LibraryAdminController implements Initializable {
                 preparedStatement.setString(6, book.getDescription());
                 preparedStatement.setBytes(7, book.getBookImage());
 
-                preparedStatement.executeUpdate();
-//                if (rowsInserted > 0) {
-//                    Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getYear(),
-//                                            book.getAvailable(), book.getDescription(), book.getBookImage());
-//                    bookObservableList.add(newBook);
-//                    tableBookView.setItems(bookObservableList);
-//                    System.out.println("Thêm thành công");
-//                }
+                preparedStatement.executeUpdate(); // Chỉ gọi một lần
+
+                Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getYear(),
+                        book.getAvailable(), book.getDescription(), book.getBookImage());
+                bookObservableList.add(newBook);
+                tableBookView.setItems(bookObservableList);
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Lỗi", "Thêm thất bại", Alert.AlertType.ERROR);
@@ -372,20 +363,17 @@ public class LibraryAdminController implements Initializable {
         }
     }
 
-
     public void searchBook(KeyEvent keyEvent) {
         String searchTerm = ((TextField) keyEvent.getSource()).getText().toLowerCase();
         ObservableList<Book> combinedResults = FXCollections.observableArrayList();
 
-        // Kiểm tra nếu ô tìm kiếm trống, lấy tất cả sách từ database
         if (searchTerm.isEmpty()) {
-            combinedResults.addAll(bookObservableList); // Lấy tất cả sách từ database
+            loadBook();
+            combinedResults.addAll(bookObservableList);
         } else {
-            // Tìm sách từ database theo searchTerm
             List<Book> dbResults = findBooksInDatabase(searchTerm);
             combinedResults.addAll(dbResults);
 
-            // Nếu không có kết quả từ database, tìm từ API
             if (combinedResults.isEmpty()) {
                 List<Book> apiResults = findBooksFromAPI(searchTerm);
                 combinedResults.addAll(apiResults);
@@ -401,20 +389,28 @@ public class LibraryAdminController implements Initializable {
     }
 
     @FXML
-    public void saveSelectedBooks(ActionEvent actionEvent) throws SQLException {
-        List<Book> selectedBooks = new ArrayList<>();
-        for (Book book : tableBookView.getItems()) {
-            if (book.getCheckBox().isSelected()) { // Kiểm tra nếu sách đã được chọn
-                selectedBooks.add(book);
+    public void saveSelectedBook(ActionEvent actionEvent) {
+        Book selectedBook = tableBookView.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            showAlert("Error", "No book selected for deletion.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        try (Connection con = DatabaseConnection.getConnection()) {
+            String query = "DELETE FROM book_info WHERE isbn = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, selectedBook.getIsbn());
+            int rowsDeleted = preparedStatement.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                bookObservableList.remove(selectedBook);
+                tableBookView.getItems().remove(selectedBook); // Loại bỏ khỏi TableView
+                showAlert("Success", "Book deleted successfully.", Alert.AlertType.INFORMATION);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error saving book.", Alert.AlertType.ERROR);
         }
-
-        // Thêm sách đã chọn vào database
-        for (Book book : selectedBooks) {
-            addBookToDatabase(book);
-        }
-
-        loadBook();
     }
 
 }

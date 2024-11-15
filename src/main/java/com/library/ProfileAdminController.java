@@ -189,32 +189,46 @@ public class ProfileAdminController implements Initializable {
             String phone = userPhoneTextField.getText();
             String password = newPasswordTextField.getText();
 
-            // Tạo câu lệnh SQL để cập nhật dữ liệu trong cơ sở dữ liệu
-            String sqlite = "UPDATE user_account SET username = ?, email = ?, phone = ?, password = ? WHERE account_id = ? OR username = ?";
+            // Kiểm tra username
+            String checkUsernameQuery = "SELECT account_id FROM user_account WHERE username = ? AND account_id != ?";
+            try (Connection connection = DatabaseConnection.getConnection();
+                 PreparedStatement checkStatement = connection.prepareStatement(checkUsernameQuery)) {
+
+                checkStatement.setString(1, username);
+                checkStatement.setString(2, selectedUser.getUserID());
+
+                ResultSet rs = checkStatement.executeQuery();
+                if (rs.next()) {
+                    // Nếu trùng username
+                    showAlert("Error", "Username already exists. Please choose another one.", Alert.AlertType.ERROR);
+                    return;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Error", "Database error: " + e.getMessage(), Alert.AlertType.ERROR);
+                return;
+            }
+
+            String sqlite = "UPDATE user_account SET  username = ?, email = ?, phone = ?, password = ? WHERE account_id = ? OR username = ?";
 
             try (Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
 
-                // Thiết lập các tham số cho câu lệnh SQL
-                preparedStatement.setString(1, selectedUser.getUserID());
-                preparedStatement.setString(2, "");      // firstname
-                preparedStatement.setString(3, "");         // lsatname
-                preparedStatement.setString(4, username);      // username
-                preparedStatement.setString(5, password);      // password
-                preparedStatement.setString(6, null);       // userpictrue
-                preparedStatement.setString(7, email);         // email
-                preparedStatement.setString(8, phone);         // phone
+                preparedStatement.setString(5, selectedUser.getUserID());
+                preparedStatement.setString(1, username);      // username
+                preparedStatement.setString(4, password);      // password
+                preparedStatement.setString(2, email);         // email
+                preparedStatement.setString(3, phone);         // phone
 
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
-                    // Cập nhật đối tượng User trong bảng
                     selectedUser.setUsername(username);
                     selectedUser.setEmail(email);
                     selectedUser.setPhone(phone);
                     selectedUser.setPassword(password);
 
-                    // Cập nhật bảng hiển thị
                     user_tableView.refresh();
+                    loadUsers();
                     clearFields();
                     showAlert("Success", "User updated successfully!", Alert.AlertType.INFORMATION);
                 } else {
