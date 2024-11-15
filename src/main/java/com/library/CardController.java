@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import com.library.Book;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class CardController {
@@ -28,8 +29,8 @@ public class CardController {
         bookTitle.setText(book.getTitle());
         authorName.setText(book.getAuthor());
 
-        if (book.getImageSrc() != null) {
-            bookImage.setImage(new Image(book.getImageSrc()));
+        if (book.getBookImage() != null) {
+            bookImage.setImage(new Image(Arrays.toString(book.getBookImage())));
         } else {
 
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
