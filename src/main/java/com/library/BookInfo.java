@@ -29,7 +29,7 @@ public class BookInfo {
     public void initialize() throws SQLException {
         DatabaseConnection.connectUserAccount();
         User user = UserController.currentUser;
-        Book book = DatabaseConnection.getBookByISBN("ISBN1");
+        Book book = DatabaseConnection.getBookByISBN("9780521662208");
         bookTitle.setText(book.getTitle());
         bookAuthor.setText(book.getAuthor());
         bookYear.setText(Integer.toString(book.getYear()));

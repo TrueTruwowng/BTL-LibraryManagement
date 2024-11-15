@@ -13,6 +13,7 @@ module com.library {
     requires org.json;
     requires java.net.http;
     requires java.smartcardio;
+    requires com.jfoenix;
 
     opens com.library to javafx.fxml;
     exports com.library;
