@@ -49,14 +49,13 @@ public class EditController {
             }
 
             UserController.updateUserInfo(firstname, lastname, email, phone, password);
-            System.out.println("Button clicked"); // Để kiểm tra sự kiện onAction hoạt động
 
             Platform.runLater(() -> {
                 showAlert(Alert.AlertType.INFORMATION, "Update Successful", "User info updated successfully.");
 
                 // Cập nhật thông tin trong SettingController
                 if (settingController != null) {
-                    settingController.refreshUserInfo();  // Gọi phương thức cập nhật lại thông tin trong SettingController
+                    settingController.refreshUserInfo();
                 }
 
                 Stage stage = (Stage) saveButton.getScene().getWindow();

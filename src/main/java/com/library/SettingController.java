@@ -122,7 +122,11 @@ public class SettingController {
             Button imageButton = new Button();
             imageButton.setGraphic(imageView);
             imageButton.setOnAction(event -> {
-                updateUserPictureInDatabase(path);
+                try {
+                    updateUserPictureInDatabase(path);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 ((Stage) gridPane.getScene().getWindow()).close();  // Đóng cửa sổ chọn ảnh
             });
 
@@ -147,7 +151,7 @@ public class SettingController {
         stage.show();
     }
 
-    private void updateUserPictureInDatabase(Path imagePath) {
+    private void updateUserPictureInDatabase(Path imagePath) throws SQLException {
         User currentUser = UserController.getCurrentUser();
         if (currentUser == null) return;
 
@@ -157,18 +161,15 @@ public class SettingController {
             DatabaseConnection.updateUserPicture(currentUser.getUserID(), newImageBytes);
 
             Platform.runLater(() -> {
-                Image newImage = new Image(new ByteArrayInputStream(newImageBytes));
-                userImageView.setImage(newImage);
-                smallUserImageView.setImage(newImage); // Cập nhật cả ảnh nhỏ
+                refreshUserInfo(); // Gọi để cập nhật lại cả hai ImageView
                 showAlert(Alert.AlertType.INFORMATION, "Update Successful", "User picture updated successfully.");
             });
-        } catch (IOException e) {
-            Platform.runLater(() -> {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to update user picture.");
-            });
+        } catch (IOException | SQLException e) {
+            Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Error", "Failed to update user picture."));
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }
+        finally {
+            DatabaseConnection.closeConnection();
         }
     }
 

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.GameController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.HistoryController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -73,7 +73,7 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -90,7 +90,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" text="MY COLLECTION">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="46.0" prefWidth="159.0" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
@@ -103,7 +103,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="158.0" text="GAME">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="46.0" prefWidth="158.0" text="GAME">
                      <graphic>
                         <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
                      </graphic>
@@ -112,12 +112,11 @@
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
                         <String fx:value="selected" />
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="163.0" text="HISTORY">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onHistoryBtnClick" prefHeight="46.0" prefWidth="163.0" text="HISTORY">
                      <graphic>
                         <FontAwesomeIcon glyphName="HISTORY" size="20" />
                      </graphic>
@@ -130,7 +129,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="46.0" prefWidth="166.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
@@ -143,7 +142,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="46.0" prefWidth="184.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="46.0" prefWidth="184.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>

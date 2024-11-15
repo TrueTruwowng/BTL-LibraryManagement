@@ -4,7 +4,6 @@ import static com.library.SceneLoader.stage;
 
 public class HistoryController {
 
-
     public void onDashboardBtnClick() {
         SceneLoader.handleDashboardButton(stage);
     }
@@ -21,7 +20,6 @@ public class HistoryController {
     public void onMyCollectionBtnClick() {
         SceneLoader.handleMyCollectionButton(stage);
     }
-
     public void onLogOutBtnClk() {
         SceneLoader.handleLogoutButton(stage);
     }

@@ -7,6 +7,7 @@
 
 }
 
+
 .round_layout {
     -fx-border-radius: 50;
     -fx-border-color: #D7D7D7D7;
@@ -41,11 +42,11 @@
 }
 
 .selected {
-    -fx-background-color: #F3F3F3
+    -fx-background-color: #eefeee
 }
 
 .mouse-moved:hover {
-    -fx-background-color: #E4E4E4;
+    -fx-background-color: #eefeee;
 }
 
 .round_layout_achi {
