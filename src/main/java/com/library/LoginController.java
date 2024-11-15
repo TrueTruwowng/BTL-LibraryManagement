@@ -43,6 +43,7 @@ public class LoginController {
 
 
     public void initialize() {
+        connectUserAccount();
         StatusIconCheckMark.setVisible(false);
         StatusIconXmark.setVisible(false);
         LoginMessageLabelXmark.setVisible(false);

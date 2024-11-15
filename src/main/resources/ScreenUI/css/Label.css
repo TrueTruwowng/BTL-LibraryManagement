@@ -41,3 +41,43 @@
     -fx-font-weight: bold;                                       /* Chữ đậm */
     -fx-font-family: "Britannic Bold";                           /* Phông chữ */
 }
+
+.rounded-label-borrowbutton {
+    -fx-background-radius: 10px;
+    -fx-background-color: linear-gradient(to right, #0077b6, #0096c7); /* Màu gradient xanh dương nhạt */
+    -fx-opacity: 0.9;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.rounded-label-borrowbutton:hover {
+    -fx-background-color: linear-gradient(to right, #005f99, #0077b6); /* Màu gradient xanh đậm hơn khi hover */
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 3);
+}
+
+.rounded-label-returnbutton {
+    -fx-background-radius: 10px;
+    -fx-background-color: linear-gradient(to right, #ff6f61, #ff5c5c); /* Màu gradient đỏ cam nhạt */
+    -fx-opacity: 0.9;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.rounded-label-returnbutton:hover {
+    -fx-background-color: linear-gradient(to right, #e63946, #f94144); /* Màu gradient đỏ cam đậm hơn khi hover */
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 3);
+}

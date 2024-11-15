@@ -81,12 +81,6 @@ public class SceneLoader {
     public static void handleMyCollectionButton(Stage stage) {
         SceneLoader.loadMyCollectionView(SceneLoader.stage);
     }
-    public static void handleHistoryButton(Stage stage) {
-        SceneLoader.loadHistoryView(SceneLoader.stage);
-    }
-    public static void handleGameButton(Stage stage) {
-        SceneLoader.loadGameView(SceneLoader.stage);
-    }
     public static void handleDashboardButton(Stage stage) {
         SceneLoader.loadDashboardView(SceneLoader.stage);
     }

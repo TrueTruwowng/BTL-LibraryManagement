@@ -43,18 +43,6 @@ public class SettingController {
     private final String imagesDirectory = "D:/OOP/BTL-LibraryManagement/src/main/resources/ScreenUI/Picture/Avatar";
     private ListView<Path> imageListView;
 
-    @FXML
-    private Button dashboardBtn;
-    @FXML
-    private Button historyBtn;
-    @FXML
-    private Button gameBtn;
-    @FXML
-    private Button settingsBtn;
-    @FXML
-    private Button myCollectionBtn;
-    @FXML
-    private Button logoutBtn;
 
     @FXML
     public void initialize() {
@@ -209,12 +197,6 @@ public class SettingController {
         SceneLoader.handleDashboardButton(stage);
     }
 
-    public void onHistoryBtnClick() {
-        SceneLoader.handleHistoryButton(stage);
-    }
-    public void onGameBtnClick() {
-        SceneLoader.handleGameButton(stage);
-    }
     public void onSettingsBtnClick() {
         SceneLoader.handleSettingbutton(stage);
     }

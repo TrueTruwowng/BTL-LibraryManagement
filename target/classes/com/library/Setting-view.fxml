@@ -65,7 +65,7 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
+                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="100.0" prefWidth="155.0" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -82,7 +82,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="myCollectionBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="46.0" prefWidth="159.0" text="MY COLLECTION">
+                  <Button fx:id="myCollectionBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="100.0" prefWidth="155.0" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
@@ -95,33 +95,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="gameBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="46.0" prefWidth="158.0" text="GAME">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="historyBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onHistoryBtnClick" prefHeight="46.0" prefWidth="163.0" text="HISTORY">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="HISTORY" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #eefeee;" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="100.0" prefWidth="155.0" style="-fx-background-color: #eefeee;" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
@@ -135,7 +109,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="46.0" prefWidth="184.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
@@ -149,7 +123,7 @@
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
                   <Pane prefHeight="118.0" prefWidth="128.0" />
-                  <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
+                  <VBox prefHeight="136.0" prefWidth="164.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
                         <Label text="Use this to report errors or suggestions" />
@@ -301,7 +275,7 @@
                                                 <Image url="@../../ScreenUI/Picture/bongo-cat-smash.gif" />
                                              </image>
                                           </ImageView>
-                                          <Button mnemonicParsing="false" onAction="#handleUpdateUserPicture" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" text="edit " />
+                                          <Button mnemonicParsing="false" onAction="#handleUpdateUserPicture" styleClass="mouse-moved" stylesheets="@../../ScreenUI/css/AllView.css" text="edit " />
                                        </children>
                                     </VBox>
                                  </children>

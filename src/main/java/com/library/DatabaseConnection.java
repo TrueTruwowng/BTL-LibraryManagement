@@ -100,4 +100,34 @@ public class DatabaseConnection {
         }
         return books; // Trả về danh sách sách
     }
+    public static Book getBookByISBN(String isbn) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount(); // Đảm bảo kết nối với cơ sở dữ liệu
+        }
+
+        String sql = "SELECT title, author, year, bookImage, available, isbn, description FROM book_info WHERE isbn = ?";
+        Book book = null;
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, isbn); // Đặt giá trị ISBN vào câu lệnh truy vấn
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    book = new Book();
+                    book.setTitle(resultSet.getString("title")); // Lấy title
+                    book.setAuthor(resultSet.getString("author")); // Lấy author
+                    book.setYear(resultSet.getInt("year")); // Lấy year
+                    book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage
+                    book.setAvailable(resultSet.getInt("available")); // Lấy available
+                    book.setISBN(resultSet.getString("isbn")); // Lấy isbn
+                    book.setDescription(resultSet.getString("description")); // Lấy description
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi nếu có
+        } finally {
+            closeConnection(); // Đóng kết nối sau khi hoàn thành
+        }
+
+        return book; // Trả về đối tượng Book (null nếu không tìm thấy)
+    }
 }

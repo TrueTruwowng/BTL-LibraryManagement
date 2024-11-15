@@ -34,10 +34,6 @@ public class DashBoardController implements Initializable {
     @FXML
     private Button dashboardBtn;
     @FXML
-    private Button historyBtn;
-    @FXML
-    private Button gameBtn;
-    @FXML
     private Button settingsBtn;
     @FXML
     private Button myCollectionBtn;
@@ -103,13 +99,6 @@ public class DashBoardController implements Initializable {
     }
     public void onDashboardBtnClick() {
         SceneLoader.handleDashboardButton(stage);
-    }
-
-    public void onHistoryBtnClick() {
-        SceneLoader.handleHistoryButton(stage);
-    }
-    public void onGameBtnClick() {
-        SceneLoader.handleGameButton(stage);
     }
     public void onSettingsBtnClick() {
         SceneLoader.handleSettingbutton(stage);
