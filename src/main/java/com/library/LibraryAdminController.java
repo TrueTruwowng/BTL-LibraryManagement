@@ -77,7 +77,7 @@ public class LibraryAdminController implements Initializable {
         initColumn();
         initCheckAllBook();
         loadBook();
-        DatabaseConnection.connectUserAccount();
+        Connection con = DatabaseConnection.getConnection();
     }
 
     public void initColumn() {
@@ -114,13 +114,12 @@ public class LibraryAdminController implements Initializable {
     }
 
     private void loadBook() {
-        // Kết nối tới database
-        //DatabaseConnection.connectUserAccount();
 
         //Lấy dữ liệu từ database
-        String sqlite = "SELECT * FROM book_info";
-        try (Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {;
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+             String sqlite = "SELECT * FROM book_info";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlite);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             bookObservableList.clear(); // Xóa danh sách hiện tại
@@ -338,10 +337,8 @@ public class LibraryAdminController implements Initializable {
     }
 
     public void addBookToDatabase(Book book) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        if (connection == null || connection.isClosed()) {
-            System.out.println("Kết nối cơ sở dữ liệu không hợp lệ. Không thể thêm sách.");
-            return;
+        if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
+            DatabaseConnection.connectUserAccount();
         }
         if (isBookExists(book)) {
             updateBookAvailable(book);
@@ -349,7 +346,8 @@ public class LibraryAdminController implements Initializable {
         } else {
             String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            try (Connection connection = DatabaseConnection.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
                 preparedStatement.setString(1, book.getIsbn());
                 preparedStatement.setString(2, book.getTitle());
@@ -359,14 +357,14 @@ public class LibraryAdminController implements Initializable {
                 preparedStatement.setString(6, book.getDescription());
                 preparedStatement.setBytes(7, book.getBookImage());
 
-                int rowsInserted = preparedStatement.executeUpdate();
-                if (rowsInserted > 0) {
-                    Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getYear(),
-                                            book.getAvailable(), book.getDescription(), book.getBookImage());
-                    bookObservableList.add(newBook);
-                    tableBookView.setItems(bookObservableList);
-                    System.out.println("Thêm thành công");
-                }
+                preparedStatement.executeUpdate();
+//                if (rowsInserted > 0) {
+//                    Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getYear(),
+//                                            book.getAvailable(), book.getDescription(), book.getBookImage());
+//                    bookObservableList.add(newBook);
+//                    tableBookView.setItems(bookObservableList);
+//                    System.out.println("Thêm thành công");
+//                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Lỗi", "Thêm thất bại", Alert.AlertType.ERROR);
