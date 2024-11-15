@@ -18,8 +18,12 @@ public class BookController {
     private Label bookTitle;
 
     public void setData(Book book) {
-        Image image = new Image(getClass().getResourceAsStream(book.getImageSrc()));
-        bookImage.setImage(image);
+        if (book.getImageSrc() != null) {
+            bookImage.setImage(new Image(book.getImageSrc()));
+        } else {
+
+            bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
+        }
         bookTitle.setText(book.getTitle());
         authorName.setText(book.getAuthor());
 
