@@ -81,30 +81,36 @@ public class DatabaseConnection {
     }
 
 
-    public static List<Book> getBooks() {
-
-            String url = "jdbc:sqlite:F:/BTL/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Đường dẫn đến cơ sở dữ liệu
-            String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
-            List<Book> books = new ArrayList<>();
-
-            try (Connection connection = DriverManager.getConnection(url); // Kết nối đến cơ sở dữ liệu
-                 PreparedStatement preparedStatement = connection.prepareStatement(sql); // Chuẩn bị truy vấn
-                 ResultSet resultSet = preparedStatement.executeQuery()) { // Thực thi truy vấn
-
-                while (resultSet.next()) {
-                    Book book = new Book(); // Tạo đối tượng Book mới
-                    book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
-                    book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
-                    book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage từ ResultSet
-                    books.add(book); // Thêm đối tượng Book vào danh sách
-                }
-            } catch (SQLException e) {
-                e.printStackTrace(); // In ra lỗi nếu có
-            }
-
-            return books; // Trả về danh sách sách
-
+    public static List<Book> getBooks() throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
         }
+        String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
+        List<Book> books = new ArrayList<>();
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql); // Kết nối đến cơ sở dữ liệu
+             ResultSet resultSet = preparedStatement.executeQuery()) { // Thực thi truy vấn
+
+            while (resultSet.next()) {
+                Book book = new Book(); // Tạo đối tượng Book mới
+                book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
+                book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
+
+                // Lấy bookImage dưới dạng byte array từ ResultSet
+                byte[] imageBytes = resultSet.getBytes("bookImage");
+                if (imageBytes != null) {
+                    book.setImageSrc(imageBytes); // Gán giá trị bookImage cho đối tượng Book
+                }
+
+                books.add(book); // Thêm đối tượng Book vào danh sách
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        } finally {
+            closeConnection();
+        }
+        return books; // Trả về danh sách sách
+    }
+
 
 
 }
