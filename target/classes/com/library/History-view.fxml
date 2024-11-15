@@ -6,22 +6,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.GameController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -42,7 +39,7 @@
                   </Separator>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="491.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
+                        <TextField prefHeight="26.0" prefWidth="491.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../ScreenUI/Picture/look.png" />
@@ -81,7 +78,7 @@
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <stylesheets>
                         <URL value="@../../ScreenUI/css/AllView.css" />
@@ -90,7 +87,6 @@
                      <styleClass>
                         <String fx:value="white_background" />
                         <String fx:value="mouse-moved" />
-                        <String fx:value="selected" />
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
@@ -99,7 +95,7 @@
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -112,11 +108,12 @@
                         <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
                         <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
@@ -125,7 +122,7 @@
                         <FontAwesomeIcon glyphName="HISTORY" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -138,7 +135,7 @@
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -151,7 +148,7 @@
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -174,59 +171,6 @@
                </children>
             </VBox>
          </left>
-         <center>
-            <AnchorPane BorderPane.alignment="CENTER">
-               <children>
-                  <VBox layoutX="1.0" prefHeight="559.0" prefWidth="746.0">
-                     <children>
-                        <Label prefHeight="50.0" prefWidth="182.0" text="Trending">
-                           <font>
-                              <Font name="Berlin Sans FB" size="21.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ScrollPane prefHeight="159.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
-                           <content>
-                              <HBox fx:id="cardLayout" alignment="CENTER_LEFT" prefHeight="143.0" prefWidth="1060.0" spacing="10.0">
-                                 <padding>
-                                    <Insets left="10.0" right="10.0" />
-                                 </padding>
-                              </HBox>
-                           </content>
-                        </ScrollPane>
-                        <HBox prefHeight="50.0" prefWidth="746.0">
-                           <children>
-                              <Label prefHeight="50.0" prefWidth="182.0" text="Latest Stories">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="21.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="338.0" />
-                           </children>
-                        </HBox>
-                        <BorderPane prefHeight="298.0" prefWidth="746.0">
-                           <left>
-                              <ScrollPane prefHeight="298.0" prefWidth="745.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
-                                 <content>
-                                    <GridPane fx:id="bookContainer" prefHeight="2.0" prefWidth="0.0">
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                    </GridPane>
-                                 </content>
-                              </ScrollPane>
-                           </left>
-                        </BorderPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-         </center>
       </BorderPane>
    </children>
 </AnchorPane>
