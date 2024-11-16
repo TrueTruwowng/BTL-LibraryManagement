@@ -11,7 +11,7 @@ public class DatabaseConnection {
 
     public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:D:/OOP/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
+            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
@@ -22,6 +22,13 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection() {
+        try {
+            if (con == null || con.isClosed()) {
+                connectUserAccount();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return con;
     }
     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
@@ -89,7 +96,7 @@ public class DatabaseConnection {
             while (resultSet.next()) {
                 Book book = new Book();
 
-                book.setISBN(resultSet.getString("isbn"));
+                book.setIsbn(resultSet.getString("isbn"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
                 book.setYear(resultSet.getInt("year"));
@@ -98,7 +105,7 @@ public class DatabaseConnection {
 
                 byte[] imageBytes = resultSet.getBytes("bookImage");
                 if (imageBytes != null) {
-                    book.setImageSrc(imageBytes);
+                    book.setBookImage(imageBytes);
                 }
 
                 books.add(book);
@@ -127,9 +134,9 @@ public class DatabaseConnection {
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
                     book.setYear(resultSet.getInt("year"));
-                    book.setImageSrc(resultSet.getBytes("bookImage"));
+                    book.setBookImage(resultSet.getBytes("bookImage"));
                     book.setAvailable(resultSet.getInt("available"));
-                    book.setISBN(resultSet.getString("isbn"));
+                    book.setIsbn(resultSet.getString("isbn"));
                     book.setDescription(resultSet.getString("description"));
                 }
             }
