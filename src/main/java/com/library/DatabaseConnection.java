@@ -170,4 +170,37 @@ public class DatabaseConnection {
 
         return book; // Trả về đối tượng Book (null nếu không tìm thấy)
     }
+
+public static List<Book> searchBooks(String searchQuery) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String sql = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
+        List<Book> books = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, "%" + searchQuery + "%");
+            preparedStatement.setString(2, "%" + searchQuery + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+
+                // Handle the image
+                byte[] imageBytes = resultSet.getBytes("bookImage");
+                if (imageBytes != null) {
+                    book.setImageSrc(imageBytes);
+                }
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>(); 
+        }
+        return books;
+    }
 }
