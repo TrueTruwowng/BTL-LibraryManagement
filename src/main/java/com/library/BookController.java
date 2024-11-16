@@ -10,9 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
-
 import java.util.Arrays;
 
 public class BookController {
@@ -28,17 +27,14 @@ public class BookController {
     @FXML
     private Label bookTitle;
 
-    public void setData(Book book) {
-        if (book.getBookImage() != null) {
-            bookImage.setImage(new Image(Arrays.toString(book.getBookImage())));
-        } else {
+    private Book book;
 
     public void setData(Book book) {
         this.book = book;
 
         // Nếu có hình ảnh sách, hiển thị, nếu không thì hiển thị hình ảnh mặc định
         if (book.getBookImage() != null) {
-            bookImage.setImage(new Image(Arrays.toString(book.getBookImage())));
+            bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
         }
