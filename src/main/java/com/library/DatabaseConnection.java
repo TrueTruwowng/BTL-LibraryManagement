@@ -161,31 +161,32 @@ public static List<Book> searchBooks(String searchQuery) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
+
         String sql = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
         List<Book> books = new ArrayList<>();
+
         try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
             preparedStatement.setString(1, "%" + searchQuery + "%");
             preparedStatement.setString(2, "%" + searchQuery + "%");
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Book book = new Book(); // Tạo đối tượng Book mới
-                book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
-                book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
+                Book book = new Book();
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
 
-                // Lấy bookImage dưới dạng byte array từ ResultSet
+                // Handle the image
                 byte[] imageBytes = resultSet.getBytes("bookImage");
                 if (imageBytes != null) {
-                    book.setImageSrc(imageBytes); // Gán giá trị bookImage cho đối tượng Book
+                    book.setImageSrc(imageBytes);
                 }
-
-                books.add(book); // Thêm đối tượng Book vào danh sách
+                books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
+            return new ArrayList<>(); 
         }
         return books;
-        }
+    }
 }
