@@ -61,4 +61,9 @@
     -fx-text-fill: black;             /* Màu chữ, có thể thay đổi theo ý thích */
     -fx-padding: 0;                   /* Loại bỏ padding nếu cần */
 }
+/* CSS cho nút bị disable */
+.button:disabled {
+    -fx-background-color: #D3D3D3; /* Màu nền xám nhạt */
+    -fx-text-fill: #A9A9A9; /* Màu chữ xám nhạt */
+}
 

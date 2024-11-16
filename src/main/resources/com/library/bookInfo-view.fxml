@@ -61,7 +61,7 @@
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                  <Button layoutX="35.0" layoutY="395.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="226.0" text="MƯỢN SÁCH">
+                  <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="MƯỢN SÁCH">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -71,16 +71,18 @@
                      </stylesheets>
                      <styleClass>
                         <String fx:value="mouse-moved" />
+                        <String fx:value="button" />
                         <String fx:value="rounded-label-borrowbutton" />
                      </styleClass>
                   </Button>
-                  <Button layoutX="33.0" layoutY="446.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="231.0" text="TRẢ SÁCH">
+                  <Button fx:id="returnButton" layoutX="33.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="44.0" prefWidth="231.0" text="TRẢ SÁCH">
                      <stylesheets>
                         <URL value="@../../ScreenUI/css/AllView.css" />
                         <URL value="@../../ScreenUI/css/Label.css" />
                      </stylesheets>
                      <styleClass>
                         <String fx:value="mouse-moved" />
+                        <String fx:value="button" />
                         <String fx:value="rounded-label-returnbutton" />
                      </styleClass>
                   </Button>
