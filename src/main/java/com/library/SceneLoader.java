@@ -13,7 +13,6 @@ public class SceneLoader {
 
     public static void loadScreen(String fxmlFile, Stage stage, String title) {
         try {
-            // Nếu stage không được truyền vào, sử dụng currentStage
             if (stage == null) {
                 if (SceneLoader.stage == null) {
                     SceneLoader.stage = new Stage(); // Tạo mới Stage nếu chưa có

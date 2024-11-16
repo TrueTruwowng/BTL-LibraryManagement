@@ -83,68 +83,37 @@ public class DatabaseConnection {
             con.close();
         }
     }
-
-
     public static List<Book> getBooks() throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
-        String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
-        List<Book> books = new ArrayList<>();
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql); // Kết nối đến cơ sở dữ liệu
-             ResultSet resultSet = preparedStatement.executeQuery()) { // Thực thi truy vấn
-
-            while (resultSet.next()) {
-                Book book = new Book(); // Tạo đối tượng Book mới
-                book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
-                book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
-
-                // Lấy bookImage dưới dạng byte array từ ResultSet
-                byte[] imageBytes = resultSet.getBytes("bookImage");
-                if (imageBytes != null) {
-                    book.setBookImage(imageBytes); // Gán giá trị bookImage cho đối tượng Book
-                }
-
-                books.add(book); // Thêm đối tượng Book vào danh sách
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
-        } finally {
-            closeConnection();
-        }
-        return books; // Trả về danh sách sách
-    }
-
-
-    public static List<Book> searchBooks(String searchQuery) throws SQLException {
-        if (con == null || con.isClosed()) {
-            connectUserAccount();
-        }
-
-        String sql = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
+        String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info";
         List<Book> books = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-            preparedStatement.setString(1, "%" + searchQuery + "%");
-            preparedStatement.setString(2, "%" + searchQuery + "%");
-
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Book book = new Book();
+
+                book.setIsbn(resultSet.getString("isbn"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
+                book.setYear(resultSet.getInt("year"));
+                book.setDescription(resultSet.getString("description"));
+                book.setAvailable(resultSet.getInt("available"));
 
-                // Handle the image
                 byte[] imageBytes = resultSet.getBytes("bookImage");
                 if (imageBytes != null) {
                     book.setBookImage(imageBytes);
                 }
+
                 books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return new ArrayList<>();
+        } finally {
+            closeConnection();
         }
         return books;
     }

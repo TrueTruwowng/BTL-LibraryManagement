@@ -46,22 +46,22 @@
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="350.0" layoutY="247.0" text="Author:">
+                        <Label layoutX="350.0" layoutY="274.0" text="Author:">
                             <font>
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="350.0" layoutY="287.0" text="Published Date:">
+                        <Label layoutX="348.0" layoutY="240.0" text="Published Date:">
                             <font>
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="350.0" layoutY="324.0" text="Description:">
+                        <Label layoutX="349.0" layoutY="348.0" text="Description:">
                             <font>
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                  <Button layoutX="35.0" layoutY="395.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="226.0" text="MƯỢN SÁCH">
+                  <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="MƯỢN SÁCH">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -71,20 +71,22 @@
                      </stylesheets>
                      <styleClass>
                         <String fx:value="mouse-moved" />
+                        <String fx:value="button" />
                         <String fx:value="rounded-label-borrowbutton" />
                      </styleClass>
                   </Button>
-                  <Button layoutX="33.0" layoutY="446.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="231.0" text="TRẢ SÁCH">
+                  <Button fx:id="returnButton" layoutX="33.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="44.0" prefWidth="231.0" text="TRẢ SÁCH">
                      <stylesheets>
                         <URL value="@../../ScreenUI/css/AllView.css" />
                         <URL value="@../../ScreenUI/css/Label.css" />
                      </stylesheets>
                      <styleClass>
                         <String fx:value="mouse-moved" />
+                        <String fx:value="button" />
                         <String fx:value="rounded-label-returnbutton" />
                      </styleClass>
                   </Button>
-                  <TextArea fx:id="bookDescription" blendMode="DARKEN" editable="false" layoutX="345.0" layoutY="363.0" prefHeight="658.0" prefWidth="514.0" styleClass="text-area" stylesheets="@../../ScreenUI/css/AllView.css" text="Fundamentals of OOP and Data Structures in Java is a text for an introductory course on classical data structures. Part One of the book presents the basic principles of Object-Oriented Programming (OOP) and Graphical User Interface (GUI) programming with Java as the example language. Part Two introduces each of the major data structures with supporting, GUI-based laboratory programs designed to reinforce the basic concepts and principles of the text. These laboratories allow the reader to explore and experiment with the properties of each data structure. All source code for the laboratories is available on the web. By integrating the principles of OOP and GUI programming, this book takes the unique path of presenting the fundamental issues of data structures within the context of paradigms that are essential to today's professional software developer. The authors assume the reader has only an elementary understanding of Java and no experience with OOP.&#10;Source: Publisher" wrapText="true">
+                  <TextArea fx:id="bookDescription" blendMode="DARKEN" editable="false" layoutX="344.0" layoutY="387.0" prefHeight="658.0" prefWidth="514.0" styleClass="text-area" stylesheets="@../../ScreenUI/css/AllView.css" text="Fundamentals of OOP and Data Structures in Java is a text for an introductory course on classical data structures. Part One of the book presents the basic principles of Object-Oriented Programming (OOP) and Graphical User Interface (GUI) programming with Java as the example language. Part Two introduces each of the major data structures with supporting, GUI-based laboratory programs designed to reinforce the basic concepts and principles of the text. These laboratories allow the reader to explore and experiment with the properties of each data structure. All source code for the laboratories is available on the web. By integrating the principles of OOP and GUI programming, this book takes the unique path of presenting the fundamental issues of data structures within the context of paradigms that are essential to today's professional software developer. The authors assume the reader has only an elementary understanding of Java and no experience with OOP.&#10;Source: Publisher" wrapText="true">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
@@ -94,12 +96,12 @@
                         <Font name="Calibri Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="bookAuthor" layoutX="422.0" layoutY="241.0" prefHeight="34.0" prefWidth="251.0" text="John">
+                  <Label fx:id="bookAuthor" alignment="TOP_LEFT" layoutX="422.0" layoutY="274.0" prefHeight="74.0" prefWidth="268.0" text="John" wrapText="true">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="bookYear" layoutX="488.0" layoutY="281.0" prefHeight="34.0" prefWidth="251.0" text="22/02/2000">
+                  <Label fx:id="bookYear" layoutX="476.0" layoutY="234.0" prefHeight="34.0" prefWidth="251.0" text="22/02/2000">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
