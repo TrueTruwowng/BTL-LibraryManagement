@@ -11,6 +11,8 @@ public class Book {
     private int available;
     private byte[] bookImage;
 
+    public Book() {}
+
     public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
         this.isbn = isbn;
         this.title = title;
@@ -19,6 +21,14 @@ public class Book {
         this.description = description;
         this.available = available;
         this.bookImage = bookImage;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     // Getters and setters

@@ -27,8 +27,6 @@ public class ProfileAdminController implements Initializable {
     @FXML
     public ContextMenu selectUserContext;
     @FXML
-    public CheckBox checkAllUser;
-    @FXML
     public MenuItem selectMenu;
     @FXML
     public ProgressBar progressBar;
@@ -54,7 +52,6 @@ public class ProfileAdminController implements Initializable {
     private ComboBox<String> searchComboBox;
 
     public TableView<User> user_tableView;
-    public TableColumn<User, CheckBox> checkUserColumn;
     public TableColumn<User, String> userId;
     public TableColumn<User, String> userFname;
     public TableColumn<User, String> userLname;
@@ -69,12 +66,10 @@ public class ProfileAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumns();
         DatabaseConnection.connectUserAccount();
-        initCheckAllUser();
         loadUsers();
     }
 
     private void initColumns() {
-        checkUserColumn.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         userId.setCellValueFactory(new PropertyValueFactory<>("userID"));
         userFname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         userLname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -117,14 +112,6 @@ public class ProfileAdminController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private void initCheckAllUser() {
-        checkAllUser.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            for (User user : user_data) {
-                user.getCheckBox().setSelected(newValue);
-            }
-        });
     }
 
     @FXML
@@ -301,22 +288,33 @@ public class ProfileAdminController implements Initializable {
 
     @FXML
     private void deleteSelectedUsers(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
-        ObservableList<User> selectedUsers = FXCollections.observableArrayList();
-        for (User user : user_data) {
-            if (user.getCheckBox().isSelected()) {
-                selectedUsers.add(user);
-            }
-        }
+        ObservableList<User> selectedUsers = user_tableView.getSelectionModel().getSelectedItems();
+
         if (!selectedUsers.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Confirmation");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete selected users?");
             Optional<ButtonType> result = alert.showAndWait();
+
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                user_data.removeAll(selectedUsers);
-            }
+                try (Connection con = DatabaseConnection.getConnection()) {
+                    String query = "DELETE FROM user_account WHERE account_id = ?";
+                    PreparedStatement preparedStatement = con.prepareStatement(query);
+
+                    for (User user : selectedUsers) {
+                        preparedStatement.setString(1, user.getUserID());
+                        preparedStatement.executeUpdate();
+                    }
+
+                    // Xóa khỏi danh sách hiển thị
+                    user_data.removeAll(selectedUsers);
+
+                    showAlert("Success", "Selected users have been deleted.", Alert.AlertType.INFORMATION);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showAlert("Error", "Failed to delete users.", Alert.AlertType.ERROR);
+                }            }
         } else {
             showAlert("Warning", "No users selected.", Alert.AlertType.WARNING);
         }

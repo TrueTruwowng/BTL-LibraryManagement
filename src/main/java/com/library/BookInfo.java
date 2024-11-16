@@ -48,7 +48,7 @@ public class BookInfo {
             bookTitle.setText(book.getTitle());
             bookAuthor.setText(book.getAuthor());
             bookYear.setText(Integer.toString(book.getYear()));
-            bookISBN.setText(book.getISBN());
+            bookISBN.setText(book.getIsbn());
             bookAvailable.setText(Integer.toString(book.getAvailable()));
             bookDescription.setText(book.getDescription());
 
@@ -121,7 +121,7 @@ public class BookInfo {
     private void updateButtonStates() {
         try {
             String accountId = currentUser.getUserID();
-            String isbn = book.getISBN();
+            String isbn = book.getIsbn();
 
             if (accountId == null || isbn == null || isbn.isEmpty()) {
                 System.out.println("Dữ liệu không hợp lệ!");

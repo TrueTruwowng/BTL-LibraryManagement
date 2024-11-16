@@ -96,7 +96,7 @@ public class DatabaseConnection {
             while (resultSet.next()) {
                 Book book = new Book();
 
-                book.setISBN(resultSet.getString("isbn"));
+                book.setIsbn(resultSet.getString("isbn"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
                 book.setYear(resultSet.getInt("year"));
@@ -105,7 +105,7 @@ public class DatabaseConnection {
 
                 byte[] imageBytes = resultSet.getBytes("bookImage");
                 if (imageBytes != null) {
-                    book.setImageSrc(imageBytes);
+                    book.setBookImage(imageBytes);
                 }
 
                 books.add(book);
@@ -134,9 +134,9 @@ public class DatabaseConnection {
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
                     book.setYear(resultSet.getInt("year"));
-                    book.setImageSrc(resultSet.getBytes("bookImage"));
+                    book.setBookImage(resultSet.getBytes("bookImage"));
                     book.setAvailable(resultSet.getInt("available"));
-                    book.setISBN(resultSet.getString("isbn"));
+                    book.setIsbn(resultSet.getString("isbn"));
                     book.setDescription(resultSet.getString("description"));
                 }
             }
