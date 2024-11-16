@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="box" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="302.0" spacing="15.0" style="-fx-background-radius: 15;" styleClass="shadow" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.CardController">
+   <children>
+      <ImageView fx:id="bookImage" fitHeight="99.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ScreenUI/Picture/dacnhanhtam.jpg" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="150.0" prefWidth="176.0">
+         <children>
+            <Label fx:id="bookTitle" prefHeight="50.0" prefWidth="166.0" styleClass="book-name" stylesheets="@../../ScreenUI/css/AllView.css" text="ĐẮC NHÂN TÂM">
+               <font>
+                  <Font name="Algerian" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="authorName" prefHeight="42.0" prefWidth="180.0" styleClass="author-name" text="Tác Giả: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </Label>
+            <ImageView fitHeight="42.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ScreenUI/Picture/5StarRating.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</HBox>
