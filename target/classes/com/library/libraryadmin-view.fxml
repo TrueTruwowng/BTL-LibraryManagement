@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -24,7 +23,7 @@
             <children>
                 <BorderPane maxHeight="67.0" prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right,#2b579a , #4facfe); -fx-background-radius: 10 10 0 0;">
                     <center>
-                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER">
+                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER" style="-fx-font-family: 'Algerian'; -fx-font-size: 23px">
                             <font>
                                 <Font name="System Bold" size="23.0" />
                             </font>
@@ -57,7 +56,7 @@
                                                             <HBox.margin>
                                                                 <Insets top="25.0" />
                                                             </HBox.margin></FontAwesomeIcon>
-                                                        <TextField fx:id="bookSearchTextField" onKeyTyped="#searchBook" prefHeight="26.0" prefWidth="536.0" promptText="Search book" style="-fx-border-radius: 10;">
+                                                        <TextField fx:id="bookSearchTextField" onKeyTyped="#searchBook" prefHeight="26.0" prefWidth="536.0" promptText="Search book" style="-fx-border-radius: 10; -fx-background-radius: 10;">
                                                             <HBox.margin>
                                                                 <Insets top="25.0" />
                                                             </HBox.margin>
@@ -110,7 +109,6 @@
     <center>
         <TableView fx:id="tableBookView" prefHeight="523.0" prefWidth="990.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@../../ScreenUI/css/TableViewSstyle.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="checkBoxBookColumn" maxWidth="1500.0" minWidth="-1.0" prefWidth="25.0" />
                 <TableColumn fx:id="bookIsbnColumn" prefWidth="129.0" text="Book ISBN" />
                 <TableColumn fx:id="bookTitleColumn" prefWidth="200.0" text="Book Title" />
                 <TableColumn fx:id="bookAuthorColumn" prefWidth="169.0" text="Book Author" />
@@ -137,11 +135,6 @@
     <bottom>
         <HBox prefHeight="32.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
-                <CheckBox fx:id="checkAllBook" mnemonicParsing="false" text="Check all" textFill="#2b579a">
-                    <HBox.margin>
-                        <Insets left="50.0" top="5.0" />
-                    </HBox.margin>
-                </CheckBox>
                 <Hyperlink fx:id="deleteHyperlink" onAction="#deleteselectedBooks" text="Delete" textFill="#2b579a">
                     <graphic>
                         <FontAwesomeIcon glyphName="TRASH" size="15" />
@@ -150,7 +143,7 @@
                         <Insets left="50.0" top="2.0" />
                     </HBox.margin>
                 </Hyperlink>
-            <Hyperlink fx:id="saveHyperlink" onAction="#saveSelectedBooks" text="Save" textFill="#2b579a">
+            <Hyperlink fx:id="saveHyperlink" onAction="#saveSelectedBook" text="Save" textFill="#2b579a">
                <HBox.margin>
                   <Insets left="50.0" top="2.0" />
                </HBox.margin>
