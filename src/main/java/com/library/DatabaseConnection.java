@@ -248,4 +248,47 @@ public class DatabaseConnection {
             stmt.executeUpdate();
         }
     }
+
+    public static List<Book> searchBooks(String searchQuery) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        List<Book> books = new ArrayList<>();
+
+        String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info " +
+                "WHERE title LIKE ? OR author LIKE ? OR description LIKE ?";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            String searchTerm = "%" + searchQuery + "%";
+            preparedStatement.setString(1, searchTerm);
+            preparedStatement.setString(2, searchTerm);
+            preparedStatement.setString(3, searchTerm);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Book book = new Book();
+                    book.setIsbn(resultSet.getString("isbn"));
+                    book.setTitle(resultSet.getString("title"));
+                    book.setAuthor(resultSet.getString("author"));
+                    book.setYear(resultSet.getInt("year"));
+                    book.setDescription(resultSet.getString("description"));
+                    book.setAvailable(resultSet.getInt("available"));
+
+                    byte[] imageBytes = resultSet.getBytes("bookImage");
+                    if (imageBytes != null) {
+                        book.setBookImage(imageBytes);
+                    }
+
+                    books.add(book);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+
+        return books;
+    }
 }

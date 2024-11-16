@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 
 public class SearchController {
@@ -24,7 +25,7 @@ public class SearchController {
 
     public void setData(Book book) {
         if (book.getBookImage() != null) {
-            bookImage.setImage(new Image(Arrays.toString(book.getBookImage())));
+            bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {
 
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
