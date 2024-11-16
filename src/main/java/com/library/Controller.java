@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 
 
 import java.awt.*;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,65 +28,78 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private javafx.scene.control.TextField searchTextField; // Trường văn bản để nhập từ khóa tìm kiếm
+    private AnchorPane searchPane;
     @FXML
-    private javafx.scene.control.Button searchButton;     // Nút kích hoạt tìm kiếm
+    private TextField searchTextField; // Trường văn bản để nhập từ khóa tìm kiếm
+    @FXML
+    private Button searchButton;     // Nút kích hoạt tìm kiếm
 
     @FXML
     private HBox cardLayout;
 
     @FXML
+    private VBox searchLayout;
+
+    @FXML
     private GridPane bookContainer;
+
+    @FXML
+    private boolean isSearchPaneVisible = false;
 
     private List<Book> recentlyAdded;
     private List<Book> recommended;
+    private List<Book> searched;
 
     @FXML
-    private void searchBooks() throws SQLException {
-
+    private void searchBooks(ActionEvent event) {
+        if (!isSearchPaneVisible) {
+            searchPane.setVisible(true);
+            searchPane.setManaged(true);
+            isSearchPaneVisible = true;
+        } else {
+            searchPane.setVisible(false);
+            searchPane.setManaged(false);
+            isSearchPaneVisible = false;
+        }
         String searchQuery = searchTextField.getText();
         if (searchQuery == null || searchQuery.trim().isEmpty()) {
-            // Xử lý trường hợp tìm kiếm trống (ví dụ: hiển thị tất cả sách)
-            displayBooks(DatabaseConnection.getBooks()); // Hoặc phương thức tương tự
+            searchLayout.getChildren().clear();
             return;
         }
 
-        List<Book> searchResults = null;
+        List<Book> searchResults;
         try {
-            searchResults = DatabaseConnection.searchBooks(searchQuery); // Phương thức mới
+            searchResults = DatabaseConnection.searchBooks(searchQuery);
         } catch (SQLException e) {
-            // Xử lý lỗi cơ sở dữ liệu
             e.printStackTrace();
-            // Hiển thị thông báo lỗi cho người dùng
             return;
         }
 
-        displayBooks(searchResults); // Phương thức để hiển thị kết quả
+        displaySearchResults(searchResults);
     }
 
-    private void displayBooks(List<Book> books) {
-        bookContainer.getChildren().clear(); // Xóa kết quả trước đó
-        int column = 0;
-        int row = 1;
+    private void displaySearchResults(List<Book> books) {
+        searchLayout.getChildren().clear(); // Xóa kết quả trước đó
+        if (books.isEmpty()) {
+            Label noResultsLabel = new Label("Không tìm thấy kết quả.");
+            searchLayout.getChildren().add(noResultsLabel);
+            return;
+        }
+
         try {
             for (Book book : books) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Book-view.fxml"));
-                VBox bookBox = fxmlLoader.load();
-                BookController bookController = fxmlLoader.getController();
-                bookController.setData(book);
-
-                if (column == 6) {
-                    column = 0;
-                    row++;
-                }
-
-                bookContainer.add(bookBox, column++, row);
-                GridPane.setMargin(bookBox, new Insets(10));
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("search-view.fxml"));
+                HBox searchBox = fxmlLoader.load(); // Đảm bảo rằng đây là HBox
+                SearchController searchController = fxmlLoader.getController();
+                searchController.setData(book);
+                searchLayout.getChildren().add(searchBox); // Thêm searchBox vào searchLayout
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
 
@@ -137,4 +154,5 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 }
