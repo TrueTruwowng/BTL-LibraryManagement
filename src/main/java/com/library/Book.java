@@ -3,51 +3,39 @@ package com.library;
 import javafx.scene.control.CheckBox;
 
 public class Book {
-    private CheckBox checkBox;
-    private String ISBN;
+    private String isbn;
     private String title;
     private String author;
-    private byte[] bookImage;
     private int year;
     private String description;
     private int available;
+    private byte[] bookImage;
 
+    public Book() {}
 
-    public Book(String ISBN, String title, String author, int year) {
-        this.ISBN = ISBN;
+    public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
-        this.year = year;
-    }
-
-    public Book(CheckBox checkBox, String ISBN, String title, String author, byte[] bookImage, int year, String description, int available) {
-        this.ISBN = ISBN;
-        this.title = title;
-        this.author = author;
-        this.bookImage = bookImage;
         this.year = year;
         this.description = description;
         this.available = available;
+        this.bookImage = bookImage;
     }
 
-    public Book() {
-
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public String getTitle() {
-        return title;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    // Getters and setters
+    public String getIsbn() {return isbn;}
+
+    public String getTitle() {
+        return title;
     }
 
     public String getAuthor() {
@@ -62,7 +50,7 @@ public class Book {
         return bookImage;
     }
 
-    public void setImageSrc(byte[] bookImage) {
+    public void setBookImage(byte[] bookImage) {
         this.bookImage = bookImage; // Gán mảng byte cho bookImage
     }
 
