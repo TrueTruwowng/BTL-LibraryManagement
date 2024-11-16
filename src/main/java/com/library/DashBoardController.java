@@ -1,11 +1,13 @@
 package com.library;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -13,8 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -28,27 +30,27 @@ import static com.library.UserController.currentUser;
 
 public class DashBoardController implements Initializable {
     @FXML
-    private AnchorPane searchPane; // Bảng tìm kiếm chứa các thành phần tìm kiếm
+    private AnchorPane searchPane;
     @FXML
-    private TextField searchTextField; // Trường văn bản để nhập từ khóa tìm kiếm
+    private TextField searchTextField;
     @FXML
-    private Button searchButton; // Nút để kích hoạt hành động tìm kiếm
+    private ImageView searchButton;
 
     @FXML
-    private HBox cardLayout; // Bố cục cho các thẻ sách
+    private HBox cardLayout;
 
     @FXML
-    private VBox searchLayout; // Bố cục cho kết quả tìm kiếm
+    private VBox searchLayout;
 
     @FXML
-    private GridPane bookContainer; // Bố cục lưới để hiển thị sách
+    private GridPane bookContainer;
 
     @FXML
-    private boolean isSearchPaneVisible = false; // Biến theo dõi trạng thái hiển thị của bảng tìm kiếm
+    private boolean isSearchPaneVisible = false;
 
-    private List<Book> recentlyAdded; // Danh sách sách mới thêm
-    private List<Book> recommended; // Danh sách sách được đề xuất
-    private List<Book> searched; // Danh sách sách đã tìm kiếm
+    private List<Book> recentlyAdded;
+    private List<Book> recommended;
+    private List<Book> searched;
 
     @FXML
     private Button dashboardBtn;
@@ -63,83 +65,25 @@ public class DashBoardController implements Initializable {
     @FXML
     private Label username;
 
-    @FXML
-    // Phương thức xử lý hành động tìm kiếm
-    private void searchBooks(ActionEvent event) {
-        if (!isSearchPaneVisible) { // Kiểm tra nếu bảng tìm kiếm chưa hiển thị
-            searchPane.setVisible(true); // Hiện bảng tìm kiếm
-            searchPane.setManaged(true); // Quản lý bảng tìm kiếm
-            isSearchPaneVisible = true; // Cập nhật trạng thái
-        } else {
-            searchPane.setVisible(false); // Ẩn bảng tìm kiếm
-            searchPane.setManaged(false); // Ngừng quản lý bảng tìm kiếm
-            isSearchPaneVisible = false; // Cập nhật trạng thái
-        }
-
-        // Lấy truy vấn tìm kiếm từ trường văn bản
-        String searchQuery = searchTextField.getText();
-        if (searchQuery == null || searchQuery.trim().isEmpty()) { // Kiểm tra truy vấn có hợp lệ không
-            searchLayout.getChildren().clear(); // Xóa kết quả tìm kiếm trước đó
-            return; // Kết thúc nếu không có truy vấn
-        }
-
-        List<Book> searchResults; // Danh sách kết quả tìm kiếm
-        try {
-            // Gọi phương thức tìm kiếm từ cơ sở dữ liệu
-            searchResults = DatabaseConnection.searchBooks(searchQuery);
-        } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
-            return; // Kết thúc nếu có lỗi
-        }
-
-        // Hiển thị kết quả tìm kiếm
-        displaySearchResults(searchResults);
-    }
-
-    // Phương thức để hiển thị kết quả tìm kiếm
-    private void displaySearchResults(List<Book> books) {
-        searchLayout.getChildren().clear(); // Xóa kết quả trước đó
-        if (books.isEmpty()) { // Kiểm tra nếu không có sách nào được tìm thấy
-            Label noResultsLabel = new Label("Không tìm thấy kết quả."); // Tạo nhãn thông báo
-            searchLayout.getChildren().add(noResultsLabel); // Thêm nhãn vào bố cục
-            return; // Kết thúc nếu không có kết quả
-        }
-
-        try {
-            // Duyệt qua danh sách sách và hiển thị từng sách
-            for (Book book : books) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("search-view.fxml")); // Tải tệp FXML cho từng sách
-                HBox searchBox = fxmlLoader.load(); // Tải HBox cho kết quả
-                SearchController searchController = fxmlLoader.getController(); // Lấy controller cho HBox
-                searchController.setData(book); // Thiết lập dữ liệu cho sách
-                searchLayout.getChildren().add(searchBox); // Thêm HBox vào bố cục kết quả tìm kiếm
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
-        }
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Giả sử bạn đã kết nối cơ sở dữ liệu và lấy danh sách sách
         username.setText(currentUser.getUsername());
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
+
         List<Book> allBooks = null;
         try {
             // Lấy tất cả sách từ cơ sở dữ liệu
             allBooks = DatabaseConnection.getBooks();
-            System.out.println("Books retrieved: " + allBooks.size()); // Kiểm tra số lượng sách lấy từ cơ sở dữ liệu
+            System.out.println("Books retrieved: " + allBooks.size());
 
         } catch (SQLException e) {
-            throw new RuntimeException(e); // Kết thúc nếu có lỗi
+            throw new RuntimeException(e);
         }
 
-        // Khởi tạo danh sách sách mới thêm và sách được đề xuất
-        recentlyAdded = new ArrayList<>(allBooks); // Giả sử bạn muốn hiển thị tất cả sách ở đây
-        recommended = new ArrayList<>(allBooks); // Tương tự cho sách được đề xuất
+        recentlyAdded = new ArrayList<>(allBooks);
+        recommended = new ArrayList<>(allBooks);
 
         int column = 0; // Đếm số cột trong GridPane
         int row = 1; // Đếm số hàng trong GridPane
@@ -168,14 +112,68 @@ public class DashBoardController implements Initializable {
                     row++; // Chuyển sang hàng tiếp theo
                 }
 
-                bookContainer.add(bookBox, column++, row); // Thêm sách vào GridPane
-                GridPane.setMargin(bookBox, new Insets(10)); // Thiết lập khoảng cách giữa các sách
+                bookContainer.add(bookBox, column++, row);
+                GridPane.setMargin(bookBox, new Insets(10));
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e); // Kết thúc nếu có lỗi
+            throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void searchBooks(Event event) {
+        if (!isSearchPaneVisible) { // Kiểm tra nếu bảng tìm kiếm chưa hiển thị
+            searchPane.setVisible(true); // Hiện bảng tìm kiếm
+            searchPane.setManaged(true); // Quản lý bảng tìm kiếm
+            isSearchPaneVisible = true; // Cập nhật trạng thái
+        } else {
+            searchPane.setVisible(false); // Ẩn bảng tìm kiếm
+            searchPane.setManaged(false); // Ngừng quản lý bảng tìm kiếm
+            isSearchPaneVisible = false; // Cập nhật trạng thái
+        }
+
+        // Lấy truy vấn tìm kiếm từ trường văn bản
+        String searchQuery = searchTextField.getText();
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            searchLayout.getChildren().clear();
+            return;
+        }
+
+        List<Book> searchResults;
+        try {
+            searchResults = DatabaseConnection.searchBooks(searchQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Hiển thị kết quả tìm kiếm
+        displaySearchResults(searchResults);
+    }
+
+    // Phương thức để hiển thị kết quả tìm kiếm
+    private void displaySearchResults(List<Book> books) {
+        searchLayout.getChildren().clear();
+        if (books.isEmpty()) {
+            Label noResultsLabel = new Label("Không tìm thấy kết quả.");
+            searchLayout.getChildren().add(noResultsLabel);
+            return;
+        }
+
+        try {
+            for (Book book : books) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("search-view.fxml"));
+                HBox searchBox = fxmlLoader.load(); // Tải HBox cho kết quả
+                SearchController searchController = fxmlLoader.getController();
+                searchController.setData(book);
+                searchLayout.getChildren().add(searchBox);
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+    }
+
     public void onDashboardBtnClick() {
         SceneLoader.handleDashboardButton(stage);
     }
@@ -188,4 +186,7 @@ public class DashBoardController implements Initializable {
     public void onLogOutBtnClk() {
         SceneLoader.handleLogoutButton(stage);
     }
+
+
+
 }
