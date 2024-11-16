@@ -28,7 +28,8 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
       <version>21</version>
-    </dependency><dependency>
+    </dependency>
+    <dependency>
     <groupId>org.controlsfx</groupId>
     <artifactId>controlsfx</artifactId>
     <version>11.2.1</version>
@@ -42,7 +43,8 @@
         <artifactId>*</artifactId>
       </exclusion>
     </exclusions>
-  </dependency><dependency>
+  </dependency>
+    <dependency>
     <groupId>com.github.almasb</groupId>
     <artifactId>fxgl</artifactId>
     <version>17.3</version>
