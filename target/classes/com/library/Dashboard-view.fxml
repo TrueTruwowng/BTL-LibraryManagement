@@ -188,9 +188,9 @@
                               <ScrollPane prefHeight="298.0" prefWidth="745.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                                  <content>
                                     <GridPane fx:id="bookContainer" prefHeight="2.0" prefWidth="0.0">
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
                                     </GridPane>
                                  </content>
                               </ScrollPane>

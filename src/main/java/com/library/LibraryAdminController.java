@@ -324,6 +324,7 @@ public class LibraryAdminController implements Initializable {
             if (rowsUpdated > 0) {
                 System.out.println("Số lượng sách đã được cập nhật.");
             }
+            loadBook();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
