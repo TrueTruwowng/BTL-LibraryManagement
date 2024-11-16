@@ -188,9 +188,9 @@
                               <ScrollPane prefHeight="298.0" prefWidth="745.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                                  <content>
                                     <GridPane fx:id="bookContainer" prefHeight="2.0" prefWidth="0.0">
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
                                     </GridPane>
                                  </content>
                               </ScrollPane>
@@ -202,5 +202,14 @@
             </AnchorPane>
          </center>
       </BorderPane>
+      <AnchorPane fx:id="searchPane" layoutX="195.0" layoutY="41.0" managed="false" prefHeight="314.0" prefWidth="482.0" visible="false">
+         <children>
+            <ScrollPane layoutY="-1.0" prefHeight="314.0" prefWidth="482.0">
+               <content>
+                  <VBox fx:id="searchLayout" alignment="TOP_CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="310.0" prefWidth="460.0" spacing="10.0" styleClass="search-result-background" stylesheets="@../../ScreenUI/css/AllView.css" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

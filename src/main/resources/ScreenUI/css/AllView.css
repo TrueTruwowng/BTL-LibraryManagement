@@ -52,13 +52,9 @@
     -fx-border-radius: 15;
     -fx-border-color: #D7D7D7D7;
 }
-.text-area {
-    -fx-background-color:  #fcf3cf; /* Làm nền trong suốt */
-    -fx-border-color:  #fcf3cf;    /* Xóa viền */
-    -fx-focus-color:  #fcf3cf;     /* Xóa màu khi focus */
-    -fx-faint-focus-color:  #fcf3cf; /* Xóa màu mờ khi focus */
-    -fx-text-fill: black;             /* Màu chữ, có thể thay đổi theo ý thích */
-    -fx-padding: 0;                   /* Loại bỏ padding nếu cần */
+
+.Scrollpane {
+    -fx-overflow-y: hidden
 }
 /* CSS cho nút bị disable */
 .button:disabled {
@@ -66,3 +62,6 @@
     -fx-text-fill: #A9A9A9; /* Màu chữ xám nhạt */
 }
 
+.search-result-background {
+    -fx-background-color: #f5f5f5;
+}
