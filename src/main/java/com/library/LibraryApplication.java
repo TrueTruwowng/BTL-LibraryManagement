@@ -16,7 +16,7 @@ public class LibraryApplication extends Application {
         connectUserAccount();
         Connection con = DatabaseConnection.getConnection();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("profileadmin-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("libraryadmin-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 600);
             stage.setTitle("Library Application");
             stage.setScene(scene);

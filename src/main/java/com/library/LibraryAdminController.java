@@ -330,39 +330,6 @@ public class LibraryAdminController implements Initializable {
         }
     }
 
-    public void addBookToDatabase(Book book) throws SQLException {
-        if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
-            DatabaseConnection.connectUserAccount();
-        }
-        if (isBookExists(book)) {
-            updateBookAvailable(book);
-        } else {
-            String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-            try (Connection connection = DatabaseConnection.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-                preparedStatement.setString(1, book.getIsbn());
-                preparedStatement.setString(2, book.getTitle());
-                preparedStatement.setString(3, book.getAuthor());
-                preparedStatement.setInt(4, book.getYear());
-                preparedStatement.setInt(5, book.getAvailable());
-                preparedStatement.setString(6, book.getDescription());
-                preparedStatement.setBytes(7, book.getBookImage());
-
-                preparedStatement.executeUpdate(); // Chỉ gọi một lần
-
-                Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getYear(),
-                        book.getAvailable(), book.getDescription(), book.getBookImage());
-                bookObservableList.add(newBook);
-                tableBookView.setItems(bookObservableList);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                showAlert("Lỗi", "Thêm thất bại", Alert.AlertType.ERROR);
-            }
-        }
-    }
-
     public void searchBook(KeyEvent keyEvent) {
         String searchTerm = ((TextField) keyEvent.getSource()).getText().toLowerCase();
         ObservableList<Book> combinedResults = FXCollections.observableArrayList();
@@ -383,7 +350,6 @@ public class LibraryAdminController implements Initializable {
         tableBookView.setItems(combinedResults);
     }
 
-
     public void addBook(ActionEvent actionEvent) {
 
     }
@@ -396,20 +362,30 @@ public class LibraryAdminController implements Initializable {
             return;
         }
 
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM book_info WHERE isbn = ?";
-            PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1, selectedBook.getIsbn());
-            int rowsDeleted = preparedStatement.executeUpdate();
+        if (isBookExists(selectedBook)) {
+            updateBookAvailable(selectedBook);
+        } else {
+            try (Connection con = DatabaseConnection.getConnection()) {
+                String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+                insertStmt.setString(1, selectedBook.getIsbn());
+                insertStmt.setString(2, selectedBook.getTitle());
+                insertStmt.setString(3, selectedBook.getAuthor());
+                insertStmt.setInt(4, selectedBook.getYear());
+                insertStmt.setInt(5, selectedBook.getAvailable());
+                insertStmt.setString(6, selectedBook.getDescription());
+                insertStmt.setBytes(7, selectedBook.getBookImage());
 
-            if (rowsDeleted > 0) {
-                bookObservableList.remove(selectedBook);
-                tableBookView.getItems().remove(selectedBook); // Loại bỏ khỏi TableView
-                showAlert("Success", "Book deleted successfully.", Alert.AlertType.INFORMATION);
+                int rowsInserted = insertStmt.executeUpdate();
+
+                if (rowsInserted > 0) {
+                    showAlert("Success", "Book saved successfully.", Alert.AlertType.INFORMATION);
+                } else {
+                    showAlert("Error", "Error saving book.", Alert.AlertType.ERROR);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "Error saving book.", Alert.AlertType.ERROR);
         }
     }
 

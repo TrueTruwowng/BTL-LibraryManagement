@@ -25,7 +25,7 @@
             <children>
                 <BorderPane prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right,#2b579a , #4facfe); -fx-background-radius: 10 10 0 0;">
                     <center>
-                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER">
+                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER" style="-fx-font-family: 'Algerian'; -fx-font-size: 23px">
                             <font>
                                 <Font name="System Bold" size="23.0" />
                             </font>
