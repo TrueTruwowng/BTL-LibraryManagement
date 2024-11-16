@@ -6,16 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
@@ -28,6 +30,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -351,8 +354,19 @@ public class LibraryAdminController implements Initializable {
         tableBookView.setItems(combinedResults);
     }
 
-    public void addBook(ActionEvent actionEvent) {
+    public void addBook(ActionEvent actionEvent) throws IOException {
+        // Load file fxml khác
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addbookadmin-view.fxml"));
+        Parent root = fxmlLoader.load();
 
+        // Tạo cửa sổ mới
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
+        // Đóng cửa sổ hiện tại khi mở cửa sổ mới
+        Stage curStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        curStage.close();
     }
 
     @FXML

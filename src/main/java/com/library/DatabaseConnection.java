@@ -11,7 +11,7 @@ public class DatabaseConnection {
 
     public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:D:/OOP/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
+            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
