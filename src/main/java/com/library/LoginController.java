@@ -18,6 +18,7 @@ import javafx.util.Duration;
 
 import static com.library.DatabaseConnection.connectUserAccount;
 import static com.library.SceneLoader.stage;
+import static com.library.UserController.currentUser;
 
 public class LoginController {
     @FXML
@@ -107,7 +108,7 @@ public class LoginController {
 
             // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
             String username = UsernameField.getText();
-            if ("admin".equals(username)) {
+            if ("admin".equals(currentUser.getUsername())) {
                 SceneLoader.loadScreen("/com/library/library-view.fxml", stage, "Admin Dashboard");
             } else {
                 SceneLoader.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
