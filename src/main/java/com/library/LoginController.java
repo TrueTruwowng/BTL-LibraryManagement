@@ -104,7 +104,7 @@ public class LoginController {
         // Đảm bảo fadeOutLabel kết thúc trước khi chuyển scene
         fadeOutLabel.setOnFinished(event -> {
             // Lấy Stage hiện tại từ RegisterLink
-             stage = (Stage) LoginButton.getScene().getWindow();
+            stage = (Stage) LoginButton.getScene().getWindow();
 
             // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
             String username = UsernameField.getText();
@@ -219,7 +219,7 @@ public class LoginController {
 
     public void onHyperLinkClick() throws IOException {
         // Lấy Stage hiện tại từ RegisterLink
-         stage = (Stage) RegisterLink.getScene().getWindow();
+        stage = (Stage) RegisterLink.getScene().getWindow();
 
         // Load giao diện đăng ký mới
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
