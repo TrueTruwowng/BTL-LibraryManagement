@@ -42,7 +42,7 @@
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="498.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
                         <TextField fx:id="searchTextField" prefHeight="15.0" prefWidth="442.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
-                        <Button fx:id="searchButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchBooks" onKeyPressed="#searchBooks" prefHeight="16.0" prefWidth="31.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css">
+                        <Button fx:id="searchButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchBooks" prefHeight="16.0" prefWidth="31.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css">
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -201,5 +201,14 @@
             </AnchorPane>
          </center>
       </BorderPane>
+      <AnchorPane fx:id="searchPane" layoutX="195.0" layoutY="41.0" managed="false" prefHeight="314.0" prefWidth="482.0"  visible="false" >
+         <children>
+            <ScrollPane layoutY="-1.0" prefHeight="314.0" prefWidth="482.0">
+               <content>
+                  <VBox fx:id="searchLayout" layoutX="2.0" layoutY="-1.0" prefHeight="310.0" prefWidth="460.0"  alignment="TOP_CENTER" spacing="10.0" styleClass="search-result-background"  stylesheets="@../../ScreenUI/css/AllView.css"  />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
