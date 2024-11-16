@@ -1,12 +1,12 @@
 package com.library;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static com.library.DatabaseConnection.connectUserAccount;
 
@@ -21,12 +21,18 @@ public class LibraryApplication extends Application {
             stage.setTitle("Library Application");
             stage.setScene(scene);
             stage.show();
-        }
-        catch(IOException e) {
+        } catch (IOException var4) {
+            IOException e = var4;
             e.printStackTrace();
         }
+
     }
 
+    @Override
+    public void stop() throws SQLException {
+        // Đóng kết nối khi ứng dụng kết thúc
+        DatabaseConnection.closeConnection();
+    }
     public static void main(String[] args) {
         launch(args);
     }

@@ -24,11 +24,24 @@
 
     <TextField fx:id="txtTitle" layoutX="234.0" layoutY="419.0" prefHeight="26.0" prefWidth="220.0" promptText="Book Title" />
     <TextField fx:id="txtAuthor" layoutX="473.0" layoutY="419.0" prefHeight="26.0" prefWidth="160.0" promptText="Author" />
-    <TextField fx:id="txtYear" layoutX="642.0" layoutY="419.0" prefHeight="26.0" prefWidth="110.0" promptText="Year" />
+    <TextField fx:id="txtYear" layoutX="454.0" layoutY="449.0" prefHeight="26.0" prefWidth="110.0" promptText="Year" />
 
-    <Button layoutX="710.0" layoutY="476.0" onAction="#handleAddBook" prefHeight="26.0" prefWidth="84.0" text="Add Book" />
-    <Button layoutX="616.0" layoutY="477.0" onAction="#handleDeleteBook" text="Delete Book" />
+    <Button layoutX="710.0" layoutY="476.0" prefHeight="26.0" prefWidth="84.0" text="Add Book" />
+    <Button layoutX="602.0" layoutY="511.0" text="Delete Book" />
       <TextField fx:id="txtISBN" layoutX="77.0" layoutY="419.0" prefHeight="26.0" prefWidth="142.0" promptText="ISBN" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="740.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="userImageView" fitHeight="150.0" fitWidth="200.0" layoutX="752.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="firstNameLabel" layoutX="766.0" layoutY="229.0" prefHeight="18.0" prefWidth="136.0" text="Label" />
+      <Label fx:id="lastNameLabel" layoutX="766.0" layoutY="265.0" prefHeight="9.0" prefWidth="136.0" text="Label" />
+      <Label fx:id="usernameLabel" layoutX="772.0" layoutY="301.0" prefHeight="18.0" prefWidth="136.0" text="Label" />
+      <Label fx:id="userIDLabel" layoutX="766.0" layoutY="333.0" prefHeight="18.0" prefWidth="136.0" text="Label" />
+    <ImageView fx:id="userPicture" fitHeight="161.0" fitWidth="202.0" layoutX="200.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
+    <Label fx:id="userID" layoutX="234.0" layoutY="271.0" prefHeight="19.0" prefWidth="171.0" text="userID" />
+    <Button fx:id="updatePictureButton" layoutX="766.0" layoutY="419.0" onAction="#handleUpdateUserPicture" prefHeight="26.0" prefWidth="84.0" text="Update Picture" />
+
+    <Label fx:id="username" layoutX="234.0" layoutY="304.0" prefHeight="19.0" prefWidth="171.0" text="username" />
+    <TextField fx:id="newPasswordField" layoutX="794.0" layoutY="378.0" promptText="Enter new password" />
+    <Button layoutX="677.0" layoutY="378.0"  text="Update Password" />
+
   </children>
 </AnchorPane>

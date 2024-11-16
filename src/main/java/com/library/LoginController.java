@@ -1,11 +1,12 @@
 package com.library;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import javafx.util.Duration;
 
 import static com.library.DatabaseConnection.connectUserAccount;
+import static com.library.SceneLoader.stage;
+
 public class LoginController {
     @FXML
     private Label LoginMessageLabelXmark;
@@ -35,9 +38,12 @@ public class LoginController {
     private FontAwesomeIcon StatusIconXmark;
 
     private boolean isAnimating = false;
+    @FXML
+    private ImageView cutePic;
 
 
     public void initialize() {
+        connectUserAccount();
         StatusIconCheckMark.setVisible(false);
         StatusIconXmark.setVisible(false);
         LoginMessageLabelXmark.setVisible(false);
@@ -59,30 +65,29 @@ public class LoginController {
     }
 
     public void showSuccessful() {
+        // Ẩn các phần tử không cần thiết
         LoginMessageLabelCheckMark.setVisible(true);
         StatusIconCheckMark.setVisible(true);
         UsernameField.setDisable(true);
         PasswordField.setDisable(true);
+        RegisterLink.setDisable(true);
         UsernameField.clear();
         PasswordField.clear();
 
-        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5)
-                , LoginMessageLabelCheckMark);
+        // Tạo hiệu ứng fade in và fade out
+        FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), LoginMessageLabelCheckMark);
         fadeInLabel.setFromValue(0);
         fadeInLabel.setToValue(1);
 
-        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5)
-                , LoginMessageLabelCheckMark);
+        FadeTransition fadeOutLabel = new FadeTransition(Duration.seconds(1.5), LoginMessageLabelCheckMark);
         fadeOutLabel.setFromValue(1);
         fadeOutLabel.setToValue(0);
 
-        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.0)
-                , StatusIconCheckMark);
+        FadeTransition fadeInIcon = new FadeTransition(Duration.seconds(1.0), StatusIconCheckMark);
         fadeInIcon.setFromValue(0);
         fadeInIcon.setToValue(1);
 
-        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.0)
-                , StatusIconCheckMark);
+        FadeTransition fadeOutIcon = new FadeTransition(Duration.seconds(1.0), StatusIconCheckMark);
         fadeOutIcon.setFromValue(1);
         fadeOutIcon.setToValue(0);
 
@@ -94,7 +99,20 @@ public class LoginController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        fadeOutLabel.setOnFinished(event -> loadLibraryView());
+
+        // Đảm bảo fadeOutLabel kết thúc trước khi chuyển scene
+        fadeOutLabel.setOnFinished(event -> {
+            // Lấy Stage hiện tại từ RegisterLink
+             stage = (Stage) LoginButton.getScene().getWindow();
+
+            // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
+            String username = UsernameField.getText();
+            if ("admin".equals(username)) {
+                SceneLoader.loadScreen("/com/library/library-view.fxml", stage, "Admin Dashboard");
+            } else {
+                SceneLoader.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
+            }
+        });
 
         fadeInLabel.play();
     }
@@ -102,6 +120,7 @@ public class LoginController {
     public void showError() {
         LoginMessageLabelXmark.setVisible(true);
         StatusIconXmark.setVisible(true);
+        cutePic.setImage(new Image(getClass().getResource("/ScreenUI/Picture/bongo-cat-smash.gif").toExternalForm()));
         UsernameField.clear();
         PasswordField.clear();
 
@@ -157,9 +176,34 @@ public class LoginController {
 
             ResultSet queryResult = preparedStatement.executeQuery();
 
-            // Kiểm tra kết quả từ câu truy vấn
             if (queryResult.next() && queryResult.getInt(1) == 1) {
-                showSuccessful();  // Đăng nhập thành công
+                String addUser = "SELECT account_id, username, firstname, lastname, password, userPicture, email, phone FROM user_account WHERE username = ? AND password = ?";
+                PreparedStatement preparedStatement2 = con.prepareStatement(addUser);
+                preparedStatement2.setString(1, UsernameField.getText());
+                preparedStatement2.setString(2, PasswordField.getText());
+                ResultSet queryResult2 = preparedStatement2.executeQuery();
+
+                String userID = queryResult2.getString("account_id");
+                String username = queryResult2.getString("username");
+                String firstname = queryResult2.getString("firstname");
+                String lastname = queryResult2.getString("lastname");
+                String password = queryResult2.getString("password");
+                byte[] userPicture = queryResult2.getBytes("userPicture");
+
+                // Kiểm tra email và phone nếu là null
+                String email = queryResult2.getString("email");
+                String phone = queryResult2.getString("phone");
+
+                // Tạo đối tượng User, nếu email hoặc phone null thì giữ nguyên giá trị null
+                User currentUser = new User(userID, username, firstname, lastname, userPicture,
+                        email != null ? email : null,
+                        phone != null ? phone : null,
+                        password);
+
+                // Lưu trữ user vào UserUtils
+                UserController.setCurrentUser(currentUser);
+                System.out.println(currentUser);
+                showSuccessful();
             } else {
                 showError();  // Đăng nhập thất bại
             }
@@ -168,35 +212,25 @@ public class LoginController {
             e.printStackTrace();
             showError(); // Hiển thị thông báo lỗi trong trường hợp xảy ra lỗi SQL
         }
+
     }
 
 
-    private void loadLibraryView() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("library-view.fxml"));
-            Parent libraryView = loader.load();
+    public void onHyperLinkClick() throws IOException {
+        // Lấy Stage hiện tại từ RegisterLink
+         stage = (Stage) RegisterLink.getScene().getWindow();
 
-            Stage stage = (Stage) LoginButton.getScene().getWindow();
-            stage.setScene(new Scene(libraryView));
-            stage.setTitle("Library View");
-            stage.show();
+        // Load giao diện đăng ký mới
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
+        Parent registerView = loader.load();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Thay đổi scene trong cùng một cửa sổ
+        stage.setScene(new Scene(registerView));
+        stage.setTitle("Register");
+        stage.show();  // Có thể không cần thiết nếu Stage không bị ẩn
     }
 
-    public void onHyperLinkClick(ActionEvent event) throws IOException {
-        loadRegisterView(event);
-    }
 
-    public void loadRegisterView(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
-            Parent registerView = loader.load();
-            Stage stage = (Stage) RegisterLink.getScene().getWindow();
-            stage.setScene(new Scene(registerView));
-            stage.setTitle("Register");
-            stage.show();
-    }
+
 
 }

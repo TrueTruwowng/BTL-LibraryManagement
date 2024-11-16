@@ -1,0 +1,58 @@
+.text-field {
+    -fx-background-color: #f9f9f9; /* Màu nền nhẹ */
+    -fx-border-color: #cccccc; /* Màu viền */
+    -fx-border-radius: 10; /* Bo góc hơn */
+    -fx-padding: 10; /* Khoảng cách bên trong */
+    -fx-font-size: 16px; /* Kích thước font chữ */
+    -fx-text-fill: #333; /* Màu chữ */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1); /* Hiệu ứng bóng */
+}
+
+.text-field:focused {
+    -fx-border-color: #007bff; /* Màu viền khi được chọn */
+    -fx-background-color: #ffffff; /* Màu nền khi được chọn */
+    -fx-effect: innershadow(gaussian, rgba(0, 123, 255, 0.5), 5, 0, 0, 0); /* Hiệu ứng bóng */
+}
+
+.text-field:disabled {
+    -fx-background-color: #e0e0e0; /* Màu nền khi không hoạt động */
+    -fx-border-color: #b0b0b0; /* Màu viền khi không hoạt động */
+    -fx-text-fill: #7a7a7a; /* Màu chữ khi không hoạt động */
+}
+
+.text-field:hover {
+    -fx-border-color: #0056b3; /* Màu viền khi hover */
+}
+
+.text-field:focused:hover {
+    -fx-border-color: #0056b3; /* Màu viền khi hover và được chọn */
+}
+
+.button {
+    -fx-background-color: linear-gradient(to right,#4facfd, #00f2fe);
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0.0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #4facfd ;
+}
+
+.button:focused {
+    -fx-background-color: #4facfd;
+    -fx-border-width: 2px;
+}
+
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+
+}

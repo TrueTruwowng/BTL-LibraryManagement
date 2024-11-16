@@ -1,9 +1,8 @@
 package com.library;
 
-import javafx.scene.control.CheckBox;
+import java.io.Serializable;
 
 public class User implements Person {
-    private CheckBox checkBox;
     private  String userID;
     private String username;
     private String password;
@@ -14,7 +13,6 @@ public class User implements Person {
     private String phone;
 
     User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
-        this.checkBox = new CheckBox();
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -24,8 +22,6 @@ public class User implements Person {
         this.email = email;
         this.phone = phone;
     }
-
-    public CheckBox getCheckBox() { return checkBox; }
 
     public String getUserID() {
         return userID;

@@ -32,21 +32,38 @@ public class Book {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public byte[] getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(byte[] bookImage) {
+        this.bookImage = bookImage; // Gán mảng byte cho bookImage
+    }
+
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getAvailable() {
         return available;
     }
 
-    public byte[] getBookImage() { return bookImage; }
-
-    // Thêm setter cho available
     public void setAvailable(int available) {
         this.available = available;
     }
