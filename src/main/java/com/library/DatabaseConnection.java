@@ -80,17 +80,30 @@ public class DatabaseConnection {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
-        String sql = "SELECT title, author, bookImage FROM book_info"; // Truy vấn SQL để lấy title, author và bookImage
+        // Truy vấn SQL để lấy tất cả các thông tin sách
+        String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info";
         List<Book> books = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql); // Kết nối đến cơ sở dữ liệu
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()) { // Thực thi truy vấn
 
             while (resultSet.next()) {
                 Book book = new Book(); // Tạo đối tượng Book mới
-                book.setTitle(resultSet.getString("title")); // Lấy title từ ResultSet
-                book.setAuthor(resultSet.getString("author")); // Lấy author từ ResultSet
-                book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage từ ResultSet
+
+                // Lấy dữ liệu từ ResultSet và gán vào đối tượng Book
+                book.setISBN(resultSet.getString("isbn"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setYear(resultSet.getInt("year"));
+                book.setDescription(resultSet.getString("description"));
+                book.setAvailable(resultSet.getInt("available"));
+
+                // Lấy bookImage dưới dạng byte array từ ResultSet
+                byte[] imageBytes = resultSet.getBytes("bookImage");
+                if (imageBytes != null) {
+                    book.setImageSrc(imageBytes); // Gán giá trị bookImage cho đối tượng Book
+                }
+
                 books.add(book); // Thêm đối tượng Book vào danh sách
             }
         } catch (SQLException e) {
@@ -100,6 +113,7 @@ public class DatabaseConnection {
         }
         return books; // Trả về danh sách sách
     }
+
     public static Book getBookByISBN(String isbn) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount(); // Đảm bảo kết nối với cơ sở dữ liệu
@@ -142,7 +156,7 @@ public class DatabaseConnection {
                     book.setTitle(resultSet.getString("title")); // Lấy title
                     book.setAuthor(resultSet.getString("author")); // Lấy author
                     book.setYear(resultSet.getInt("year")); // Lấy year
-                    book.setImageSrc(resultSet.getString("bookImage")); // Lấy bookImage
+                    book.setImageSrc(resultSet.getBytes("bookImage")); // Lấy bookImage
                     book.setAvailable(resultSet.getInt("available")); // Lấy available
                     book.setISBN(resultSet.getString("isbn")); // Lấy isbn
                     book.setDescription(resultSet.getString("description")); // Lấy description

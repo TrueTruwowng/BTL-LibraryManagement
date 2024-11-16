@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.library.SceneLoader.stage;
+import static com.library.UserController.currentUser;
 
 public class DashBoardController implements Initializable {
     @FXML
@@ -45,25 +46,25 @@ public class DashBoardController implements Initializable {
     private Label username;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //DatabaseConnection.connectUserAccount(); // Nếu cần thiết
-        User currentUser = com.library.UserController.getCurrentUser();
+        // Giả sử bạn đã kết nối cơ sở dữ liệu và lấy danh sách sách
+        username.setText(currentUser.getUsername());
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
-        username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         List<Book> allBooks = null;
         try {
             allBooks = DatabaseConnection.getBooks();
+            System.out.println("Books retrieved: " + allBooks.size()); // Kiểm tra số lượng sách lấy từ cơ sở dữ liệu
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        // Lấy tất cả sách từ cơ sở dữ liệu
-        recentlyAdded = new ArrayList<>(allBooks); // Giả sử bạn muốn hiển thị tất cả sách ở đây
-        recommended = new ArrayList<>(allBooks); // Tương tự cho sách được đề xuất
+
+        recentlyAdded = new ArrayList<>(allBooks);
+        recommended = new ArrayList<>(allBooks);
 
         int column = 0;
         int row = 1;
-
 
         try {
             // Hiển thị sách mới thêm

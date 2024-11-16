@@ -2,7 +2,6 @@ package com.library;
 
 import javafx.scene.control.CheckBox;
 
-
 public class Book {
     private CheckBox checkBox;
     private String ISBN;
@@ -19,6 +18,16 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public Book(CheckBox checkBox, String ISBN, String title, String author, byte[] bookImage, int year, String description, int available) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.author = author;
+        this.bookImage = bookImage;
+        this.year = year;
+        this.description = description;
+        this.available = available;
     }
 
     public Book() {
