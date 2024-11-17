@@ -78,7 +78,7 @@
         </VBox>
     </top>
     <right>
-        <VBox prefHeight="496.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="445.0" prefWidth="263.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
             <children>
                 <Label style="-fx-text-fill: #2b579a;" text="User information">
                     <font>
@@ -172,9 +172,9 @@
         </VBox>
     </right>
     <center>
-        <TableView fx:id="user_tableView" onContextMenuRequested="#requestMenu" prefHeight="200.0" prefWidth="740.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@../../ScreenUI/css/TableViewSstyle.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+        <TableView fx:id="user_tableView" onContextMenuRequested="#requestMenu" prefHeight="200.0" prefWidth="629.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@../../ScreenUI/css/TableViewSstyle.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="userId" prefWidth="74.0" text="User ID" />
+                <TableColumn fx:id="userId" prefWidth="74.0" text="ID" />
                 <TableColumn fx:id="userFname" prefWidth="112.0" text="First Name" />
                 <TableColumn fx:id="userLname" prefWidth="116.5" text="Last Name" />
                 <TableColumn fx:id="userName" prefWidth="123.5" text="Username" />

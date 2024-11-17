@@ -23,7 +23,7 @@
             <children>
                 <BorderPane maxHeight="67.0" prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right,#2b579a , #4facfe); -fx-background-radius: 10 10 0 0;">
                     <center>
-                        <Label text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER" style="-fx-font-family: 'Algerian'; -fx-font-size: 23px">
+                        <Label style="-fx-font-family: 'Algerian'; -fx-font-size: 23px" text="TUY-LIBRARY" textFill="WHITE" BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="23.0" />
                             </font>
@@ -109,13 +109,13 @@
     <center>
         <TableView fx:id="tableBookView" prefHeight="523.0" prefWidth="990.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@../../ScreenUI/css/TableViewSstyle.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="bookIsbnColumn" prefWidth="129.0" text="Book ISBN" />
-                <TableColumn fx:id="bookTitleColumn" prefWidth="200.0" text="Book Title" />
-                <TableColumn fx:id="bookAuthorColumn" prefWidth="169.0" text="Book Author" />
+                <TableColumn fx:id="bookIsbnColumn" prefWidth="129.0" text="ISBN" />
+                <TableColumn fx:id="bookTitleColumn" prefWidth="200.0" text="Title" />
+                <TableColumn fx:id="bookAuthorColumn" prefWidth="169.0" text="Author" />
                 <TableColumn fx:id="bookYearColumn" prefWidth="48.0" text="Year" />
                 <TableColumn fx:id="bookAvailableColumn" prefWidth="60.0" text="Available" />
-                <TableColumn fx:id="bookImageColumn" text="Image" />
-                <TableColumn fx:id="bookDescriptionColumn" prefWidth="168.0" text="Description" />
+                <TableColumn fx:id="bookImageColumn" prefWidth="74.0" text="Image" />
+                <TableColumn fx:id="bookDescriptionColumn" prefWidth="183.5" text="Description" />
             </columns>
             <BorderPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
