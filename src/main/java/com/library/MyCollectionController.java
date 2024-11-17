@@ -35,7 +35,6 @@ public class MyCollectionController {
     public void onDashboardBtnClick() {
         SceneLoader.handleDashboardButton(stage);
     }
-
     public void onSettingsBtnClick() {
         SceneLoader.handleSettingbutton(stage);
     }
