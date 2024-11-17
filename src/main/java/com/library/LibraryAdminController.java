@@ -4,18 +4,21 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
@@ -28,10 +31,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
+import static com.library.SceneLoader.loadAdminScene;
 
 public class LibraryAdminController implements Initializable {
     @FXML
@@ -40,6 +45,8 @@ public class LibraryAdminController implements Initializable {
     public Hyperlink deleteHyperlink;
     @FXML
     public Hyperlink saveHyperlink;
+    @FXML
+    public Hyperlink adminSceneHyperlink;
     @FXML
     private TableView<Book> tableBookView;
     @FXML
@@ -324,6 +331,7 @@ public class LibraryAdminController implements Initializable {
             if (rowsUpdated > 0) {
                 System.out.println("Số lượng sách đã được cập nhật.");
             }
+            loadBook();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
@@ -338,20 +346,51 @@ public class LibraryAdminController implements Initializable {
             loadBook();
             combinedResults.addAll(bookObservableList);
         } else {
-            List<Book> dbResults = findBooksInDatabase(searchTerm);
-            combinedResults.addAll(dbResults);
+            // Tạo task mới để tìm sách
+            Task<List<Book>> task = new Task<List<Book>>() {
+                @Override
+                protected List<Book> call() throws Exception {
+                    List<Book> dbResults = findBooksInDatabase(searchTerm);
+                    List<Book> apiResults = new ArrayList<>();
+                    if (dbResults.isEmpty()) {
+                        apiResults = findBooksFromAPI(searchTerm);
+                    }
+                    return apiResults;
+                }
+            };
 
-            if (combinedResults.isEmpty()) {
-                List<Book> apiResults = findBooksFromAPI(searchTerm);
+            // Khi task hoàn thành, cập nhật UI
+            task.setOnSucceeded(event -> {
+                List<Book> apiResults = task.getValue();
                 combinedResults.addAll(apiResults);
-            }
-        }
+                tableBookView.setItems(combinedResults);
+            });
 
-        tableBookView.setItems(combinedResults);
+            // Khi task thất bại, thông báo lỗi
+            task.setOnFailed(event -> {
+                Throwable exception = task.getException();
+                exception.printStackTrace();
+                showAlert("Error", "Failed to search books.", Alert.AlertType.ERROR);
+            });
+
+            // Thực thi task trong background thread
+            new Thread(task).start();
+        }
     }
 
-    public void addBook(ActionEvent actionEvent) {
+    public void addBook(ActionEvent actionEvent) throws IOException {
+        // Load file fxml khác
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addbookadmin-view.fxml"));
+        Parent root = fxmlLoader.load();
 
+        // Tạo cửa sổ mới
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
+        // Đóng cửa sổ hiện tại khi mở cửa sổ mới
+        Stage curStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        curStage.close();
     }
 
     @FXML
@@ -388,5 +427,35 @@ public class LibraryAdminController implements Initializable {
             }
         }
     }
+    public void findBooksFromAPIAsync(String searchTerm) {
+        Task<List<Book>> task = new Task<>() {
+            @Override
+            protected List<Book> call() throws Exception {
+                // Gọi phương thức tìm sách từ API trong thread riêng biệt
+                return findBooksFromAPI(searchTerm);
+            }
 
+            @Override
+            protected void succeeded() {
+                // Khi công việc hoàn thành, cập nhật UI
+                List<Book> books = getValue();
+                ObservableList<Book> bookObservableList = FXCollections.observableArrayList(books);
+                tableBookView.setItems(bookObservableList);
+            }
+
+            @Override
+            protected void failed() {
+                // Xử lý lỗi nếu công việc thất bại
+                showAlert("Error", "Failed to load books from API.", Alert.AlertType.ERROR);
+            }
+        };
+
+        // Chạy task trong một background thread
+        new Thread(task).start();
+    }
+
+    public void onAdminHyperLinkClicked() {
+        Stage stage = (Stage) adminSceneHyperlink.getScene().getWindow();
+        loadAdminScene(stage);
+    }
 }
