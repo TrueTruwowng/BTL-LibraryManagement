@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class CardController {
     @FXML

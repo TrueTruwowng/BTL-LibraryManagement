@@ -190,9 +190,9 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane prefHeight="196.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <ScrollPane fx:id="borrowingScrollPane" prefHeight="196.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
                      <content>
-                        <HBox prefHeight="177.0" prefWidth="930.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
+                        <HBox fx:id="borrowingContainer" prefHeight="177.0" prefWidth="930.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
                      </content>
                   </ScrollPane>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="730.0" text="History">
@@ -203,9 +203,9 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane prefHeight="162.0" prefWidth="746.0" styleClass="Scrollpane" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <ScrollPane fx:id="hIstoryScrollPane" prefHeight="162.0" prefWidth="746.0" styleClass="Scrollpane" stylesheets="@../../ScreenUI/css/AllView.css">
                      <content>
-                        <VBox prefHeight="273.0" prefWidth="730.0" />
+                        <VBox fx:id="historyVbox" prefHeight="273.0" prefWidth="730.0" />
                      </content>
                   </ScrollPane>
                </children>

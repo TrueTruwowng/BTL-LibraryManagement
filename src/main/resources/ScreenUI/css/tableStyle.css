@@ -1,0 +1,27 @@
+/* Styles cho header */
+.table-header {
+    -fx-background-color: #cccccc;
+    -fx-border-bottom: 2px solid black;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5;
+}
+
+.table-header-label {
+    -fx-border-right: 1px solid black;
+    -fx-pref-width: 140;
+    -fx-wrap-text: true;
+}
+
+/* Styles cho các dòng dữ liệu */
+.table-row {
+    -fx-background-color: #f9f9f9;
+    -fx-alignment: center;
+    -fx-padding: 5;
+}
+
+.table-row-label {
+    -fx-border-right: 1px solid black;
+    -fx-pref-width: 140;
+    -fx-wrap-text: true;
+}
