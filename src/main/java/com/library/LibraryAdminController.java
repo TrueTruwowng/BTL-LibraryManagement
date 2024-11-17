@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -342,16 +343,36 @@ public class LibraryAdminController implements Initializable {
             loadBook();
             combinedResults.addAll(bookObservableList);
         } else {
-            List<Book> dbResults = findBooksInDatabase(searchTerm);
-            combinedResults.addAll(dbResults);
+            // Tạo task mới để tìm sách
+            Task<List<Book>> task = new Task<List<Book>>() {
+                @Override
+                protected List<Book> call() throws Exception {
+                    List<Book> dbResults = findBooksInDatabase(searchTerm);
+                    List<Book> apiResults = new ArrayList<>();
+                    if (dbResults.isEmpty()) {
+                        apiResults = findBooksFromAPI(searchTerm);
+                    }
+                    return apiResults;
+                }
+            };
 
-            if (combinedResults.isEmpty()) {
-                List<Book> apiResults = findBooksFromAPI(searchTerm);
+            // Khi task hoàn thành, cập nhật UI
+            task.setOnSucceeded(event -> {
+                List<Book> apiResults = task.getValue();
                 combinedResults.addAll(apiResults);
-            }
-        }
+                tableBookView.setItems(combinedResults);
+            });
 
-        tableBookView.setItems(combinedResults);
+            // Khi task thất bại, thông báo lỗi
+            task.setOnFailed(event -> {
+                Throwable exception = task.getException();
+                exception.printStackTrace();
+                showAlert("Error", "Failed to search books.", Alert.AlertType.ERROR);
+            });
+
+            // Thực thi task trong background thread
+            new Thread(task).start();
+        }
     }
 
     public void addBook(ActionEvent actionEvent) throws IOException {
@@ -403,5 +424,30 @@ public class LibraryAdminController implements Initializable {
             }
         }
     }
+    public void findBooksFromAPIAsync(String searchTerm) {
+        Task<List<Book>> task = new Task<>() {
+            @Override
+            protected List<Book> call() throws Exception {
+                // Gọi phương thức tìm sách từ API trong thread riêng biệt
+                return findBooksFromAPI(searchTerm);
+            }
 
+            @Override
+            protected void succeeded() {
+                // Khi công việc hoàn thành, cập nhật UI
+                List<Book> books = getValue();
+                ObservableList<Book> bookObservableList = FXCollections.observableArrayList(books);
+                tableBookView.setItems(bookObservableList);
+            }
+
+            @Override
+            protected void failed() {
+                // Xử lý lỗi nếu công việc thất bại
+                showAlert("Error", "Failed to load books from API.", Alert.AlertType.ERROR);
+            }
+        };
+
+        // Chạy task trong một background thread
+        new Thread(task).start();
+    }
 }

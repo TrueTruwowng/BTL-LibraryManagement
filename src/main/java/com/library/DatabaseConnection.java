@@ -1,5 +1,6 @@
 package com.library;
 
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ public class DatabaseConnection {
 
     public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:/Users/sontung/Documents/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
+            String relativePath = "src/main/resources/database/userInfo.db";
+            String url = "jdbc:sqlite:" + new File(relativePath).getAbsolutePath();//chỉnh de k phai lay duong dan tai cac may khac
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
@@ -290,5 +292,43 @@ public class DatabaseConnection {
         }
 
         return books;
+    }
+    public static String countBooksBorrowing(String accountId) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String query = "SELECT COUNT(*) FROM borrowed_books WHERE account_id = ? AND return_date IS NULL";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, accountId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            return null;
+        } finally {
+            closeConnection();
+        }
+    }
+
+    // Đếm số sách đã mượn và đã trả của người dùng
+    public static String countBooksRead(String accountId) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String query = "SELECT COUNT(*) FROM borrowed_books WHERE account_id = ? AND return_date IS NOT NULL";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, accountId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            return null;
+        } finally {
+            closeConnection();
+        }
     }
 }

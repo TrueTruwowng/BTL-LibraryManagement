@@ -65,7 +65,7 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="50.0" prefWidth="172.0" text="DASHBOARD">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="100.0" prefWidth="155.0" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -82,7 +82,7 @@
                      </font>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="46.0" prefWidth="159.0" text="MY COLLECTION">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="100.0" prefWidth="155.0" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
@@ -96,33 +96,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="46.0" prefWidth="158.0" text="GAME">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onHistoryBtnClick" prefHeight="46.0" prefWidth="163.0" text="HISTORY">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="HISTORY" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="46.0" prefWidth="166.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
@@ -135,7 +109,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="46.0" prefWidth="184.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
@@ -175,7 +149,7 @@
                                     <Font name="Berlin Sans FB" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
+                              <Label fx:id="bookRead" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -188,12 +162,12 @@
                         <Separator maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="110.0" />
                         <VBox alignment="CENTER" prefHeight="129.0" prefWidth="365.0">
                            <children>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="BOOK BORROWED">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="BOOK BORROWING">
                                  <font>
                                     <Font name="Berlin Sans FB" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
+                              <Label fx:id="bookBorrow" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>

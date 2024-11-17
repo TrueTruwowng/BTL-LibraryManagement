@@ -40,20 +40,13 @@ public class SceneLoader {
         loadScreen("/com/library/Dashboard-view.fxml", stage, "Dashboard");
     }
 
-    public static void loadHistoryView(Stage stage) {
-        loadScreen("/com/library/history-view.fxml", stage, "History");
-    }
-
-    public static void loadGameView(Stage stage) {
-        loadScreen("/com/library/game-view.fxml", stage, "Game");
-    }
 
     public static void loadSettingView(Stage stage) {
         loadScreen("/com/library/Setting-view.fxml", stage, "Settings");
     }
 
     public static void loadMyCollectionView(Stage stage) {
-        loadScreen("/com/library/my-collection-view.fxml", stage, "My Collection");
+        loadScreen("/com/library/MyCollection-view.fxml", stage, "My Collection");
     }
     public static <T> T loadScreenWithController(String fxmlFile, Stage stage, String title) {
         try {
