@@ -43,7 +43,7 @@
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
                         <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="491.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
-                        <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#searchBooks" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../ScreenUI/Picture/look.png" />
                            </image>
