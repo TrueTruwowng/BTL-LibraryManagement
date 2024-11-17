@@ -107,8 +107,8 @@ public class LoginController {
             stage = (Stage) LoginButton.getScene().getWindow();
 
             // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
-            String username = UsernameField.getText();
-            if ("admin".equals(currentUser.getUsername())) {
+            String username = UserController.getCurrentUser().getUsername();
+            if (username.equals("admin")) {
                 SceneLoader.loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Dashboard");
             } else {
                 SceneLoader.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");

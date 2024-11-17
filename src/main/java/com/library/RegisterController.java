@@ -115,6 +115,7 @@ public class RegisterController {
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
+            DatabaseConnection.closeConnection();
             return true;
 
         } catch (Exception e) {

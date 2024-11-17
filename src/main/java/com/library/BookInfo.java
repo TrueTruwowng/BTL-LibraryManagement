@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static com.library.UserController.currentUser;
 
@@ -37,7 +36,7 @@ public class BookInfo {
     private Button returnButton;
 
     private Book book;
-    public void setBook(Book book) {
+    private void setBook(Book book) {
         this.book = book;
     }
 
