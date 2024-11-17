@@ -11,9 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -82,10 +79,10 @@ public class DashBoardController implements Initializable {
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
-
+        List <Book> recommendedBooks = new ArrayList<>();
         List<Book> allBooks = null;
         try {
-            // Lấy tất cả sách từ cơ sở dữ liệu
+            recommendedBooks = DatabaseConnection.getMostBorrowedBooks();
             allBooks = DatabaseConnection.getBooks();
             System.out.println("Books retrieved: " + allBooks.size());
 
@@ -93,15 +90,15 @@ public class DashBoardController implements Initializable {
             throw new RuntimeException(e);
         }
 
+        recommended = new ArrayList<>(recommendedBooks);
         recentlyAdded = new ArrayList<>(allBooks);
-        recommended = new ArrayList<>(allBooks);
 
         int column = 0; // Đếm số cột trong GridPane
         int row = 1; // Đếm số hàng trong GridPane
 
         try {
             // Hiển thị sách mới thêm
-            for (Book value : recentlyAdded) {
+            for (Book value : recommended) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("card-view.fxml"));
                 HBox cardBox = fxmlLoader.load(); // Tạo HBox cho thẻ sách
@@ -111,7 +108,7 @@ public class DashBoardController implements Initializable {
             }
 
             // Hiển thị sách được đề xuất
-            for (Book book : recommended) {
+            for (Book book : recentlyAdded) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
                 VBox bookBox = fxmlLoader.load(); // Tạo VBox cho sách

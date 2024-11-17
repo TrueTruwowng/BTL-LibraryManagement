@@ -46,7 +46,7 @@
                      <children>
                         <Label fx:id="username" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="Account">
                            <font>
-                              <Font name="Berlin Sans FB" size="14.0" />
+                              <Font name="Times New Roman" size="14.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="smallUserImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -146,7 +146,7 @@
                            <children>
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="120.0" text="BOOK READ">
                                  <font>
-                                    <Font name="Berlin Sans FB" size="14.0" />
+                                    <Font name="Calibri Bold" size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="bookRead" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
@@ -162,9 +162,9 @@
                         <Separator maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="110.0" />
                         <VBox alignment="CENTER" prefHeight="129.0" prefWidth="365.0">
                            <children>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" text="BOOK BORROWING">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="138.0" text="BOOK BORROWING">
                                  <font>
-                                    <Font name="Berlin Sans FB" size="14.0" />
+                                    <Font name="Calibri Bold" size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="bookBorrow" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
@@ -203,7 +203,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane fx:id="hIstoryScrollPane" prefHeight="162.0" prefWidth="746.0" styleClass="Scrollpane" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <ScrollPane fx:id="hIstoryScrollPane" prefHeight="162.0" prefWidth="746.0" stylesheets="@../../ScreenUI/css/AllView.css">
                      <content>
                         <VBox fx:id="historyVbox" prefHeight="273.0" prefWidth="730.0" />
                      </content>
