@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -20,8 +21,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import static com.library.SceneLoader.loadAdminLibraryScene;
+
 public class ProfileAdminController implements Initializable {
-    int select = 0;
+    @FXML
+    public Hyperlink bookSceneHyperlink;
     @FXML
     public JFXButton updateButton;
     @FXML
@@ -344,7 +348,7 @@ public class ProfileAdminController implements Initializable {
     }
 
     private String generateUserId() {
-        return UUID.randomUUID().toString(); // Simple user ID generator for demo
+        return UUID.randomUUID().toString(); // Simple user ID generator
     }
 
     private void clearFields() {
@@ -360,5 +364,10 @@ public class ProfileAdminController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void onAdminLibraryHyperLinkClicked() {
+        Stage stage = (Stage) bookSceneHyperlink.getScene().getWindow();
+        loadAdminLibraryScene(stage);
     }
 }

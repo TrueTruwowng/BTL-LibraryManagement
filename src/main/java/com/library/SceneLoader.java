@@ -77,4 +77,11 @@ public class SceneLoader {
         SceneLoader.loadDashboardView(SceneLoader.stage);
     }
 
+    public static void loadAdminScene(Stage stage) {
+        loadScreen("/com/library/profileadmin-view.fxml", stage, "Admin");
+    }
+
+    public static void loadAdminLibraryScene(Stage stage) {
+        loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Library");
+    }
 }

@@ -36,6 +36,7 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
+import static com.library.SceneLoader.loadAdminScene;
 
 public class LibraryAdminController implements Initializable {
     @FXML
@@ -44,6 +45,8 @@ public class LibraryAdminController implements Initializable {
     public Hyperlink deleteHyperlink;
     @FXML
     public Hyperlink saveHyperlink;
+    @FXML
+    public Hyperlink adminSceneHyperlink;
     @FXML
     private TableView<Book> tableBookView;
     @FXML
@@ -449,5 +452,10 @@ public class LibraryAdminController implements Initializable {
 
         // Chạy task trong một background thread
         new Thread(task).start();
+    }
+
+    public void onAdminHyperLinkClicked() {
+        Stage stage = (Stage) adminSceneHyperlink.getScene().getWindow();
+        loadAdminScene(stage);
     }
 }
