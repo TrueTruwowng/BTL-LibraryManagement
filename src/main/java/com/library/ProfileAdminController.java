@@ -69,7 +69,6 @@ public class ProfileAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumns();
-        DatabaseConnection.connectUserAccount();
         loadUsers();
     }
 
@@ -120,7 +119,6 @@ public class ProfileAdminController implements Initializable {
 
     @FXML
     private void saveUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
         // Kiểm tra đầu vào và mật khẩu khớp
         if (validateInput() && validatePasswords()) {
             // Lấy giá trị từ các TextField
@@ -170,7 +168,6 @@ public class ProfileAdminController implements Initializable {
 
     @FXML
     private void updateUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
 
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null && validateInput() && validatePasswords()) {
@@ -237,7 +234,6 @@ public class ProfileAdminController implements Initializable {
 
     @FXML
     private void deleteUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

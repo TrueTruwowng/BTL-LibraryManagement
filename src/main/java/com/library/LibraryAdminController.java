@@ -79,7 +79,6 @@ public class LibraryAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumn();
         loadBook();
-        DatabaseConnection.connectUserAccount();
     }
 
     public void initColumn() {
@@ -214,7 +213,6 @@ public class LibraryAdminController implements Initializable {
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
-                DatabaseConnection.connectUserAccount();
             }
 
             preparedStatement.setString(1, "%" + searchTerm + "%");

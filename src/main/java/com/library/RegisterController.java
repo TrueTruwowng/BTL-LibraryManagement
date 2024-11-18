@@ -45,7 +45,6 @@ public class RegisterController {
     private boolean isAnimating = false; // Biến để kiểm tra trạng thái animation
 
     public void initialize() {
-        DatabaseConnection.connectUserAccount();
         RegisterMessageLabelCheckMark.setVisible(false);
         RegisterMessageLabelXMark.setVisible(false);
         StatusIconCheckMark.setVisible(false);
@@ -115,7 +114,6 @@ public class RegisterController {
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
-            DatabaseConnection.closeConnection();
             return true;
 
         } catch (Exception e) {

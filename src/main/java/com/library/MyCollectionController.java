@@ -19,7 +19,7 @@ import java.util.Map;
 import static com.library.SceneLoader.stage;
 import static com.library.UserController.currentUser;
 
-public class MyCollectionController {
+public class MyCollectionController implements Scene {
     @FXML
     private VBox historyVbox;
     @FXML

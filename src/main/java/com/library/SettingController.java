@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 import static com.library.SceneLoader.stage;
 
-public class SettingController {
+public class SettingController implements com.library.Scene {
     @FXML
     private ImageView userImageView;
     @FXML

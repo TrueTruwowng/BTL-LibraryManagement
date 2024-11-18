@@ -115,8 +115,6 @@ class DatabaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
          return books;
      }
@@ -145,8 +143,6 @@ class DatabaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
 
          return book;
@@ -191,8 +187,6 @@ class DatabaseConnection {
              insertStmt.executeUpdate();
 
              System.out.println("Mượn sách thành công!");
-         } finally {
-             closeConnection();
          }
      }
 
@@ -236,8 +230,6 @@ class DatabaseConnection {
                  return rs.getInt(1) > 0;
              }
              return false;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -288,8 +280,6 @@ class DatabaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
 
          return books;
@@ -309,8 +299,6 @@ class DatabaseConnection {
                  return rs.getString(1);
              }
              return null;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -329,8 +317,6 @@ class DatabaseConnection {
                  return rs.getString(1);
              }
              return null;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -370,8 +356,6 @@ class DatabaseConnection {
              }
          } catch (SQLException e) {
              throw new SQLException("Error while fetching borrowing book list", e);
-         } finally {
-             closeConnection();
          }
 
          return books;
@@ -421,8 +405,6 @@ class DatabaseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
 
         return historyList;
@@ -464,13 +446,8 @@ class DatabaseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
 
         return books;
     }
-
-
-
 }

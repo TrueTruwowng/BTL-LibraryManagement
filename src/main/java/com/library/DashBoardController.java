@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import static com.library.SceneLoader.stage;
 import static com.library.UserController.currentUser;
 
-public class DashBoardController implements Initializable {
+public class DashBoardController implements Initializable,Scene {
     @FXML
     private AnchorPane searchPane;
     @FXML

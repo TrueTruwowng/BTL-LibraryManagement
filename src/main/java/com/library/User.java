@@ -2,7 +2,7 @@ package com.library;
 
 import java.io.Serializable;
 
-public class User implements Person {
+public class User {
     private  String userID;
     private String username;
     private String password;
