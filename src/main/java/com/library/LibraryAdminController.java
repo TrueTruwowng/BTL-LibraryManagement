@@ -37,6 +37,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 import static com.library.SceneLoader.loadAdminScene;
+import static com.library.SceneLoader.loadLoginView;
 
 public class LibraryAdminController implements Initializable {
     @FXML
@@ -47,6 +48,8 @@ public class LibraryAdminController implements Initializable {
     public Hyperlink saveHyperlink;
     @FXML
     public Hyperlink adminSceneHyperlink;
+    @FXML
+    public Hyperlink logoutHyperLink;
     @FXML
     private TableView<Book> tableBookView;
     @FXML
@@ -79,7 +82,6 @@ public class LibraryAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumn();
         loadBook();
-        DatabaseConnection.connectUserAccount();
     }
 
     public void initColumn() {
@@ -107,12 +109,10 @@ public class LibraryAdminController implements Initializable {
     }
 
     private void loadBook() {
-
         //Lấy dữ liệu từ database
-
-        try (Connection connection = DatabaseConnection.getConnection()) {
-             String sqlite = "SELECT * FROM book_info";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlite);
+        String sqlite = "SELECT * FROM book_info";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             bookObservableList.clear(); // Xóa danh sách hiện tại
@@ -154,9 +154,9 @@ public class LibraryAdminController implements Initializable {
             return;
         }
 
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM book_info WHERE isbn = ?";
-            PreparedStatement statement = con.prepareStatement(query);
+        String query = "DELETE FROM book_info WHERE isbn = ?";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement statement = con.prepareStatement(query)) {
             statement.setString(1, selectedBook.getIsbn());
             int rowsDeleted = statement.executeUpdate();
 
@@ -179,9 +179,9 @@ public class LibraryAdminController implements Initializable {
             return;
         }
 
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM book_info WHERE isbn = ?";
-            PreparedStatement statement = con.prepareStatement(query);
+        String query = "DELETE FROM book_info WHERE isbn = ?";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement statement = con.prepareStatement(query)) {
 
             for (Book book : selectedBooks) {
                 statement.setString(1, book.getIsbn());
@@ -213,10 +213,6 @@ public class LibraryAdminController implements Initializable {
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-            if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
-                DatabaseConnection.connectUserAccount();
-            }
-
             preparedStatement.setString(1, "%" + searchTerm + "%");
             preparedStatement.setString(2, "%" + searchTerm + "%");
             ResultSet rs = preparedStatement.executeQuery();
@@ -242,7 +238,7 @@ public class LibraryAdminController implements Initializable {
     // Tìm sách từ API
     public List<Book> findBooksFromAPI(String searchTerm) {
         List<Book> books = new ArrayList<>();
-        String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey();
+        String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey() + "&maxResults=40";
 
         try {
             URL url = new URL(urlStr);
@@ -330,8 +326,8 @@ public class LibraryAdminController implements Initializable {
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Số lượng sách đã được cập nhật.");
+                tableBookView.refresh();
             }
-            loadBook();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
@@ -404,9 +400,10 @@ public class LibraryAdminController implements Initializable {
         if (isBookExists(selectedBook)) {
             updateBookAvailable(selectedBook);
         } else {
-            try (Connection con = DatabaseConnection.getConnection()) {
-                String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+            String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try (Connection con = DatabaseConnection.getConnection();
+                 PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
+
                 insertStmt.setString(1, selectedBook.getIsbn());
                 insertStmt.setString(2, selectedBook.getTitle());
                 insertStmt.setString(3, selectedBook.getAuthor());
@@ -419,6 +416,7 @@ public class LibraryAdminController implements Initializable {
 
                 if (rowsInserted > 0) {
                     showAlert("Success", "Book saved successfully.", Alert.AlertType.INFORMATION);
+                    tableBookView.refresh();
                 } else {
                     showAlert("Error", "Error saving book.", Alert.AlertType.ERROR);
                 }
@@ -457,5 +455,10 @@ public class LibraryAdminController implements Initializable {
     public void onAdminHyperLinkClicked() {
         Stage stage = (Stage) adminSceneHyperlink.getScene().getWindow();
         loadAdminScene(stage);
+    }
+
+    public void backToLogin() {
+        Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
+        loadLoginView(stage);
     }
 }

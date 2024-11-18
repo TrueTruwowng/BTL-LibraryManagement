@@ -135,6 +135,14 @@
     <bottom>
         <HBox prefHeight="32.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
+            <Hyperlink fx:id="logoutHyperLink" onAction="#backToLogin" text="Logout" textFill="#2b579a">
+               <graphic>
+                  <FontAwesomeIcon glyphName="EXTERNAL_LINK" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="50.0" top="2.0" />
+               </HBox.margin>
+            </Hyperlink>
             <Hyperlink fx:id="adminSceneHyperlink" onAction="#onAdminHyperLinkClicked" text="User" textFill="#2b579a">
                <graphic>
                   <FontAwesomeIcon glyphName="USER" />
@@ -148,7 +156,7 @@
                         <FontAwesomeIcon glyphName="TRASH" size="15" />
                     </graphic>
                     <HBox.margin>
-                        <Insets left="50.0" top="2.0" />
+                        <Insets left="450.0" top="2.0" />
                     </HBox.margin>
                 </Hyperlink>
             <Hyperlink fx:id="saveHyperlink" onAction="#saveSelectedBook" text="Save" textFill="#2b579a">

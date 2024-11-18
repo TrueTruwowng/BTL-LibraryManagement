@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 import static com.library.SceneLoader.loadAdminLibraryScene;
+import static com.library.SceneLoader.loadLoginView;
 
 public class ProfileAdminController implements Initializable {
     @FXML
@@ -34,6 +35,8 @@ public class ProfileAdminController implements Initializable {
     public MenuItem selectMenu;
     @FXML
     public ProgressBar progressBar;
+    @FXML
+    public Hyperlink logoutHyperLink;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -120,7 +123,6 @@ public class ProfileAdminController implements Initializable {
 
     @FXML
     private void saveUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
         // Kiểm tra đầu vào và mật khẩu khớp
         if (validateInput() && validatePasswords()) {
             // Lấy giá trị từ các TextField
@@ -166,12 +168,8 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-
-
     @FXML
     private void updateUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
-
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null && validateInput() && validatePasswords()) {
             // Lấy giá trị từ các TextField
@@ -219,7 +217,6 @@ public class ProfileAdminController implements Initializable {
                     selectedUser.setPassword(password);
 
                     user_tableView.refresh();
-                    loadUsers();
                     clearFields();
                     showAlert("Success", "User updated successfully!", Alert.AlertType.INFORMATION);
                 } else {
@@ -234,10 +231,8 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-
     @FXML
     private void deleteUser(ActionEvent event) {
-        DatabaseConnection.connectUserAccount();
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -271,7 +266,6 @@ public class ProfileAdminController implements Initializable {
             showAlert("Warning", "Please select a user to delete.", Alert.AlertType.WARNING);
         }
     }
-
 
     @FXML
     private void cancelButton(ActionEvent event) {
@@ -369,5 +363,10 @@ public class ProfileAdminController implements Initializable {
     public void onAdminLibraryHyperLinkClicked() {
         Stage stage = (Stage) bookSceneHyperlink.getScene().getWindow();
         loadAdminLibraryScene(stage);
+    }
+
+    public void backToLogin() {
+        Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
+        loadLoginView(stage);
     }
 }
