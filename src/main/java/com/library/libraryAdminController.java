@@ -36,10 +36,10 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
-import static com.library.SceneLoader.loadAdminScene;
-import static com.library.SceneLoader.loadLoginView;
+import static com.library.sceneController.loadAdminScene;
+import static com.library.sceneController.loadLoginView;
 
-public class LibraryAdminController implements Initializable {
+public class libraryAdminController implements Initializable {
     @FXML
     public JFXButton addBookButton;
     @FXML
@@ -51,29 +51,29 @@ public class LibraryAdminController implements Initializable {
     @FXML
     public Hyperlink logoutHyperLink;
     @FXML
-    private TableView<Book> tableBookView;
+    private TableView<book> tableBookView;
     @FXML
-    private TableColumn<Book, String> bookIsbnColumn;
+    private TableColumn<book, String> bookIsbnColumn;
     @FXML
-    private TableColumn<Book, String> bookTitleColumn;
+    private TableColumn<book, String> bookTitleColumn;
     @FXML
-    private TableColumn<Book, String> bookAuthorColumn;
+    private TableColumn<book, String> bookAuthorColumn;
     @FXML
-    private TableColumn<Book, Integer> bookYearColumn;
+    private TableColumn<book, Integer> bookYearColumn;
     @FXML
-    private TableColumn<Book, byte[]> bookImageColumn;
+    private TableColumn<book, byte[]> bookImageColumn;
     @FXML
-    private TableColumn<Book, String> bookDescriptionColumn;
+    private TableColumn<book, String> bookDescriptionColumn;
     @FXML
-    private TableColumn<Book, Integer> bookAvailableColumn;
+    private TableColumn<book, Integer> bookAvailableColumn;
 
     @FXML
     private TextField bookSearchTextField;
     @FXML
     private FontAwesomeIcon searchIcon;
 
-    ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
-    ObservableList<Book> suggestedBookObservableList = FXCollections.observableArrayList();
+    ObservableList<book> bookObservableList = FXCollections.observableArrayList();
+    ObservableList<book> suggestedBookObservableList = FXCollections.observableArrayList();
 
     @FXML
     private ProgressBar progressBar;
@@ -92,7 +92,7 @@ public class LibraryAdminController implements Initializable {
         bookAvailableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
         bookDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         bookImageColumn.setCellValueFactory(new PropertyValueFactory<>("bookImage"));
-        bookImageColumn.setCellFactory(param -> new TableCell<Book, byte[]>() {
+        bookImageColumn.setCellFactory(param -> new TableCell<book, byte[]>() {
             protected void updateItem(byte[] item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
@@ -111,7 +111,7 @@ public class LibraryAdminController implements Initializable {
     private void loadBook() {
         //Lấy dữ liệu từ database
         String sqlite = "SELECT * FROM book_info";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -129,7 +129,7 @@ public class LibraryAdminController implements Initializable {
                     image = new byte[0];
                 }
 
-                Book book = new Book(isbn, title, author, year, available, description, image);
+                book book = new book(isbn, title, author, year, available, description, image);
                 bookObservableList.add(book);
             }
             tableBookView.setItems(bookObservableList);
@@ -148,14 +148,14 @@ public class LibraryAdminController implements Initializable {
     }
 
     public void DeleteBook(ActionEvent actionEvent) {
-        Book selectedBook = tableBookView.getSelectionModel().getSelectedItem();
+        book selectedBook = tableBookView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             showAlert("Error", "No book selected for deletion.", Alert.AlertType.ERROR);
             return;
         }
 
         String query = "DELETE FROM book_info WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement statement = con.prepareStatement(query)) {
             statement.setString(1, selectedBook.getIsbn());
             int rowsDeleted = statement.executeUpdate();
@@ -173,17 +173,17 @@ public class LibraryAdminController implements Initializable {
     }
 
     public void deleteselectedBooks(ActionEvent actionEvent) {
-        List<Book> selectedBooks = tableBookView.getSelectionModel().getSelectedItems();
+        List<book> selectedBooks = tableBookView.getSelectionModel().getSelectedItems();
         if (selectedBooks.isEmpty()) {
             showAlert("Error", "No books selected for deletion.", Alert.AlertType.ERROR);
             return;
         }
 
         String query = "DELETE FROM book_info WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement statement = con.prepareStatement(query)) {
 
-            for (Book book : selectedBooks) {
+            for (com.library.book book : selectedBooks) {
                 statement.setString(1, book.getIsbn());
                 statement.addBatch();
             }
@@ -202,15 +202,15 @@ public class LibraryAdminController implements Initializable {
     }
 
     // Tìm sách từ database
-    public List<Book> findBooksInDatabase(String searchTerm) {
-        List<Book> books = new ArrayList<>();
+    public List<book> findBooksInDatabase(String searchTerm) {
+        List<book> books = new ArrayList<>();
         String query = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
 
         if (searchTerm == null || searchTerm.isEmpty()) {
             searchTerm = "%";
         }
 
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             preparedStatement.setString(1, "%" + searchTerm + "%");
@@ -226,7 +226,7 @@ public class LibraryAdminController implements Initializable {
                 int available = rs.getInt("available");
                 byte[] image = rs.getBytes("bookImage");
 
-                Book book = new Book(isbn, title, author, year, available, description, image);
+                book book = new book(isbn, title, author, year, available, description, image);
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -236,8 +236,8 @@ public class LibraryAdminController implements Initializable {
     }
 
     // Tìm sách từ API
-    public List<Book> findBooksFromAPI(String searchTerm) {
-        List<Book> books = new ArrayList<>();
+    public List<book> findBooksFromAPI(String searchTerm) {
+        List<book> books = new ArrayList<>();
         String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey() + "&maxResults=40";
 
         try {
@@ -278,7 +278,7 @@ public class LibraryAdminController implements Initializable {
                         image = downloadImage(imageUrl);
                     }
 
-                    Book book = new Book(isbn, title, author, year, 1, description, image);
+                    book book = new book(isbn, title, author, year, 1, description, image);
                     books.add(book);
                 }
             }
@@ -302,9 +302,9 @@ public class LibraryAdminController implements Initializable {
     }
 
     // Kiểm tra xem database đã có sách chưa
-    public boolean isBookExists(Book book) {
+    public boolean isBookExists(book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             ResultSet rs = preparedStatement.executeQuery();
@@ -318,9 +318,9 @@ public class LibraryAdminController implements Initializable {
     }
 
     // Tăng số sách nếu đã có trong database
-    public void updateBookAvailable(Book book) {
+    public void updateBookAvailable(book book) {
         String query = "UPDATE book_info SET available = available + 1 WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             int rowsUpdated = preparedStatement.executeUpdate();
@@ -336,18 +336,18 @@ public class LibraryAdminController implements Initializable {
 
     public void searchBook(KeyEvent keyEvent) {
         String searchTerm = ((TextField) keyEvent.getSource()).getText().toLowerCase();
-        ObservableList<Book> combinedResults = FXCollections.observableArrayList();
+        ObservableList<book> combinedResults = FXCollections.observableArrayList();
 
         if (searchTerm.isEmpty()) {
             loadBook();
             combinedResults.addAll(bookObservableList);
         } else {
             // Tạo task mới để tìm sách
-            Task<List<Book>> task = new Task<List<Book>>() {
+            Task<List<book>> task = new Task<List<book>>() {
                 @Override
-                protected List<Book> call() throws Exception {
-                    List<Book> dbResults = findBooksInDatabase(searchTerm);
-                    List<Book> apiResults = new ArrayList<>();
+                protected List<book> call() throws Exception {
+                    List<book> dbResults = findBooksInDatabase(searchTerm);
+                    List<book> apiResults = new ArrayList<>();
                     if (dbResults.isEmpty()) {
                         apiResults = findBooksFromAPI(searchTerm);
                     }
@@ -357,7 +357,7 @@ public class LibraryAdminController implements Initializable {
 
             // Khi task hoàn thành, cập nhật UI
             task.setOnSucceeded(event -> {
-                List<Book> apiResults = task.getValue();
+                List<book> apiResults = task.getValue();
                 combinedResults.addAll(apiResults);
                 tableBookView.setItems(combinedResults);
             });
@@ -391,7 +391,7 @@ public class LibraryAdminController implements Initializable {
 
     @FXML
     public void saveSelectedBook(ActionEvent actionEvent) {
-        Book selectedBook = tableBookView.getSelectionModel().getSelectedItem();
+        book selectedBook = tableBookView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             showAlert("Error", "No book selected for deletion.", Alert.AlertType.ERROR);
             return;
@@ -401,7 +401,7 @@ public class LibraryAdminController implements Initializable {
             updateBookAvailable(selectedBook);
         } else {
             String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            try (Connection con = DatabaseConnection.getConnection();
+            try (Connection con = databaseConnection.getConnection();
                  PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
 
                 insertStmt.setString(1, selectedBook.getIsbn());
@@ -426,9 +426,9 @@ public class LibraryAdminController implements Initializable {
         }
     }
     public void findBooksFromAPIAsync(String searchTerm) {
-        Task<List<Book>> task = new Task<>() {
+        Task<List<book>> task = new Task<>() {
             @Override
-            protected List<Book> call() throws Exception {
+            protected List<book> call() throws Exception {
                 // Gọi phương thức tìm sách từ API trong thread riêng biệt
                 return findBooksFromAPI(searchTerm);
             }
@@ -436,8 +436,8 @@ public class LibraryAdminController implements Initializable {
             @Override
             protected void succeeded() {
                 // Khi công việc hoàn thành, cập nhật UI
-                List<Book> books = getValue();
-                ObservableList<Book> bookObservableList = FXCollections.observableArrayList(books);
+                List<book> books = getValue();
+                ObservableList<book> bookObservableList = FXCollections.observableArrayList(books);
                 tableBookView.setItems(bookObservableList);
             }
 

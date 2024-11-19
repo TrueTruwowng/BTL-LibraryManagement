@@ -8,15 +8,15 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static com.library.DatabaseConnection.connectUserAccount;
+import static com.library.databaseConnection.connectUserAccount;
 
-public class LibraryApplication extends Application {
+public class libraryApplication extends Application {
     @Override
         public void start (Stage stage) throws IOException {
         connectUserAccount();
-        Connection con = DatabaseConnection.getConnection();
+        Connection con = databaseConnection.getConnection();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("login-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(libraryApplication.class.getResource("login-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 600);
             stage.setTitle("Library Application");
             stage.setScene(scene);
@@ -31,7 +31,7 @@ public class LibraryApplication extends Application {
     @Override
     public void stop() throws SQLException {
         // Đóng kết nối khi ứng dụng kết thúc
-        DatabaseConnection.closeConnection();
+        databaseConnection.closeConnection();
     }
     public static void main(String[] args) {
         launch(args);

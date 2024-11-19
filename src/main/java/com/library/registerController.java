@@ -14,10 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-import static com.library.SceneLoader.stage;
-import static com.library.SceneLoader.loadLoginView;
+import static com.library.sceneController.stage;
+import static com.library.sceneController.loadLoginView;
 
-public class RegisterController {
+public class registerController {
     @FXML
     private Label RegisterMessageLabelXMark;
 
@@ -45,7 +45,7 @@ public class RegisterController {
     private boolean isAnimating = false; // Biến để kiểm tra trạng thái animation
 
     public void initialize() {
-        DatabaseConnection.connectUserAccount();
+        databaseConnection.connectUserAccount();
         RegisterMessageLabelCheckMark.setVisible(false);
         RegisterMessageLabelXMark.setVisible(false);
         StatusIconCheckMark.setVisible(false);
@@ -78,7 +78,7 @@ public class RegisterController {
 
 
     public boolean registerUser() {
-        Connection con = DatabaseConnection.getConnection();
+        Connection con = databaseConnection.getConnection();
         String firstName = FirstnameField.getText();
         String lastName = LastnameField.getText();
         String username = UsernameField.getText();
@@ -101,7 +101,7 @@ public class RegisterController {
             String accountId = UUID.randomUUID().toString();
 
             // Lấy ảnh mặc định từ ImageUtils
-            byte[] defaultImageBytes = UserController.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
+            byte[] defaultImageBytes = userController.getDefaultImageBytes("/ScreenUI/Picture/VectorLogo.png");
 
             String insertField = "INSERT INTO user_account(account_id, lastname, firstname, username, password, userPicture) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = con.prepareStatement(insertField);
@@ -115,7 +115,7 @@ public class RegisterController {
             insertStatement.executeUpdate();
             RegisterMessageLabelXMark.setText("Registered Successfully");
             showSuccessful();
-            DatabaseConnection.closeConnection();
+            databaseConnection.closeConnection();
             return true;
 
         } catch (Exception e) {
@@ -167,7 +167,7 @@ public class RegisterController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        SceneLoader.stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
+        sceneController.stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
         fadeOutLabel.setOnFinished(event -> loadLoginView(stage));
 
         fadeInLabel.play();

@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddBookAdminController implements Initializable {
+public class addBookAdminController implements Initializable {
     @FXML
     private TextField bookIsbnTextField;
     @FXML
@@ -66,9 +66,9 @@ public class AddBookAdminController implements Initializable {
         clearFields();
     }
 
-    public boolean isBookExists(Book book) {
+    public boolean isBookExists(book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             ResultSet rs = preparedStatement.executeQuery();
@@ -81,9 +81,9 @@ public class AddBookAdminController implements Initializable {
         return false;
     }
 
-    public void updateBookAvailable(Book book) {
+    public void updateBookAvailable(book book) {
         String query = "UPDATE book_info SET available = available + ? WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setInt(1, book.getAvailable()); // Số lượng cần cộng
             preparedStatement.setString(2, book.getIsbn());   // ISBN của sách
@@ -113,12 +113,12 @@ public class AddBookAdminController implements Initializable {
 
         int year = Integer.parseInt(bookYear);
         int quantity = Integer.parseInt(bookQuantity);
-        Book book = new Book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
+        book book = new book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
 
         if (isBookExists(book)) {
             updateBookAvailable(book);
         } else {
-            try (Connection con = DatabaseConnection.getConnection()) {
+            try (Connection con = databaseConnection.getConnection()) {
                 String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement insertStmt = con.prepareStatement(insertQuery);
                 insertStmt.setString(1, book.getIsbn());

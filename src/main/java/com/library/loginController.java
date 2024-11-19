@@ -16,11 +16,10 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.util.Duration;
 
-import static com.library.DatabaseConnection.connectUserAccount;
-import static com.library.SceneLoader.stage;
-import static com.library.UserController.currentUser;
+import static com.library.databaseConnection.connectUserAccount;
+import static com.library.sceneController.stage;
 
-public class LoginController {
+public class loginController {
     @FXML
     private Label LoginMessageLabelXmark;
     @FXML
@@ -107,11 +106,11 @@ public class LoginController {
             stage = (Stage) LoginButton.getScene().getWindow();
 
             // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
-            String username = UserController.getCurrentUser().getUsername();
+            String username = userController.getCurrentUser().getUsername();
             if (username.equals("admin")) {
-                SceneLoader.loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Dashboard");
+                sceneController.loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Dashboard");
             } else {
-                SceneLoader.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
+                sceneController.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
             }
         });
 
@@ -161,7 +160,7 @@ public class LoginController {
      * If there is only 1 username and password match in the database then login successful.
      */
     public void ValidateLogin() {
-        Connection con = DatabaseConnection.getConnection();
+        Connection con = databaseConnection.getConnection();
         if (con == null) {
             System.out.println("Không thể kết nối tới cơ sở dữ liệu.");
             showError();
@@ -196,13 +195,13 @@ public class LoginController {
                 String phone = queryResult2.getString("phone");
 
                 // Tạo đối tượng User, nếu email hoặc phone null thì giữ nguyên giá trị null
-                User currentUser = new User(userID, username, firstname, lastname, userPicture,
+                user currentUser = new user(userID, username, firstname, lastname, userPicture,
                         email != null ? email : null,
                         phone != null ? phone : null,
                         password);
 
                 // Lưu trữ user vào UserUtils
-                UserController.setCurrentUser(currentUser);
+                userController.setCurrentUser(currentUser);
                 System.out.println(currentUser);
                 showSuccessful();
             } else {

@@ -12,9 +12,9 @@ import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static com.library.UserController.currentUser;
+import static com.library.userController.currentUser;
 
-public class BookInfo {
+public class bookInfo {
 
     @FXML
     private Label bookTitle;
@@ -35,12 +35,12 @@ public class BookInfo {
     @FXML
     private Button returnButton;
 
-    private Book book;
-    private void setBook(Book book) {
+    private com.library.book book;
+    private void setBook(com.library.book book) {
         this.book = book;
     }
 
-    public void setBookData(Book book) {
+    public void setBookData(com.library.book book) {
         this.book = book;
 
         if (book != null) {
@@ -77,9 +77,9 @@ public class BookInfo {
 
         try {
             LocalDate returnDate = LocalDate.now(); // Ngày trả là ngày hiện tại
-            DatabaseConnection.updateReturnDateByISBN(isbn, accountId, returnDate); // Gọi hàm cập nhật trong DatabaseConnection
+            databaseConnection.updateReturnDateByISBN(isbn, accountId, returnDate); // Gọi hàm cập nhật trong DatabaseConnection
 
-            DatabaseConnection.updateAvailableBooks(isbn, 1); // Tăng số lượng sách có sẵn (1 cuốn)
+            databaseConnection.updateAvailableBooks(isbn, 1); // Tăng số lượng sách có sẵn (1 cuốn)
 
             showAlert("Trả sách thành công!", Alert.AlertType.INFORMATION);
 
@@ -104,7 +104,7 @@ public class BookInfo {
                 return;
             }
 
-            DatabaseConnection.borrowBookByTitle(title, accountId);
+            databaseConnection.borrowBookByTitle(title, accountId);
 
             showAlert("Mượn sách thành công!", Alert.AlertType.INFORMATION);
 
@@ -127,7 +127,7 @@ public class BookInfo {
                 return;
             }
 
-            boolean isBorrowed = DatabaseConnection.isBookBorrowedByUser(isbn, accountId);
+            boolean isBorrowed = databaseConnection.isBookBorrowedByUser(isbn, accountId);
 
             boolean isAvailable = book.getAvailable() > 0;
 

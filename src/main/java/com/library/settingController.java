@@ -21,9 +21,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.library.SceneLoader.stage;
+import static com.library.sceneController.stage;
 
-public class SettingController {
+public class settingController {
     @FXML
     private ImageView userImageView;
     @FXML
@@ -46,7 +46,7 @@ public class SettingController {
 
     @FXML
     public void initialize() {
-        User currentUser = UserController.getCurrentUser();
+        user currentUser = userController.getCurrentUser();
 
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
@@ -140,13 +140,13 @@ public class SettingController {
     }
 
     private void updateUserPictureInDatabase(Path imagePath) throws SQLException {
-        User currentUser = UserController.getCurrentUser();
+        user currentUser = userController.getCurrentUser();
         if (currentUser == null) return;
 
         try (InputStream inputStream = Files.newInputStream(imagePath)) {
             byte[] newImageBytes = inputStream.readAllBytes();
             currentUser.setUserPicture(newImageBytes);
-            DatabaseConnection.updateUserPicture(currentUser.getUserID(), newImageBytes);
+            databaseConnection.updateUserPicture(currentUser.getUserID(), newImageBytes);
 
             Platform.runLater(() -> {
                 refreshUserInfo(); // Gọi để cập nhật lại cả hai ImageView
@@ -157,7 +157,7 @@ public class SettingController {
             e.printStackTrace();
         }
         finally {
-            DatabaseConnection.closeConnection();
+            databaseConnection.closeConnection();
         }
     }
 
@@ -171,14 +171,14 @@ public class SettingController {
 
     public void handleEditInformationButton() {
         Stage editStage = new Stage();
-        EditController editController = (EditController) SceneLoader.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
+        editController editController = (com.library.editController) sceneController.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
         assert editController != null;
         editController.setSettingController(this);  // Truyền SettingController vào EditController
         editStage.show();
     }
 
     public void refreshUserInfo() {
-        User currentUser = UserController.getCurrentUser();
+        user currentUser = userController.getCurrentUser();
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
             lastNameLabel.setText(currentUser.getLastname());
@@ -194,17 +194,17 @@ public class SettingController {
         }
     }
     public void onDashboardBtnClick() {
-        SceneLoader.handleDashboardButton(stage);
+        sceneController.handleDashboardButton(stage);
     }
 
     public void onSettingsBtnClick() {
-        SceneLoader.handleSettingbutton(stage);
+        sceneController.handleSettingbutton(stage);
     }
     public void onMyCollectionBtnClick() {
-        SceneLoader.handleMyCollectionButton(stage);
+        sceneController.handleMyCollectionButton(stage);
     }
 
     public void onLogOutBtnClk() {
-        SceneLoader.handleLogoutButton(stage);
+        sceneController.handleLogoutButton(stage);
     }
 }
