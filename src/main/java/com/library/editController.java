@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class editController {
-    private static user currentUser;
+    private static User currentUser;
     @FXML
     private TextField newFirstname;
     @FXML

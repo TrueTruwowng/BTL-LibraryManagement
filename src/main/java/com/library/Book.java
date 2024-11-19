@@ -1,6 +1,6 @@
 package com.library;
 
-public class book {
+public class Book {
     private String isbn;
     private String title;
     private String author;
@@ -9,9 +9,9 @@ public class book {
     private int available;
     private byte[] bookImage;
 
-    public book() {}
+    public Book() {}
 
-    public book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
+    public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;

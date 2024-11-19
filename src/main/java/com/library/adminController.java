@@ -58,16 +58,16 @@ public class adminController implements Initializable {
     @FXML
     private ComboBox<String> searchComboBox;
 
-    public TableView<user> user_tableView;
-    public TableColumn<user, String> userId;
-    public TableColumn<user, String> userFname;
-    public TableColumn<user, String> userLname;
-    public TableColumn<user, String> userName;
-    public TableColumn<user, String> userPassword;
-    public TableColumn<user, String> userEmail;
-    public TableColumn<user, String> userPhone;
+    public TableView<User> user_tableView;
+    public TableColumn<User, String> userId;
+    public TableColumn<User, String> userFname;
+    public TableColumn<User, String> userLname;
+    public TableColumn<User, String> userName;
+    public TableColumn<User, String> userPassword;
+    public TableColumn<User, String> userEmail;
+    public TableColumn<User, String> userPhone;
 
-    ObservableList<user> user_data = FXCollections.observableArrayList();
+    ObservableList<User> user_data = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,7 +102,7 @@ public class adminController implements Initializable {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                user user = new user(
+                User user = new User(
                         resultSet.getString("account_id"),
                         resultSet.getString("firstname"),
                         resultSet.getString("lastname"),
@@ -151,7 +151,7 @@ public class adminController implements Initializable {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     // Thêm người dùng vào danh sách và cập nhật bảng
-                    user newUser = new user(accountId, "", "", username, null, password, email, phone);
+                    User newUser = new User(accountId, "", "", username, null, password, email, phone);
                     user_data.add(newUser);
                     user_tableView.setItems(user_data);
                     clearFields();
@@ -170,7 +170,7 @@ public class adminController implements Initializable {
 
     @FXML
     private void updateUser(ActionEvent event) {
-        user selectedUser = user_tableView.getSelectionModel().getSelectedItem();
+        User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null && validateInput() && validatePasswords()) {
             // Lấy giá trị từ các TextField
             String username = userNameTextField.getText();
@@ -233,7 +233,7 @@ public class adminController implements Initializable {
 
     @FXML
     private void deleteUser(ActionEvent event) {
-        user selectedUser = user_tableView.getSelectionModel().getSelectedItem();
+        User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Confirmation");
@@ -275,8 +275,8 @@ public class adminController implements Initializable {
     @FXML
     private void search(KeyEvent event) {
         String searchText = searchTextField.getText().toLowerCase();
-        ObservableList<user> filteredList = FXCollections.observableArrayList();
-        for (com.library.user user : user_data) {
+        ObservableList<User> filteredList = FXCollections.observableArrayList();
+        for (User user : user_data) {
             if (user.getUsername().toLowerCase().contains(searchText)) {
                 filteredList.add(user);
             }
@@ -286,7 +286,7 @@ public class adminController implements Initializable {
 
     @FXML
     private void deleteSelectedUsers(ActionEvent event) {
-        ObservableList<user> selectedUsers = user_tableView.getSelectionModel().getSelectedItems();
+        ObservableList<User> selectedUsers = user_tableView.getSelectionModel().getSelectedItems();
 
         if (!selectedUsers.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -300,7 +300,7 @@ public class adminController implements Initializable {
                     String query = "DELETE FROM user_account WHERE account_id = ?";
                     PreparedStatement preparedStatement = con.prepareStatement(query);
 
-                    for (com.library.user user : selectedUsers) {
+                    for (User user : selectedUsers) {
                         preparedStatement.setString(1, user.getUserID());
                         preparedStatement.executeUpdate();
                     }

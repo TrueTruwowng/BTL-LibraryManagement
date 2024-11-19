@@ -26,9 +26,9 @@ public class searchController {
 
     @FXML
     private Label bookTitle;
-    private com.library.book book;
+    private Book book;
 
-    public void setData(com.library.book book) {
+    public void setData(Book book) {
         if (book.getBookImage() != null) {
             bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {

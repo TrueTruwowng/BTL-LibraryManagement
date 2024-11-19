@@ -66,7 +66,7 @@ public class addBookAdminController implements Initializable {
         clearFields();
     }
 
-    public boolean isBookExists(book book) {
+    public boolean isBookExists(Book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
@@ -81,7 +81,7 @@ public class addBookAdminController implements Initializable {
         return false;
     }
 
-    public void updateBookAvailable(book book) {
+    public void updateBookAvailable(Book book) {
         String query = "UPDATE book_info SET available = available + ? WHERE isbn = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
@@ -113,7 +113,7 @@ public class addBookAdminController implements Initializable {
 
         int year = Integer.parseInt(bookYear);
         int quantity = Integer.parseInt(bookQuantity);
-        book book = new book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
+        Book book = new Book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
 
         if (isBookExists(book)) {
             updateBookAvailable(book);

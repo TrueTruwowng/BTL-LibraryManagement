@@ -37,7 +37,7 @@ public class myCollectionController {
     private HBox borrowingContainer; 
 
     public void initialize() throws SQLException {
-        user currentUser = userController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
@@ -45,16 +45,16 @@ public class myCollectionController {
         bookRead.setText(databaseConnection.countBooksRead(currentUser.getUserID()));
         bookBorrow.setText(databaseConnection.countBooksBorrowing(currentUser.getUserID()));
 
-        List <book> borrowingBooks = databaseConnection.borrowingBookList(currentUser.getUserID());
+        List <Book> borrowingBooks = databaseConnection.borrowingBookList(currentUser.getUserID());
         loadBorrowingBooks(borrowingBooks);
         displayBorrowHistory();
 
     }
 
-    private void loadBorrowingBooks(List<book> borrowingBooks) {
+    private void loadBorrowingBooks(List<Book> borrowingBooks) {
         borrowingContainer.getChildren().clear();
 
-        for (com.library.book book : borrowingBooks) {
+        for (Book book : borrowingBooks) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));

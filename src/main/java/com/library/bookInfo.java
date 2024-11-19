@@ -35,12 +35,12 @@ public class bookInfo {
     @FXML
     private Button returnButton;
 
-    private com.library.book book;
-    private void setBook(com.library.book book) {
+    private Book book;
+    private void setBook(Book book) {
         this.book = book;
     }
 
-    public void setBookData(com.library.book book) {
+    public void setBookData(Book book) {
         this.book = book;
 
         if (book != null) {

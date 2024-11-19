@@ -26,9 +26,9 @@ public class bookController {
     @FXML
     private Label bookTitle;
 
-    private com.library.book book;
+    private Book book;
 
-    public void setData(com.library.book book) {
+    public void setData(Book book) {
         this.book = book;
 
         // Nếu có hình ảnh sách, hiển thị, nếu không thì hiển thị hình ảnh mặc định

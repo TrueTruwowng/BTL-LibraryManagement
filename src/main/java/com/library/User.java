@@ -1,6 +1,6 @@
 package com.library;
 
-public class user {
+public class User {
     private  String userID;
     private String username;
     private String password;
@@ -10,7 +10,7 @@ public class user {
     private String email;
     private String phone;
 
-    user(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
+    User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;

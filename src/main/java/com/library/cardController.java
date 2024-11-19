@@ -28,9 +28,9 @@ public class cardController {
 
     private String[] colors = {"B9E5FF", "BDB2FE", "FB9AA8", "FF5056"};
 
-    private com.library.book book;
+    private Book book;
 
-    public void setData(com.library.book book) {
+    public void setData(Book book) {
         this.book = book;
         authorName.setText(book.getAuthor());
         bookTitle.setText(book.getTitle());

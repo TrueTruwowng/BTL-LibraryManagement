@@ -46,7 +46,7 @@ public class settingController {
 
     @FXML
     public void initialize() {
-        user currentUser = userController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
 
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
@@ -140,7 +140,7 @@ public class settingController {
     }
 
     private void updateUserPictureInDatabase(Path imagePath) throws SQLException {
-        user currentUser = userController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser == null) return;
 
         try (InputStream inputStream = Files.newInputStream(imagePath)) {
@@ -178,7 +178,7 @@ public class settingController {
     }
 
     public void refreshUserInfo() {
-        user currentUser = userController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
             lastNameLabel.setText(currentUser.getLastname());

@@ -5,14 +5,14 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 public class userController {
-    static user currentUser;
+    static User currentUser;
 
     // Getter và setter cho currentUser
-    public static user getCurrentUser() {
+    public static User getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(user user) {
+    public static void setCurrentUser(User user) {
         currentUser = user;
     }
 

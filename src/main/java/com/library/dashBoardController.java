@@ -42,9 +42,9 @@ public class dashBoardController implements Initializable {
     @FXML
     private boolean isSearchPaneVisible = false;
 
-    private List<book> recentlyAdded;
-    private List<book> recommended;
-    private List<book> searched;
+    private List<Book> recentlyAdded;
+    private List<Book> recommended;
+    private List<Book> searched;
 
     @FXML
     private Button dashboardBtn;
@@ -80,7 +80,7 @@ public class dashBoardController implements Initializable {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
 
-        List<book> allBooks = null;
+        List<Book> allBooks = null;
         try {
             // Lấy tất cả sách từ cơ sở dữ liệu
             allBooks = databaseConnection.getBooks();
@@ -98,7 +98,7 @@ public class dashBoardController implements Initializable {
 
         try {
             // Hiển thị sách mới thêm
-            for (book value : recentlyAdded) {
+            for (Book value : recentlyAdded) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("card-view.fxml"));
                 HBox cardBox = fxmlLoader.load(); // Tạo HBox cho thẻ sách
@@ -108,7 +108,7 @@ public class dashBoardController implements Initializable {
             }
 
             // Hiển thị sách được đề xuất
-            for (com.library.book book : recommended) {
+            for (Book book : recommended) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
                 VBox bookBox = fxmlLoader.load(); // Tạo VBox cho sách
@@ -151,7 +151,7 @@ public class dashBoardController implements Initializable {
             isSearchPaneVisible = true;
         }
 
-        List<book> searchResults;
+        List<Book> searchResults;
         try {
             searchResults = databaseConnection.searchBooks(searchQuery);
         } catch (SQLException e) {
@@ -163,7 +163,7 @@ public class dashBoardController implements Initializable {
         displaySearchResults(searchResults);
     }
 
-    private void displaySearchResults(List<book> books) {
+    private void displaySearchResults(List<Book> books) {
         searchLayout.getChildren().clear();
 
         if (books.isEmpty()) {
@@ -171,7 +171,7 @@ public class dashBoardController implements Initializable {
             searchLayout.getChildren().add(noResultsLabel);
         } else {
             try {
-                for (com.library.book book : books) {
+                for (Book book : books) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("search-view.fxml"));
                     HBox searchBox = fxmlLoader.load();

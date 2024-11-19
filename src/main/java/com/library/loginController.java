@@ -195,7 +195,7 @@ public class loginController {
                 String phone = queryResult2.getString("phone");
 
                 // Tạo đối tượng User, nếu email hoặc phone null thì giữ nguyên giá trị null
-                user currentUser = new user(userID, username, firstname, lastname, userPicture,
+                User currentUser = new User(userID, username, firstname, lastname, userPicture,
                         email != null ? email : null,
                         phone != null ? phone : null,
                         password);

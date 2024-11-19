@@ -85,18 +85,18 @@ class databaseConnection {
          }
      }
 
-     static List<book> getBooks() throws SQLException {
+     static List<Book> getBooks() throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
          String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info";
-         List<book> books = new ArrayList<>();
+         List<Book> books = new ArrayList<>();
 
          try (PreparedStatement preparedStatement = con.prepareStatement(sql);
               ResultSet resultSet = preparedStatement.executeQuery()) {
 
              while (resultSet.next()) {
-                 book book = new book();
+                 Book book = new Book();
 
                  book.setIsbn(resultSet.getString("isbn"));
                  book.setTitle(resultSet.getString("title"));
@@ -120,19 +120,19 @@ class databaseConnection {
          return books;
      }
 
-     static book getBookByISBN(String isbn) throws SQLException {
+     static Book getBookByISBN(String isbn) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
 
          String sql = "SELECT title, author, year, bookImage, available, isbn, description FROM book_info WHERE isbn = ?";
-         book book = null;
+         Book book = null;
 
          try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
              preparedStatement.setString(1, isbn); // Đặt giá trị ISBN vào câu lệnh truy vấn
              try (ResultSet resultSet = preparedStatement.executeQuery()) {
                  if (resultSet.next()) {
-                     book = new book();
+                     book = new Book();
                      book.setTitle(resultSet.getString("title"));
                      book.setAuthor(resultSet.getString("author"));
                      book.setYear(resultSet.getInt("year"));
@@ -251,12 +251,12 @@ class databaseConnection {
          }
      }
 
-     static List<book> searchBooks(String searchQuery) throws SQLException {
+     static List<Book> searchBooks(String searchQuery) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
 
-         List<book> books = new ArrayList<>();
+         List<Book> books = new ArrayList<>();
 
          String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info " +
                  "WHERE title LIKE ? OR author LIKE ? OR description LIKE ?";
@@ -269,7 +269,7 @@ class databaseConnection {
 
              try (ResultSet resultSet = preparedStatement.executeQuery()) {
                  while (resultSet.next()) {
-                     book book = new book();
+                     Book book = new Book();
                      book.setIsbn(resultSet.getString("isbn"));
                      book.setTitle(resultSet.getString("title"));
                      book.setAuthor(resultSet.getString("author"));
@@ -333,7 +333,7 @@ class databaseConnection {
          }
      }
 
-     static List<book> borrowingBookList(String accountID) throws SQLException {
+     static List<Book> borrowingBookList(String accountID) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -343,14 +343,14 @@ class databaseConnection {
                  "JOIN borrowed_books bb ON bi.isbn = bb.isbn " +
                  "WHERE bb.account_id = ? AND bb.return_date IS NULL";
 
-         List<book> books = new ArrayList<>();
+         List<Book> books = new ArrayList<>();
 
          try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
              preparedStatement.setString(1, accountID);
 
              try (ResultSet resultSet = preparedStatement.executeQuery()) {
                  while (resultSet.next()) {
-                     book book = new book();
+                     Book book = new Book();
 
                      book.setIsbn(resultSet.getString("isbn"));
                      book.setTitle(resultSet.getString("title"));
