@@ -23,8 +23,12 @@ class databaseConnection {
 
      public static Connection getConnection() {
          try {
+             // Nếu kết nối bị đóng, kết nối bằng url thay vì gọi phương thức connectUserAccount
+             // (hạn chế hiện "Connected to database" ở connectUserAccount mỗi khi muốn kết nối)
              if (con == null || con.isClosed()) {
-                 connectUserAccount();
+                 String relativePath = "src/main/resources/database/userInfo.db";
+                 String url = "jdbc:sqlite:" + new File(relativePath).getAbsolutePath();//chỉnh de k phai lay duong dan tai cac may khac
+                 con = DriverManager.getConnection(url);
              }
          } catch (SQLException e) {
              e.printStackTrace();

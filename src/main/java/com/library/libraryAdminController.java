@@ -181,14 +181,14 @@ public class libraryAdminController implements Initializable {
 
         String query = "DELETE FROM book_info WHERE isbn = ?";
         try (Connection con = databaseConnection.getConnection();
-             PreparedStatement statement = con.prepareStatement(query)) {
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             for (Book book : selectedBooks) {
-                statement.setString(1, book.getIsbn());
-                statement.addBatch();
+                preparedStatement.setString(1, book.getIsbn());
+                preparedStatement.addBatch();
             }
 
-            int[] rowsDeleted = statement.executeBatch();
+            int[] rowsDeleted = preparedStatement.executeBatch();
             if (rowsDeleted.length > 0) {
                 bookObservableList.removeAll(selectedBooks);
                 showAlert("Success", "Books deleted successfully.", Alert.AlertType.INFORMATION);
@@ -206,15 +206,17 @@ public class libraryAdminController implements Initializable {
         List<Book> books = new ArrayList<>();
         String query = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
 
+        // Nếu từ khoá trống, tìm tất cả sách (%)
         if (searchTerm == null || searchTerm.isEmpty()) {
             searchTerm = "%";
         }
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
-
+            // Chèn từ khoá vào ? trong truy vấn SQL
             preparedStatement.setString(1, "%" + searchTerm + "%");
             preparedStatement.setString(2, "%" + searchTerm + "%");
+            // Thực thi câu lệnh truy vấn của SQL
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -357,7 +359,9 @@ public class libraryAdminController implements Initializable {
 
             // Khi task hoàn thành, cập nhật UI
             task.setOnSucceeded(event -> {
+                List<Book> dbResults = findBooksInDatabase(searchTerm);
                 List<Book> apiResults = task.getValue();
+                combinedResults.addAll(dbResults);
                 combinedResults.addAll(apiResults);
                 tableBookView.setItems(combinedResults);
             });
@@ -425,6 +429,7 @@ public class libraryAdminController implements Initializable {
             }
         }
     }
+
     public void findBooksFromAPIAsync(String searchTerm) {
         Task<List<Book>> task = new Task<>() {
             @Override

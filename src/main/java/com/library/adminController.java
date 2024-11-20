@@ -253,6 +253,7 @@ public class adminController implements Initializable {
                     if (rowsAffected > 0) {
                         // Xóa người dùng khỏi bảng
                         user_data.remove(selectedUser);
+                        user_tableView.refresh();
                         showAlert("Success", "User deleted successfully!", Alert.AlertType.INFORMATION);
                     } else {
                         showAlert("Error", "Failed to delete user from database.", Alert.AlertType.ERROR);
