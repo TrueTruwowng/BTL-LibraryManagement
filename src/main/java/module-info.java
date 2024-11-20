@@ -18,4 +18,6 @@ module com.library {
 
     opens com.library to javafx.fxml;
     exports com.library;
+    exports com.library.admin;
+    opens com.library.admin to javafx.fxml;
 }

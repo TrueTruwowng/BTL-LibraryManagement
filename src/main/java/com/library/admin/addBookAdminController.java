@@ -1,6 +1,8 @@
-package com.library;
+package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.Book;
+import com.library.databaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

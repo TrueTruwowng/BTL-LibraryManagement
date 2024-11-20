@@ -5,7 +5,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 
-class databaseConnection {
+public class databaseConnection {
      private static Connection con;
 
      public static void connectUserAccount() {
