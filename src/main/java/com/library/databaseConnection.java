@@ -36,7 +36,7 @@ public class databaseConnection {
          return con;
      }
 
-     static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
+     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -58,7 +58,7 @@ public class databaseConnection {
          }
      }
 
-     static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
+     public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -89,7 +89,7 @@ public class databaseConnection {
          }
      }
 
-     static List<Book> getBooks() throws SQLException {
+     public static List<Book> getBooks() throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -255,7 +255,7 @@ public class databaseConnection {
          }
      }
 
-     static List<Book> searchBooks(String searchQuery) throws SQLException {
+     public static List<Book> searchBooks(String searchQuery) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -298,7 +298,7 @@ public class databaseConnection {
          return books;
      }
 
-     static String countBooksBorrowing(String accountId) throws SQLException {
+     public static String countBooksBorrowing(String accountId) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -318,7 +318,7 @@ public class databaseConnection {
      }
 
      // Đếm số sách đã mượn và đã trả của người dùng
-     static String countBooksRead(String accountId) throws SQLException {
+     public static String countBooksRead(String accountId) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -337,7 +337,7 @@ public class databaseConnection {
          }
      }
 
-     static List<Book> borrowingBookList(String accountID) throws SQLException {
+     public static List<Book> borrowingBookList(String accountID) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -379,7 +379,7 @@ public class databaseConnection {
 
          return books;
      }
-    static List<Map<String, Object>> getBorrowHistory(String accountID) throws SQLException {
+    public static List<Map<String, Object>> getBorrowHistory(String accountID) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }

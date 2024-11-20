@@ -1,5 +1,6 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.databaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -14,8 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-import static com.library.sceneController.stage;
-import static com.library.sceneController.loadLoginView;
+import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.sceneController.loadLoginView;
 
 public class registerController {
     @FXML

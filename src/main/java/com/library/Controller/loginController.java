@@ -1,4 +1,6 @@
-package com.library;
+package com.library.Controller;
+import com.library.User;
+import com.library.databaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import java.io.IOException;
 import javafx.util.Duration;
 
 import static com.library.databaseConnection.connectUserAccount;
-import static com.library.sceneController.stage;
+import static com.library.Controller.sceneController.stage;
 
 public class loginController {
     @FXML

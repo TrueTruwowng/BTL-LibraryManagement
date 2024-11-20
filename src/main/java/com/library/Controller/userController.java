@@ -1,4 +1,7 @@
-package com.library;
+package com.library.Controller;
+
+import com.library.User;
+import com.library.databaseConnection;
 
 import java.io.IOException;
 import java.io.InputStream;

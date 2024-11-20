@@ -1,5 +1,7 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.Book;
+import com.library.bookInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,16 +9,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class bookController {
+public class searchController {
 
     @FXML
-    private VBox bookContainer;
+    private HBox HboxSearch;
+
     @FXML
     private Label authorName;
 
@@ -25,28 +28,23 @@ public class bookController {
 
     @FXML
     private Label bookTitle;
-
     private Book book;
 
     public void setData(Book book) {
-        this.book = book;
-
-        // Nếu có hình ảnh sách, hiển thị, nếu không thì hiển thị hình ảnh mặc định
         if (book.getBookImage() != null) {
             bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {
+
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
         }
-
         bookTitle.setText(book.getTitle());
         authorName.setText(book.getAuthor());
+        HboxSearch.setOnMouseClicked(this::onBookClick);
 
-        // Thêm sự kiện click vào bookImage
-        bookContainer.setOnMouseClicked(this::onCardClick);
+
     }
 
-    // Phương thức xử lý sự kiện click
-    private void onCardClick(MouseEvent event) {
+    private void onBookClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BookInfo-view.fxml"));
             Scene scene = new Scene(loader.load());
@@ -63,4 +61,5 @@ public class bookController {
             e.printStackTrace();
         }
     }
+
 }

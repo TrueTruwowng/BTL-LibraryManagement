@@ -39,8 +39,8 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
-import static com.library.sceneController.loadAdminScene;
-import static com.library.sceneController.loadLoginView;
+import static com.library.Controller.sceneController.loadAdminScene;
+import static com.library.Controller.sceneController.loadLoginView;
 
 public class libraryAdminController implements Initializable {
     @FXML

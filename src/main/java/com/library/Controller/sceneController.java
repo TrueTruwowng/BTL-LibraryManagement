@@ -1,4 +1,4 @@
-package com.library;
+package com.library.Controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

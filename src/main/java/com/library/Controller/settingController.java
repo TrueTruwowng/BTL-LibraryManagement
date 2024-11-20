@@ -1,5 +1,7 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.User;
+import com.library.databaseConnection;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +23,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.library.sceneController.stage;
+import static com.library.Controller.sceneController.stage;
 
 public class settingController {
     @FXML
@@ -171,7 +173,7 @@ public class settingController {
 
     public void handleEditInformationButton() {
         Stage editStage = new Stage();
-        editController editController = (com.library.editController) sceneController.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
+        editController editController = (com.library.Controller.editController) sceneController.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
         assert editController != null;
         editController.setSettingController(this);  // Truyền SettingController vào EditController
         editStage.show();

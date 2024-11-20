@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.library.sceneController.loadAdminLibraryScene;
-import static com.library.sceneController.loadLoginView;
+import static com.library.Controller.sceneController.loadAdminLibraryScene;
+import static com.library.Controller.sceneController.loadLoginView;
 
 public class adminController implements Initializable {
     @FXML

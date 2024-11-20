@@ -1,6 +1,7 @@
-package com.library;
+package com.library.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,5 +1,6 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -25,7 +26,7 @@ public class editController {
     private Button saveButton;
     @FXML
     private Button cancelButton;
-    private com.library.settingController settingController;  // Khai báo biến settingController
+    private com.library.Controller.settingController settingController;  // Khai báo biến settingController
 
     public void initialize() {
         currentUser = userController.getCurrentUser();
@@ -77,7 +78,7 @@ public class editController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-    public void setSettingController(com.library.settingController settingController) {
+    public void setSettingController(com.library.Controller.settingController settingController) {
         this.settingController = settingController;
     }
 }

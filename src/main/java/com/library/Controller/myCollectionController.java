@@ -1,5 +1,8 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.Book;
+import com.library.User;
+import com.library.databaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,8 +19,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import static com.library.sceneController.stage;
-import static com.library.userController.currentUser;
+import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.userController.currentUser;
 
 public class myCollectionController {
     @FXML
