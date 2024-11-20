@@ -1,6 +1,8 @@
-package com.library;
+package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.User;
+import com.library.databaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +23,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.library.SceneLoader.loadAdminLibraryScene;
+import static com.library.Controller.sceneController.loadAdminLibraryScene;
+import static com.library.Controller.sceneController.loadLoginView;
 
-public class ProfileAdminController implements Initializable {
+public class adminController implements Initializable {
     @FXML
     public Hyperlink bookSceneHyperlink;
     @FXML
@@ -34,6 +37,8 @@ public class ProfileAdminController implements Initializable {
     public MenuItem selectMenu;
     @FXML
     public ProgressBar progressBar;
+    @FXML
+    public Hyperlink logoutHyperLink;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -69,6 +74,7 @@ public class ProfileAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumns();
+        databaseConnection.connectUserAccount();
         loadUsers();
     }
 
@@ -84,7 +90,7 @@ public class ProfileAdminController implements Initializable {
 
     private void loadUsers() {
         // Kết nối tới database
-        Connection connection = DatabaseConnection.getConnection();
+        Connection connection = databaseConnection.getConnection();
         if (connection == null) {
             System.out.println("Kết nối database thất bại");
             showAlert("Thông báo", "Kết nối thất bại", Alert.AlertType.ERROR);
@@ -130,8 +136,8 @@ public class ProfileAdminController implements Initializable {
             // Tạo câu lệnh SQL để chèn dữ liệu vào bảng "users"
             String sql = "INSERT INTO user_account (account_id, firstname, lastname, username, password, userPicture, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try (Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (Connection connection = databaseConnection.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 String accountId = generateUserId();
 
                 preparedStatement.setString(1, accountId);
@@ -164,11 +170,8 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-
-
     @FXML
     private void updateUser(ActionEvent event) {
-
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null && validateInput() && validatePasswords()) {
             // Lấy giá trị từ các TextField
@@ -179,7 +182,7 @@ public class ProfileAdminController implements Initializable {
 
             // Kiểm tra username
             String checkUsernameQuery = "SELECT account_id FROM user_account WHERE username = ? AND account_id != ?";
-            try (Connection connection = DatabaseConnection.getConnection();
+            try (Connection connection = databaseConnection.getConnection();
                  PreparedStatement checkStatement = connection.prepareStatement(checkUsernameQuery)) {
 
                 checkStatement.setString(1, username);
@@ -199,7 +202,7 @@ public class ProfileAdminController implements Initializable {
 
             String sqlite = "UPDATE user_account SET  username = ?, email = ?, phone = ?, password = ? WHERE account_id = ? OR username = ?";
 
-            try (Connection connection = DatabaseConnection.getConnection();
+            try (Connection connection = databaseConnection.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
 
                 preparedStatement.setString(5, selectedUser.getUserID());
@@ -216,7 +219,6 @@ public class ProfileAdminController implements Initializable {
                     selectedUser.setPassword(password);
 
                     user_tableView.refresh();
-                    loadUsers();
                     clearFields();
                     showAlert("Success", "User updated successfully!", Alert.AlertType.INFORMATION);
                 } else {
@@ -231,7 +233,6 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-
     @FXML
     private void deleteUser(ActionEvent event) {
         User selectedUser = user_tableView.getSelectionModel().getSelectedItem();
@@ -245,7 +246,7 @@ public class ProfileAdminController implements Initializable {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Xóa người dùng từ database
                 String sql = "DELETE FROM user_account WHERE username = ?";
-                try (Connection connection = DatabaseConnection.getConnection();
+                try (Connection connection = databaseConnection.getConnection();
                      PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                     preparedStatement.setString(1, selectedUser.getUsername());
@@ -254,6 +255,7 @@ public class ProfileAdminController implements Initializable {
                     if (rowsAffected > 0) {
                         // Xóa người dùng khỏi bảng
                         user_data.remove(selectedUser);
+                        user_tableView.refresh();
                         showAlert("Success", "User deleted successfully!", Alert.AlertType.INFORMATION);
                     } else {
                         showAlert("Error", "Failed to delete user from database.", Alert.AlertType.ERROR);
@@ -267,7 +269,6 @@ public class ProfileAdminController implements Initializable {
             showAlert("Warning", "Please select a user to delete.", Alert.AlertType.WARNING);
         }
     }
-
 
     @FXML
     private void cancelButton(ActionEvent event) {
@@ -298,7 +299,7 @@ public class ProfileAdminController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                try (Connection con = DatabaseConnection.getConnection()) {
+                try (Connection con = databaseConnection.getConnection()) {
                     String query = "DELETE FROM user_account WHERE account_id = ?";
                     PreparedStatement preparedStatement = con.prepareStatement(query);
 
@@ -365,5 +366,10 @@ public class ProfileAdminController implements Initializable {
     public void onAdminLibraryHyperLinkClicked() {
         Stage stage = (Stage) bookSceneHyperlink.getScene().getWindow();
         loadAdminLibraryScene(stage);
+    }
+
+    public void backToLogin() {
+        Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
+        loadLoginView(stage);
     }
 }

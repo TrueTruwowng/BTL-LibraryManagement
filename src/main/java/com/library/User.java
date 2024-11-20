@@ -1,7 +1,5 @@
 package com.library;
 
-import java.io.Serializable;
-
 public class User {
     private  String userID;
     private String username;
@@ -12,7 +10,7 @@ public class User {
     private String email;
     private String phone;
 
-    User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
+    public User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;

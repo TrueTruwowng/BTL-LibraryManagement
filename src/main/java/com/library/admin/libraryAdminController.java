@@ -1,6 +1,9 @@
-package com.library;
+package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.API;
+import com.library.Book;
+import com.library.databaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,9 +39,10 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
-import static com.library.SceneLoader.loadAdminScene;
+import static com.library.Controller.sceneController.loadAdminScene;
+import static com.library.Controller.sceneController.loadLoginView;
 
-public class LibraryAdminController implements Initializable {
+public class libraryAdminController implements Initializable {
     @FXML
     public JFXButton addBookButton;
     @FXML
@@ -47,6 +51,8 @@ public class LibraryAdminController implements Initializable {
     public Hyperlink saveHyperlink;
     @FXML
     public Hyperlink adminSceneHyperlink;
+    @FXML
+    public Hyperlink logoutHyperLink;
     @FXML
     private TableView<Book> tableBookView;
     @FXML
@@ -106,12 +112,10 @@ public class LibraryAdminController implements Initializable {
     }
 
     private void loadBook() {
-
         //Lấy dữ liệu từ database
-
-        try (Connection connection = DatabaseConnection.getConnection()) {
-             String sqlite = "SELECT * FROM book_info";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlite);
+        String sqlite = "SELECT * FROM book_info";
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             bookObservableList.clear(); // Xóa danh sách hiện tại
@@ -153,9 +157,9 @@ public class LibraryAdminController implements Initializable {
             return;
         }
 
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM book_info WHERE isbn = ?";
-            PreparedStatement statement = con.prepareStatement(query);
+        String query = "DELETE FROM book_info WHERE isbn = ?";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement statement = con.prepareStatement(query)) {
             statement.setString(1, selectedBook.getIsbn());
             int rowsDeleted = statement.executeUpdate();
 
@@ -178,16 +182,16 @@ public class LibraryAdminController implements Initializable {
             return;
         }
 
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM book_info WHERE isbn = ?";
-            PreparedStatement statement = con.prepareStatement(query);
+        String query = "DELETE FROM book_info WHERE isbn = ?";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             for (Book book : selectedBooks) {
-                statement.setString(1, book.getIsbn());
-                statement.addBatch();
+                preparedStatement.setString(1, book.getIsbn());
+                preparedStatement.addBatch();
             }
 
-            int[] rowsDeleted = statement.executeBatch();
+            int[] rowsDeleted = preparedStatement.executeBatch();
             if (rowsDeleted.length > 0) {
                 bookObservableList.removeAll(selectedBooks);
                 showAlert("Success", "Books deleted successfully.", Alert.AlertType.INFORMATION);
@@ -205,18 +209,17 @@ public class LibraryAdminController implements Initializable {
         List<Book> books = new ArrayList<>();
         String query = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
 
+        // Nếu từ khoá trống, tìm tất cả sách (%)
         if (searchTerm == null || searchTerm.isEmpty()) {
             searchTerm = "%";
         }
 
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
-
-            if (DatabaseConnection.getConnection() == null || DatabaseConnection.getConnection().isClosed()) {
-            }
-
+            // Chèn từ khoá vào ? trong truy vấn SQL
             preparedStatement.setString(1, "%" + searchTerm + "%");
             preparedStatement.setString(2, "%" + searchTerm + "%");
+            // Thực thi câu lệnh truy vấn của SQL
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -240,7 +243,7 @@ public class LibraryAdminController implements Initializable {
     // Tìm sách từ API
     public List<Book> findBooksFromAPI(String searchTerm) {
         List<Book> books = new ArrayList<>();
-        String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey();
+        String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey() + "&maxResults=40";
 
         try {
             URL url = new URL(urlStr);
@@ -306,7 +309,7 @@ public class LibraryAdminController implements Initializable {
     // Kiểm tra xem database đã có sách chưa
     public boolean isBookExists(Book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             ResultSet rs = preparedStatement.executeQuery();
@@ -322,14 +325,14 @@ public class LibraryAdminController implements Initializable {
     // Tăng số sách nếu đã có trong database
     public void updateBookAvailable(Book book) {
         String query = "UPDATE book_info SET available = available + 1 WHERE isbn = ?";
-        try (Connection con = DatabaseConnection.getConnection();
+        try (Connection con = databaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Số lượng sách đã được cập nhật.");
+                tableBookView.refresh();
             }
-            loadBook();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
@@ -359,7 +362,9 @@ public class LibraryAdminController implements Initializable {
 
             // Khi task hoàn thành, cập nhật UI
             task.setOnSucceeded(event -> {
+                List<Book> dbResults = findBooksInDatabase(searchTerm);
                 List<Book> apiResults = task.getValue();
+                combinedResults.addAll(dbResults);
                 combinedResults.addAll(apiResults);
                 tableBookView.setItems(combinedResults);
             });
@@ -402,9 +407,10 @@ public class LibraryAdminController implements Initializable {
         if (isBookExists(selectedBook)) {
             updateBookAvailable(selectedBook);
         } else {
-            try (Connection con = DatabaseConnection.getConnection()) {
-                String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+            String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try (Connection con = databaseConnection.getConnection();
+                 PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
+
                 insertStmt.setString(1, selectedBook.getIsbn());
                 insertStmt.setString(2, selectedBook.getTitle());
                 insertStmt.setString(3, selectedBook.getAuthor());
@@ -417,6 +423,7 @@ public class LibraryAdminController implements Initializable {
 
                 if (rowsInserted > 0) {
                     showAlert("Success", "Book saved successfully.", Alert.AlertType.INFORMATION);
+                    tableBookView.refresh();
                 } else {
                     showAlert("Error", "Error saving book.", Alert.AlertType.ERROR);
                 }
@@ -425,6 +432,7 @@ public class LibraryAdminController implements Initializable {
             }
         }
     }
+
     public void findBooksFromAPIAsync(String searchTerm) {
         Task<List<Book>> task = new Task<>() {
             @Override
@@ -455,5 +463,10 @@ public class LibraryAdminController implements Initializable {
     public void onAdminHyperLinkClicked() {
         Stage stage = (Stage) adminSceneHyperlink.getScene().getWindow();
         loadAdminScene(stage);
+    }
+
+    public void backToLogin() {
+        Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
+        loadLoginView(stage);
     }
 }

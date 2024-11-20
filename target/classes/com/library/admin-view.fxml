@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profileAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.ProfileAdminController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/profileAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.adminController">
     <top>
         <VBox prefHeight="123.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
@@ -200,6 +200,14 @@
     <bottom>
         <HBox prefHeight="32.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
+                <Hyperlink fx:id="logoutHyperLink" onAction="#backToLogin" text="Logout" textFill="#2b579a">
+                    <graphic>
+                        <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="15" />
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="50.0" top="2.0" />
+                    </HBox.margin>
+                </Hyperlink>
             <Hyperlink fx:id="bookSceneHyperlink" onAction="#onAdminLibraryHyperLinkClicked" text="Book" textFill="#2a579b">
                <graphic>
                   <FontAwesomeIcon glyphName="BOOK" />
@@ -208,14 +216,6 @@
                   <Insets left="50.0" top="2.0" />
                </HBox.margin>
             </Hyperlink>
-                <Hyperlink onAction="#deleteSelectedUsers" text="Delete" textFill="#2b579a">
-                    <graphic>
-                        <FontAwesomeIcon glyphName="TRASH" size="15" />
-                    </graphic>
-                    <HBox.margin>
-                        <Insets left="50.0" top="2.0" />
-                    </HBox.margin>
-                </Hyperlink>
             </children>
         </HBox>
     </bottom>

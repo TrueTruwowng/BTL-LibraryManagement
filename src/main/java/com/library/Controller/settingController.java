@@ -1,5 +1,7 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.User;
+import com.library.databaseConnection;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,9 +23,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.library.SceneLoader.stage;
+import static com.library.Controller.sceneController.stage;
 
-public class SettingController implements com.library.Scene {
+public class settingController {
     @FXML
     private ImageView userImageView;
     @FXML
@@ -46,7 +48,7 @@ public class SettingController implements com.library.Scene {
 
     @FXML
     public void initialize() {
-        User currentUser = UserController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
 
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
@@ -140,13 +142,13 @@ public class SettingController implements com.library.Scene {
     }
 
     private void updateUserPictureInDatabase(Path imagePath) throws SQLException {
-        User currentUser = UserController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser == null) return;
 
         try (InputStream inputStream = Files.newInputStream(imagePath)) {
             byte[] newImageBytes = inputStream.readAllBytes();
             currentUser.setUserPicture(newImageBytes);
-            DatabaseConnection.updateUserPicture(currentUser.getUserID(), newImageBytes);
+            databaseConnection.updateUserPicture(currentUser.getUserID(), newImageBytes);
 
             Platform.runLater(() -> {
                 refreshUserInfo(); // Gọi để cập nhật lại cả hai ImageView
@@ -157,7 +159,7 @@ public class SettingController implements com.library.Scene {
             e.printStackTrace();
         }
         finally {
-            DatabaseConnection.closeConnection();
+            databaseConnection.closeConnection();
         }
     }
 
@@ -171,14 +173,14 @@ public class SettingController implements com.library.Scene {
 
     public void handleEditInformationButton() {
         Stage editStage = new Stage();
-        EditController editController = (EditController) SceneLoader.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
+        editController editController = (com.library.Controller.editController) sceneController.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
         assert editController != null;
         editController.setSettingController(this);  // Truyền SettingController vào EditController
         editStage.show();
     }
 
     public void refreshUserInfo() {
-        User currentUser = UserController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser != null) {
             firstNameLabel.setText(currentUser.getFirstname());
             lastNameLabel.setText(currentUser.getLastname());
@@ -194,17 +196,17 @@ public class SettingController implements com.library.Scene {
         }
     }
     public void onDashboardBtnClick() {
-        SceneLoader.handleDashboardButton(stage);
+        sceneController.handleDashboardButton(stage);
     }
 
     public void onSettingsBtnClick() {
-        SceneLoader.handleSettingbutton(stage);
+        sceneController.handleSettingbutton(stage);
     }
     public void onMyCollectionBtnClick() {
-        SceneLoader.handleMyCollectionButton(stage);
+        sceneController.handleMyCollectionButton(stage);
     }
 
     public void onLogOutBtnClk() {
-        SceneLoader.handleLogoutButton(stage);
+        sceneController.handleLogoutButton(stage);
     }
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="bookContainer" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="95.0" style="-fx-background-radius: 5;" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.BookController">
+<VBox fx:id="bookContainer" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="95.0" style="-fx-background-radius: 5;" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.bookController">
    <children>
       <ImageView fx:id="bookImage" fitHeight="102.0" fitWidth="73.0" pickOnBounds="true" styleClass="rating-image">
          <image>

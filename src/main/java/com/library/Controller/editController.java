@@ -1,5 +1,6 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class EditController {
+public class editController {
     private static User currentUser;
     @FXML
     private TextField newFirstname;
@@ -25,10 +26,10 @@ public class EditController {
     private Button saveButton;
     @FXML
     private Button cancelButton;
-    private SettingController settingController;  // Khai báo biến settingController
+    private com.library.Controller.settingController settingController;  // Khai báo biến settingController
 
     public void initialize() {
-        currentUser = UserController.getCurrentUser();
+        currentUser = userController.getCurrentUser();
         newFirstname.setText(currentUser.getFirstname());
         newLastname.setText(currentUser.getLastname());
         newEmail.setText(currentUser.getEmail());
@@ -48,7 +49,7 @@ public class EditController {
                 password = currentUser.getPassword();
             }
 
-            UserController.updateUserInfo(firstname, lastname, email, phone, password);
+            userController.updateUserInfo(firstname, lastname, email, phone, password);
 
             Platform.runLater(() -> {
                 showAlert(Alert.AlertType.INFORMATION, "Update Successful", "User info updated successfully.");
@@ -77,7 +78,7 @@ public class EditController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-    public void setSettingController(SettingController settingController) {
+    public void setSettingController(com.library.Controller.settingController settingController) {
         this.settingController = settingController;
     }
 }

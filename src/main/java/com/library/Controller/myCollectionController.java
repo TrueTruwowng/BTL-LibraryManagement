@@ -1,5 +1,8 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.Book;
+import com.library.User;
+import com.library.databaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,10 +19,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import static com.library.SceneLoader.stage;
-import static com.library.UserController.currentUser;
+import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.userController.currentUser;
 
-public class MyCollectionController implements Scene {
+public class myCollectionController {
     @FXML
     private VBox historyVbox;
     @FXML
@@ -37,15 +40,15 @@ public class MyCollectionController implements Scene {
     private HBox borrowingContainer; 
 
     public void initialize() throws SQLException {
-        User currentUser = com.library.UserController.getCurrentUser();
+        User currentUser = userController.getCurrentUser();
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
         username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
-        bookRead.setText(DatabaseConnection.countBooksRead(currentUser.getUserID()));
-        bookBorrow.setText(DatabaseConnection.countBooksBorrowing(currentUser.getUserID()));
+        bookRead.setText(databaseConnection.countBooksRead(currentUser.getUserID()));
+        bookBorrow.setText(databaseConnection.countBooksBorrowing(currentUser.getUserID()));
 
-        List <Book> borrowingBooks = DatabaseConnection.borrowingBookList(currentUser.getUserID());
+        List <Book> borrowingBooks = databaseConnection.borrowingBookList(currentUser.getUserID());
         loadBorrowingBooks(borrowingBooks);
         displayBorrowHistory();
 
@@ -60,7 +63,7 @@ public class MyCollectionController implements Scene {
                 fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
                 VBox bookBox = fxmlLoader.load();
 
-                BookController bookController = fxmlLoader.getController();
+                bookController bookController = fxmlLoader.getController();
                 bookController.setData(book);
 
                 borrowingContainer.getChildren().add(bookBox);
@@ -73,7 +76,7 @@ public class MyCollectionController implements Scene {
         borrowingScrollPane.setContent(borrowingContainer);
     }
     public void displayBorrowHistory() throws SQLException {
-        List<Map<String, Object>> historyList = DatabaseConnection.getBorrowHistory(currentUser.getUserID());
+        List<Map<String, Object>> historyList = databaseConnection.getBorrowHistory(currentUser.getUserID());
 
         historyVbox.getChildren().clear();
 
@@ -129,15 +132,15 @@ public class MyCollectionController implements Scene {
 
 
     public void onDashboardBtnClick() {
-        SceneLoader.handleDashboardButton(stage);
+        sceneController.handleDashboardButton(stage);
     }
     public void onSettingsBtnClick() {
-        SceneLoader.handleSettingbutton(stage);
+        sceneController.handleSettingbutton(stage);
     }
     public void onMyCollectionBtnClick() {
-        SceneLoader.handleMyCollectionButton(stage);
+        sceneController.handleMyCollectionButton(stage);
     }
     public void onLogOutBtnClk() {
-        SceneLoader.handleLogoutButton(stage);
+        sceneController.handleLogoutButton(stage);
     }
 }

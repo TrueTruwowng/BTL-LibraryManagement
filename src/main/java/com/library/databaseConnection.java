@@ -2,11 +2,10 @@ package com.library;
 
 import java.io.File;
 import java.sql.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
-class DatabaseConnection {
+public class databaseConnection {
      private static Connection con;
 
      public static void connectUserAccount() {
@@ -24,8 +23,12 @@ class DatabaseConnection {
 
      public static Connection getConnection() {
          try {
+             // Nếu kết nối bị đóng, kết nối bằng url thay vì gọi phương thức connectUserAccount
+             // (hạn chế hiện "Connected to database" ở connectUserAccount mỗi khi muốn kết nối)
              if (con == null || con.isClosed()) {
-                 connectUserAccount();
+                 String relativePath = "src/main/resources/database/userInfo.db";
+                 String url = "jdbc:sqlite:" + new File(relativePath).getAbsolutePath();//chỉnh de k phai lay duong dan tai cac may khac
+                 con = DriverManager.getConnection(url);
              }
          } catch (SQLException e) {
              e.printStackTrace();
@@ -33,7 +36,7 @@ class DatabaseConnection {
          return con;
      }
 
-     static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
+     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -55,7 +58,7 @@ class DatabaseConnection {
          }
      }
 
-     static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
+     public static void updateUserInfo(String userID, String newFirstname, String newLastname, String newEmail, String newPhone, String newPassword) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -86,7 +89,7 @@ class DatabaseConnection {
          }
      }
 
-     static List<Book> getBooks() throws SQLException {
+     public static List<Book> getBooks() throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -244,7 +247,7 @@ class DatabaseConnection {
          }
      }
 
-     static List<Book> searchBooks(String searchQuery) throws SQLException {
+     public static List<Book> searchBooks(String searchQuery) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -285,7 +288,7 @@ class DatabaseConnection {
          return books;
      }
 
-     static String countBooksBorrowing(String accountId) throws SQLException {
+     public static String countBooksBorrowing(String accountId) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -303,7 +306,7 @@ class DatabaseConnection {
      }
 
      // Đếm số sách đã mượn và đã trả của người dùng
-     static String countBooksRead(String accountId) throws SQLException {
+     public static String countBooksRead(String accountId) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -320,7 +323,7 @@ class DatabaseConnection {
          }
      }
 
-     static List<Book> borrowingBookList(String accountID) throws SQLException {
+     public static List<Book> borrowingBookList(String accountID) throws SQLException {
          if (con == null || con.isClosed()) {
              connectUserAccount();
          }
@@ -360,7 +363,7 @@ class DatabaseConnection {
 
          return books;
      }
-    static List<Map<String, Object>> getBorrowHistory(String accountID) throws SQLException {
+    public static List<Map<String, Object>> getBorrowHistory(String accountID) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }

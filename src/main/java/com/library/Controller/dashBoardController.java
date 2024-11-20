@@ -1,6 +1,7 @@
-package com.library;
+package com.library.Controller;
 
-import javafx.event.Event;
+import com.library.Book;
+import com.library.databaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -19,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.library.SceneLoader.stage;
-import static com.library.UserController.currentUser;
+import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.userController.currentUser;
 
-public class DashBoardController implements Initializable,Scene {
+public class dashBoardController implements Initializable {
     @FXML
     private AnchorPane searchPane;
     @FXML
@@ -79,40 +81,40 @@ public class DashBoardController implements Initializable,Scene {
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
-        List <Book> recommendedBooks = new ArrayList<>();
+
         List<Book> allBooks = null;
         try {
-            recommendedBooks = DatabaseConnection.getMostBorrowedBooks();
-            allBooks = DatabaseConnection.getBooks();
+            // Lấy tất cả sách từ cơ sở dữ liệu
+            allBooks = databaseConnection.getBooks();
             System.out.println("Books retrieved: " + allBooks.size());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        recommended = new ArrayList<>(recommendedBooks);
         recentlyAdded = new ArrayList<>(allBooks);
+        recommended = new ArrayList<>(allBooks);
 
         int column = 0; // Đếm số cột trong GridPane
         int row = 1; // Đếm số hàng trong GridPane
 
         try {
             // Hiển thị sách mới thêm
-            for (Book value : recommended) {
+            for (Book value : recentlyAdded) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("card-view.fxml"));
                 HBox cardBox = fxmlLoader.load(); // Tạo HBox cho thẻ sách
-                CardController cardController = fxmlLoader.getController();
+                cardController cardController = fxmlLoader.getController();
                 cardController.setData(value);
                 cardLayout.getChildren().add(cardBox);
             }
 
             // Hiển thị sách được đề xuất
-            for (Book book : recentlyAdded) {
+            for (Book book : recommended) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
                 VBox bookBox = fxmlLoader.load(); // Tạo VBox cho sách
-                BookController bookController = fxmlLoader.getController();
+                bookController bookController = fxmlLoader.getController();
                 bookController.setData(book);
 
                 if (column == 6) {
@@ -153,7 +155,7 @@ public class DashBoardController implements Initializable,Scene {
 
         List<Book> searchResults;
         try {
-            searchResults = DatabaseConnection.searchBooks(searchQuery);
+            searchResults = databaseConnection.searchBooks(searchQuery);
         } catch (SQLException e) {
             e.printStackTrace();
             return;
@@ -175,7 +177,7 @@ public class DashBoardController implements Initializable,Scene {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("search-view.fxml"));
                     HBox searchBox = fxmlLoader.load();
-                    SearchController searchController = fxmlLoader.getController();
+                    searchController searchController = fxmlLoader.getController();
                     searchController.setData(book);
                     searchLayout.getChildren().add(searchBox);
                 }
@@ -188,16 +190,16 @@ public class DashBoardController implements Initializable,Scene {
 
 
     public void onDashboardBtnClick() {
-        SceneLoader.handleDashboardButton(stage);
+        sceneController.handleDashboardButton(stage);
     }
     public void onSettingsBtnClick() {
-        SceneLoader.handleSettingbutton(stage);
+        sceneController.handleSettingbutton(stage);
     }
     public void onMyCollectionBtnClick() {
-        SceneLoader.handleMyCollectionButton(stage);
+        sceneController.handleMyCollectionButton(stage);
     }
     public void onLogOutBtnClk() {
-        SceneLoader.handleLogoutButton(stage);
+        sceneController.handleLogoutButton(stage);
     }
 
 

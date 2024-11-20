@@ -1,5 +1,7 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.Book;
+import com.library.bookInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,9 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
-public class SearchController {
+public class searchController {
 
     @FXML
     private HBox HboxSearch;
@@ -47,7 +48,7 @@ public class SearchController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BookInfo-view.fxml"));
             Scene scene = new Scene(loader.load());
-            BookInfo bookInfoController = loader.getController();
+            bookInfo bookInfoController = loader.getController();
             bookInfoController.setBookData(this.book);  // Truyền đối tượng book vào BookInfo
 
             // Tạo một cửa sổ mới (Stage)

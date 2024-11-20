@@ -1,19 +1,24 @@
-package com.library;
+package com.library.Controller;
 
+import com.library.Book;
+import com.library.bookInfo;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class CardController {
+public class bookController {
+
+    @FXML
+    private VBox bookContainer;
     @FXML
     private Label authorName;
 
@@ -23,38 +28,31 @@ public class CardController {
     @FXML
     private Label bookTitle;
 
-    @FXML
-    private HBox box;
-
-    private String[] colors = {"B9E5FF", "BDB2FE", "FB9AA8", "FF5056"};
-
     private Book book;
 
     public void setData(Book book) {
         this.book = book;
-        authorName.setText(book.getAuthor());
-        bookTitle.setText(book.getTitle());
 
+        // Nếu có hình ảnh sách, hiển thị, nếu không thì hiển thị hình ảnh mặc định
         if (book.getBookImage() != null) {
             bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {
             bookImage.setImage(new Image(getClass().getResourceAsStream("/ScreenUI/Picture/NULLimage.jpg")));
         }
 
-        String color = colors[(int) (Math.random() * colors.length)];
-        box.setStyle("-fx-background-color: #" + color + ";" +
-                "-fx-background-radius: 15;" +
-                "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 10);");
+        bookTitle.setText(book.getTitle());
+        authorName.setText(book.getAuthor());
 
-        // Thêm sự kiện click vào HBox
-        box.setOnMouseClicked(this::onCardClick);
+        // Thêm sự kiện click vào bookImage
+        bookContainer.setOnMouseClicked(this::onCardClick);
     }
 
+    // Phương thức xử lý sự kiện click
     private void onCardClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BookInfo-view.fxml"));
             Scene scene = new Scene(loader.load());
-            BookInfo bookInfoController = loader.getController();
+            bookInfo bookInfoController = loader.getController();
             bookInfoController.setBookData(this.book);  // Truyền đối tượng book vào BookInfo
 
             // Tạo một cửa sổ mới (Stage)

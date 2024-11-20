@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox fx:id="HboxSearch" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="455.0" spacing="10.0" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.SearchController">
+<HBox fx:id="HboxSearch" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="455.0" spacing="10.0" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.searchController">
    <children>
       <ImageView fx:id="bookImage" fitHeight="84.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
          <image>
