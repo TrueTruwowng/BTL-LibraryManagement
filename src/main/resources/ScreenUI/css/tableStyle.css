@@ -1,34 +1,25 @@
-/* Styles cho header */
 .table-header {
-    -fx-background-color: #4CAF50; /* Màu nền header */
-    -fx-text-fill: white; /* Màu chữ header */
+    -fx-background-color: #385f18;
     -fx-font-weight: bold;
-    -fx-alignment: center;
-    -fx-padding: 10;
+    -fx-text-fill: white;
+    -fx-padding: 5;
+    -fx-spacing: 0;
 }
 
-.table-header-label {
-    -fx-border-right: 1px solid white;
-    -fx-pref-width: 140;
-    -fx-wrap-text: true;
+.table-header, .table-row {
+    -fx-spacing: 0; /* Không khoảng cách giữa các ô */
+    -fx-padding: 0; /* Không padding trong HBox */
+    -fx-border-width: 1px 0 0 0; /* Viền trên cho các hàng */
+    -fx-border-color: #dcdcdc;
 }
 
-/* Styles cho các dòng dữ liệu */
-.table-row {
-    -fx-background-color: #f1f1f1; /* Màu nền của dòng dữ liệu */
-    -fx-alignment: center;
-    -fx-padding: 10;
+/* Định dạng các ô trong hàng */
+.table-header-label, .table-row-label {
+    -fx-border-color: #dcdcdc; /* Viền giữa các cột */
+    -fx-border-width: 0 1px 0 0; /* Viền phải */
+    -fx-padding: 5; /* Padding trong ô */
+    -fx-alignment: center-left; /* Căn lề */
 }
 
-.table-row-label {
-    -fx-border-right: 1px solid #ddd;
-    -fx-pref-width: 140;
-    -fx-wrap-text: true;
-}
-
-/* Hover effect cho các dòng dữ liệu */
-.table-row:hover {
-    -fx-background-color: #e0e0e0; /* Màu nền khi hover */
-}
 
 
