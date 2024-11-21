@@ -118,8 +118,6 @@ public class databaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
          return books;
      }
@@ -148,8 +146,6 @@ public class databaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
 
          return book;
@@ -194,8 +190,6 @@ public class databaseConnection {
              insertStmt.executeUpdate();
 
              System.out.println("Mượn sách thành công!");
-         } finally {
-             closeConnection();
          }
      }
 
@@ -239,8 +233,6 @@ public class databaseConnection {
                  return rs.getInt(1) > 0;
              }
              return false;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -291,8 +283,6 @@ public class databaseConnection {
              }
          } catch (SQLException e) {
              e.printStackTrace();
-         } finally {
-             closeConnection();
          }
 
          return books;
@@ -312,8 +302,6 @@ public class databaseConnection {
                  return rs.getString(1);
              }
              return null;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -332,8 +320,6 @@ public class databaseConnection {
                  return rs.getString(1);
              }
              return null;
-         } finally {
-             closeConnection();
          }
      }
 
@@ -373,8 +359,6 @@ public class databaseConnection {
              }
          } catch (SQLException e) {
              throw new SQLException("Error while fetching borrowing book list", e);
-         } finally {
-             closeConnection();
          }
 
          return books;
@@ -424,13 +408,49 @@ public class databaseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
 
         return historyList;
     }
 
+    static List<Book> getMostBorrowedBooks() throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
 
+        List<Book> books = new ArrayList<>();
 
- }
+        // SQL query để lấy top 5 sách được mượn nhiều nhất
+        String sql = "SELECT bi.isbn, bi.title, bi.author, bi.year, bi.description, bi.available, bi.bookImage, COUNT(bb.isbn) AS borrow_count " +
+                "FROM borrowed_books bb " +
+                "JOIN book_info bi ON bb.isbn = bi.isbn " +
+                "GROUP BY bb.isbn " +
+                "ORDER BY borrow_count DESC " +
+                "LIMIT 5";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setIsbn(resultSet.getString("isbn"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setYear(resultSet.getInt("year"));
+                book.setDescription(resultSet.getString("description"));
+                book.setAvailable(resultSet.getInt("available"));
+
+                byte[] imageBytes = resultSet.getBytes("bookImage");
+                if (imageBytes != null) {
+                    book.setBookImage(imageBytes);
+                }
+
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+}

@@ -173,7 +173,7 @@ public class settingController {
 
     public void handleEditInformationButton() {
         Stage editStage = new Stage();
-        editController editController = (com.library.Controller.editController) sceneController.loadScreenWithController("EditInfo-view.fxml", editStage, "EditInfo.fxml");
+        editController editController = (com.library.Controller.editController) sceneController.loadScreenWithController("/com/library/EditInfo-view.fxml", editStage, "EditInfo.fxml");
         assert editController != null;
         editController.setSettingController(this);  // Truyền SettingController vào EditController
         editStage.show();

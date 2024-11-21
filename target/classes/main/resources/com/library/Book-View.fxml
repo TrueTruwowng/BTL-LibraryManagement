@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="bookContainer" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="95.0" style="-fx-background-radius: 5;" stylesheets="@../../ScreenUI/css/AllView.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.bookController">
+   <children>
+      <ImageView fx:id="bookImage" fitHeight="102.0" fitWidth="73.0" pickOnBounds="true" styleClass="rating-image">
+         <image>
+            <Image url="@../../ScreenUI/Picture/dacnhanhtam.jpg" />
+         </image>
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <VBox prefHeight="68.0" prefWidth="120.0">
+         <children>
+            <Label fx:id="bookTitle" prefHeight="18.0" prefWidth="75.0" text="Đắc Nhân Tâm">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="authorName" prefHeight="18.0" prefWidth="75.0" text="Tác Giả">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
+            <ImageView fitHeight="19.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ScreenUI/Picture/5StarRating.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="shadow" />
+      <String fx:value="white_background" />
+   </styleClass>
+</VBox>

@@ -1,0 +1,20 @@
+.jfx-button:hover{
+    -fx-background-color: #219297;
+    -fx-text-fill: white;
+}
+
+.jfx-button{
+    -fx-background-color: #2b579a;
+    -fx-text-fill: white;
+}
+
+.jfx-button:focused{
+    -fx-background-color: #2b579a;
+}
+
+.progress-bar > .track {
+    -fx-background-color: #ffffff;
+}
+.progress-bar > .bar {
+    -fx-background-color: #cacac9;
+}

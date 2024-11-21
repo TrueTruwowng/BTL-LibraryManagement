@@ -46,7 +46,7 @@
                      <children>
                         <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="Account">
                            <font>
-                              <Font name="Times New Roman Bold" size="14.0" />
+                              <Font name="Times New Roman" size="14.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="smallUserImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -146,7 +146,7 @@
                            <children>
                               <Label alignment="CENTER" prefHeight="50.0" prefWidth="746.0" text="User Setting">
                                  <font>
-                                    <Font name="Berlin Sans FB" size="24.0" />
+                                    <Font name="Book Antiqua Bold Italic" size="24.0" />
                                  </font>
                               </Label>
                               <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" />
@@ -275,7 +275,11 @@
                                                 <Image url="@../../ScreenUI/Picture/bongo-cat-smash.gif" />
                                              </image>
                                           </ImageView>
-                                          <Button mnemonicParsing="false" onAction="#handleUpdateUserPicture" styleClass="mouse-moved" stylesheets="@../../ScreenUI/css/AllView.css" text="edit " />
+                                          <Button mnemonicParsing="false" onAction="#handleUpdateUserPicture" stylesheets="@../../ScreenUI/css/AllView.css" text="Change Avatar">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="button" />
+                                             </styleClass></Button>
                                        </children>
                                     </VBox>
                                  </children>

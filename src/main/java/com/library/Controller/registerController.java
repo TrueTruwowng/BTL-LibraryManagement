@@ -46,7 +46,6 @@ public class registerController {
     private boolean isAnimating = false; // Biến để kiểm tra trạng thái animation
 
     public void initialize() {
-        databaseConnection.connectUserAccount();
         RegisterMessageLabelCheckMark.setVisible(false);
         RegisterMessageLabelXMark.setVisible(false);
         StatusIconCheckMark.setVisible(false);

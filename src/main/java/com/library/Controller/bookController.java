@@ -50,7 +50,7 @@ public class bookController {
     // Phương thức xử lý sự kiện click
     private void onCardClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("BookInfo-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/BookInfo-view.fxml"));
             Scene scene = new Scene(loader.load());
             bookInfo bookInfoController = loader.getController();
             bookInfoController.setBookData(this.book);  // Truyền đối tượng book vào BookInfo

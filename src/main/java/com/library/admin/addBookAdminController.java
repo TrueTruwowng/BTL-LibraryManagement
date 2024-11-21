@@ -2,6 +2,7 @@ package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
 import com.library.Book;
+import com.library.Controller.sceneController;
 import com.library.databaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static com.library.Controller.sceneController.stage;
 
 public class addBookAdminController implements Initializable {
     @FXML
@@ -50,18 +53,7 @@ public class addBookAdminController implements Initializable {
 
 
     public void backToLibrary(ActionEvent actionEvent) throws IOException {
-        // Load file fxml khác
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("libraryadmin-view.fxml"));
-        Parent root = fxmlLoader.load();
-
-        // Tạo cửa sổ mới
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene(root));
-        newStage.show();
-
-        // Đóng cửa sổ hiện tại khi mở cửa sổ mới
-        Stage curStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        curStage.close();
+        sceneController.loadAdminLibraryScene(stage);
     }
 
     public void cancelSaveBookToLibrary(ActionEvent actionEvent) {
