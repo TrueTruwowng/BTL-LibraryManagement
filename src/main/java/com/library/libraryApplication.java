@@ -16,8 +16,9 @@ public class libraryApplication extends Application {
     @Override
         public void start (Stage stage) throws IOException {
         connectUserAccount();
-            MusicController.getInstance().playMusic("src/main/resources/ScreenUI/music/background_music.mp3");
 
+            MusicController.getInstance().playMusic("src/main/resources/ScreenUI/music/background_music.mp3");
+            MusicController.getInstance().setVolume(0.2);
         Connection con = databaseConnection.getConnection();
         sceneController.setPrimaryStage(stage);
         sceneController.loadLoginView(stage);
