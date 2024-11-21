@@ -260,16 +260,22 @@ public class libraryAdminController implements Initializable {
 
                     // Lấy thông tin sách
                     String isbn = volumeInfo.getIndustryIdentifiers() != null
-                            ? volumeInfo.getIndustryIdentifiers().get(0).getIdentifier()
-                            : "Unknown";
+                            ? volumeInfo.getIndustryIdentifiers().get(0).getIdentifier() : "Unknown";
 
                     String title = volumeInfo.getTitle() != null ? volumeInfo.getTitle() : "Unknown";
 
                     String author = (volumeInfo.getAuthors() != null && !volumeInfo.getAuthors().isEmpty())
                             ? volumeInfo.getAuthors().get(0) : "Unknown";
 
-                    int year = Integer.parseInt(volumeInfo.getPublishedDate() != null ? volumeInfo.getPublishedDate().split("-")[0] : "Unknown");
-
+                    int year = 0;
+                    if (volumeInfo.getPublishedDate() != null) {
+                        try {
+                            // Lấy năm
+                            year = Integer.parseInt(volumeInfo.getPublishedDate().split("-")[0]);
+                        } catch (NumberFormatException e) {
+                            year = 0;
+                        }
+                    }
                     String description = volumeInfo.getDescription() != null ? volumeInfo.getDescription() : "No description available";
 
                     byte[] image = null;
