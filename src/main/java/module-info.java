@@ -16,6 +16,9 @@ module com.library {
     requires java.sql;
     requires javafx.graphics;
     requires java.desktop;
+    requires com.google.api.services.books;
+    requires com.google.api.client;
+    requires com.google.api.client.json.jackson2;
 
     opens com.library to javafx.fxml;
     exports com.library;

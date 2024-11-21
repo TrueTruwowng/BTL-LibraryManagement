@@ -11,18 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import com.google.api.services.books.Books;
+import com.google.api.services.books.model.Volume;
+import com.google.api.services.books.model.Volumes;
+import com.google.api.services.books.BooksRequestInitializer;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,7 +34,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.stage.Stage;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
@@ -245,43 +241,40 @@ public class libraryAdminController implements Initializable {
     // Tìm sách từ API
     public List<Book> findBooksFromAPI(String searchTerm) {
         List<Book> books = new ArrayList<>();
-        String urlStr = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + API.getApiKey() + "&maxResults=40";
 
         try {
-            URL url = new URL(urlStr);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+            Books.Builder builder = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
+                                                      new com.google.api.client.json.jackson2.JacksonFactory(),
+                                    null);
+            builder.setApplicationName("Library Admin");
+            builder.setGoogleClientRequestInitializer(new BooksRequestInitializer(API.getApiKey()));
+            Books apiBooks = builder.build();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
+            Books.Volumes.List volumesList = apiBooks.volumes().list(searchTerm);
+            volumesList.setMaxResults(40L);
+            Volumes volumes = volumesList.execute();
 
-            JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
-            JsonArray items = jsonResponse.getAsJsonArray("items");
+            if (volumes.getItems() != null && volumes.getTotalItems() > 0) {
+                for (Volume volume : volumes.getItems()) {
+                    Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
 
-            if (items != null) {
-                for (JsonElement item : items) {
-                    JsonObject volumeInfo = item.getAsJsonObject().getAsJsonObject("volumeInfo");
-
-                    String isbn = volumeInfo.has("industryIdentifiers")
-                            ? volumeInfo.getAsJsonArray("industryIdentifiers").get(0).getAsJsonObject().get("identifier").getAsString()
-                            : "N/A";
-                    String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "Unknown";
-                    String author = volumeInfo.has("authors")
-                            ? volumeInfo.getAsJsonArray("authors").get(0).getAsString()
+                    // Lấy thông tin sách
+                    String isbn = volumeInfo.getIndustryIdentifiers() != null
+                            ? volumeInfo.getIndustryIdentifiers().get(0).getIdentifier()
                             : "Unknown";
-                    int year = volumeInfo.has("publishedDate")
-                            ? Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4))
-                            : 0;
-                    String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "No description";
+
+                    String title = volumeInfo.getTitle() != null ? volumeInfo.getTitle() : "Unknown";
+
+                    String author = (volumeInfo.getAuthors() != null && !volumeInfo.getAuthors().isEmpty())
+                            ? volumeInfo.getAuthors().get(0) : "Unknown";
+
+                    int year = Integer.parseInt(volumeInfo.getPublishedDate() != null ? volumeInfo.getPublishedDate().split("-")[0] : "Unknown");
+
+                    String description = volumeInfo.getDescription() != null ? volumeInfo.getDescription() : "No description available";
 
                     byte[] image = null;
-                    if (volumeInfo.has("imageLinks") && volumeInfo.getAsJsonObject("imageLinks").has("thumbnail")) {
-                        String imageUrl = volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString();
+                    if (volumeInfo.getImageLinks() != null && volumeInfo.getImageLinks().getThumbnail() != null) {
+                        String imageUrl = volumeInfo.getImageLinks().getThumbnail();
                         image = downloadImage(imageUrl);
                     }
 

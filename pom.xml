@@ -72,6 +72,13 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.43.0.0</version> <!-- Hoặc phiên bản mới nhất -->
     </dependency>
+
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-books</artifactId>
+      <version>v1-rev20201021-1.30.10</version>
+    </dependency>
+
   </dependencies>
 
   <build>
