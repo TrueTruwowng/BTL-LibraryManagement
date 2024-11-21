@@ -3,6 +3,7 @@ package com.library.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -11,6 +12,8 @@ public class sceneController {
     public static void setPrimaryStage(Stage stage) {
         if (sceneController.stage == null) {
             sceneController.stage = stage;
+            sceneController.stage.getIcons().add(
+                    new Image(sceneController.class.getResourceAsStream("/ScreenUI/Picture/Avatar.png")));
         }
     }
 

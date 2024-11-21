@@ -47,6 +47,7 @@ public class myCollectionController {
         username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         bookRead.setText(databaseConnection.countBooksRead(currentUser.getUserID()));
         bookBorrow.setText(databaseConnection.countBooksBorrowing(currentUser.getUserID()));
+        historyVbox.getStylesheets().add(getClass().getResource("/ScreenUI/css/tableStyle.css").toExternalForm());
 
         List <Book> borrowingBooks = databaseConnection.borrowingBookList(currentUser.getUserID());
         loadBorrowingBooks(borrowingBooks);
@@ -100,6 +101,7 @@ public class myCollectionController {
         HBox row = new HBox();
         row.setSpacing(10);
         row.setPadding(new Insets(5));
+        row.getStylesheets().add(getClass().getResource("/ScreenUI/css/tableStyle.css").toExternalForm());
 
         row.getStyleClass().add(isHeader ? "table-header" : "table-row");
 
@@ -121,9 +123,9 @@ public class myCollectionController {
 
     private Label createTableCell(String text, boolean isHeader) {
         Label label = new Label(text);
-        label.setPrefWidth(140);
+        label.setPrefWidth(150);
         label.setWrapText(true);
-
+        label.setAlignment(Pos.CENTER); // Căn giữa nội dung
         label.getStyleClass().add(isHeader ? "table-header-label" : "table-row-label");
 
         return label;
