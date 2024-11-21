@@ -3,6 +3,7 @@ package com.library.admin;
 import com.jfoenix.controls.JFXButton;
 import com.library.API;
 import com.library.Book;
+import com.library.Controller.sceneController;
 import com.library.databaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
@@ -39,8 +40,8 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
-import static com.library.Controller.sceneController.loadAdminScene;
-import static com.library.Controller.sceneController.loadLoginView;
+
+import static com.library.Controller.sceneController.*;
 
 public class libraryAdminController implements Initializable {
     @FXML
@@ -383,17 +384,7 @@ public class libraryAdminController implements Initializable {
 
     public void addBook(ActionEvent actionEvent) throws IOException {
         // Load file fxml khác
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addbookadmin-view.fxml"));
-        Parent root = fxmlLoader.load();
-
-        // Tạo cửa sổ mới
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene(root));
-        newStage.show();
-
-        // Đóng cửa sổ hiện tại khi mở cửa sổ mới
-        Stage curStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        curStage.close();
+        sceneController.loadScreen("/com/library/addbookadmin-view.fxml",stage,"ADD BOOK");
     }
 
     @FXML

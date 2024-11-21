@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.util.Duration;
 
+import static com.library.Controller.userController.currentUser;
 import static com.library.databaseConnection.connectUserAccount;
 import static com.library.Controller.sceneController.stage;
 
@@ -26,6 +27,8 @@ public class loginController {
     private Label LoginMessageLabelXmark;
     @FXML
     private Button LoginButton;
+    @FXML
+    private Button LoginButton1;
     @FXML
     private Label LoginMessageLabelCheckMark;
     @FXML
@@ -52,30 +55,20 @@ public class loginController {
 
     }
 
-    /**
-     * Use to login.
-     * If username and password are blank, check validatelogin.
-     */
-    public void loginButtonAction() {
-        connectUserAccount();
-        if (!UsernameField.getText().isBlank() && !PasswordField.getText().isBlank()) {
-            ValidateLogin();
-        } else {
-            LoginMessageLabelXmark.setText("Invalid login. Please try again.  ");
-        }
-    }
 
     public void showSuccessful() {
-        // Ẩn các phần tử không cần thiết
+        // Hiển thị các thành phần trạng thái thành công
         LoginMessageLabelCheckMark.setVisible(true);
         StatusIconCheckMark.setVisible(true);
+
+        // Disable các trường nhập
         UsernameField.setDisable(true);
         PasswordField.setDisable(true);
         RegisterLink.setDisable(true);
         UsernameField.clear();
         PasswordField.clear();
 
-        // Tạo hiệu ứng fade in và fade out
+        // Hiệu ứng fade in và fade out cho label và icon
         FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), LoginMessageLabelCheckMark);
         fadeInLabel.setFromValue(0);
         fadeInLabel.setToValue(1);
@@ -101,33 +94,26 @@ public class loginController {
             fadeOutIcon.play();
         });
 
-        // Đảm bảo fadeOutLabel kết thúc trước khi chuyển scene
-        fadeOutLabel.setOnFinished(event -> {
-            // Lấy Stage hiện tại từ RegisterLink
-            stage = (Stage) LoginButton.getScene().getWindow();
-
-            // Kiểm tra tài khoản và chuyển tới màn hình phù hợp
-            String username = userController.getCurrentUser().getUsername();
-            if (username.equals("admin")) {
-                sceneController.loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Dashboard");
-            } else {
-                sceneController.loadScreen("/com/library/Dashboard-view.fxml", stage, "Library");
-            }
-        });
-
         fadeInLabel.play();
     }
 
+
+
+
     public void showError() {
+        // Hiển thị các thành phần trạng thái lỗi
         LoginMessageLabelXmark.setVisible(true);
         StatusIconXmark.setVisible(true);
         cutePic.setImage(new Image(getClass().getResource("/ScreenUI/Picture/bongo-cat-smash.gif").toExternalForm()));
+
+        // Clear các trường nhập
         UsernameField.clear();
         PasswordField.clear();
 
         if (!isAnimating) {
             isAnimating = true;
 
+            // Hiệu ứng fade in và fade out cho label và icon
             FadeTransition fadeInLabel = new FadeTransition(Duration.seconds(1.5), LoginMessageLabelXmark);
             fadeInLabel.setFromValue(0);
             fadeInLabel.setToValue(1);
@@ -160,76 +146,126 @@ public class loginController {
      * Connect to the database,
      * If there is only 1 username and password match in the database then login successful.
      */
-    public void ValidateLogin() {
-        Connection con = databaseConnection.getConnection();
-        if (con == null) {
-            System.out.println("Không thể kết nối tới cơ sở dữ liệu.");
-            showError();
-            return;
-        }
+    private boolean validateUserLogin() {
+        String verifyLogin = "SELECT * FROM user_account WHERE username = ? AND password = ?";
 
-        String verifyLogin = "SELECT count(1) FROM user_account WHERE username = ? AND password = ?";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(verifyLogin)) {
 
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement(verifyLogin);
             preparedStatement.setString(1, UsernameField.getText());
             preparedStatement.setString(2, PasswordField.getText());
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            ResultSet queryResult = preparedStatement.executeQuery();
-
-            if (queryResult.next() && queryResult.getInt(1) == 1) {
-                String addUser = "SELECT account_id, username, firstname, lastname, password, userPicture, email, phone FROM user_account WHERE username = ? AND password = ?";
-                PreparedStatement preparedStatement2 = con.prepareStatement(addUser);
-                preparedStatement2.setString(1, UsernameField.getText());
-                preparedStatement2.setString(2, PasswordField.getText());
-                ResultSet queryResult2 = preparedStatement2.executeQuery();
-
-                String userID = queryResult2.getString("account_id");
-                String username = queryResult2.getString("username");
-                String firstname = queryResult2.getString("firstname");
-                String lastname = queryResult2.getString("lastname");
-                String password = queryResult2.getString("password");
-                byte[] userPicture = queryResult2.getBytes("userPicture");
-
-                // Kiểm tra email và phone nếu là null
-                String email = queryResult2.getString("email");
-                String phone = queryResult2.getString("phone");
-
-                // Tạo đối tượng User, nếu email hoặc phone null thì giữ nguyên giá trị null
-                User currentUser = new User(userID, username, firstname, lastname, userPicture,
-                        email != null ? email : null,
-                        phone != null ? phone : null,
-                        password);
-
-                // Lưu trữ user vào UserUtils
-                userController.setCurrentUser(currentUser);
-                System.out.println(currentUser);
-                showSuccessful();
-            } else {
-                showError();  // Đăng nhập thất bại
+            if (resultSet.next()) {
+                // Tạo đối tượng User
+                User user = new User(
+                        resultSet.getString("account_id"),
+                        resultSet.getString("firstname"),
+                        resultSet.getString("lastname"),
+                        resultSet.getString("username"),
+                        resultSet.getBytes("userPicture"),
+                        resultSet.getString("password"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phone")
+                );
+                userController.setCurrentUser(user);
+                return true;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-            showError(); // Hiển thị thông báo lỗi trong trường hợp xảy ra lỗi SQL
+        }
+        return false;
+    }
+
+    private boolean validateAdminLogin() {
+        if (!UsernameField.getText().equals("admin")) {
+            System.out.println("Only 'admin' can log in via this method.");
+            return false;
         }
 
+        String verifyAdminLogin = "SELECT * FROM user_account WHERE username = 'admin' AND password = ?";
+
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(verifyAdminLogin)) {
+
+            preparedStatement.setString(1, PasswordField.getText());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                User admin = new User(
+                        resultSet.getString("account_id"),
+                        resultSet.getString("firstname"),
+                        resultSet.getString("lastname"),
+                        resultSet.getString("username"),
+                        resultSet.getBytes("userPicture"),
+                        resultSet.getString("password"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phone")
+                );
+                userController.setCurrentUser(admin);
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
     public void onHyperLinkClick() throws IOException {
-        // Lấy Stage hiện tại từ RegisterLink
         stage = (Stage) RegisterLink.getScene().getWindow();
 
-        // Load giao diện đăng ký mới
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/register-view.fxml"));
         Parent registerView = loader.load();
 
-        // Thay đổi scene trong cùng một cửa sổ
         stage.setScene(new Scene(registerView));
         stage.setTitle("Register");
-        stage.show();  // Có thể không cần thiết nếu Stage không bị ẩn
+        stage.show();
     }
+
+    public void loginButtonAction() {
+        connectUserAccount();
+        if (!UsernameField.getText().isBlank() && !PasswordField.getText().isBlank()) {
+            if (validateUserLogin()) {
+                User currentUser1 = currentUser;
+                showSuccessful();
+                PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
+                pause.setOnFinished(event -> {
+                    sceneController.loadDashboardView(stage);
+                });
+                pause.play();
+            } else {
+                showError(); // Show error animation if validation fails
+            }
+        } else {
+            LoginMessageLabelXmark.setText("Invalid login. Please try again.");
+            showError();
+        }
+    }
+
+
+    public void adminLoginButtonAction() {
+        connectUserAccount();
+        if (!UsernameField.getText().isBlank() && !PasswordField.getText().isBlank()) {
+            if (validateAdminLogin()) {
+                User currentUser1 = currentUser;
+                showSuccessful();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
+                pause.setOnFinished(event -> {
+                    sceneController.loadAdminLibraryScene(stage);
+                });
+                pause.play();
+            } else {
+                LoginMessageLabelXmark.setText("Admin login failed. Please try again.");
+                showError();
+            }
+        } else {
+            LoginMessageLabelXmark.setText("Invalid login. Please try again.");
+            showError();
+        }
+    }
+
 
 
 

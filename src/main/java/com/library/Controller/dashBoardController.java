@@ -102,7 +102,7 @@ public class dashBoardController implements Initializable {
             // Hiển thị sách mới thêm
             for (Book value : recentlyAdded) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("card-view.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/com/library/Card-view.fxml"));
                 HBox cardBox = fxmlLoader.load(); // Tạo HBox cho thẻ sách
                 cardController cardController = fxmlLoader.getController();
                 cardController.setData(value);
@@ -112,7 +112,7 @@ public class dashBoardController implements Initializable {
             // Hiển thị sách được đề xuất
             for (Book book : recommended) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/com/library/Book-View.fxml"));
                 VBox bookBox = fxmlLoader.load(); // Tạo VBox cho sách
                 bookController bookController = fxmlLoader.getController();
                 bookController.setData(book);
@@ -175,7 +175,7 @@ public class dashBoardController implements Initializable {
             try {
                 for (Book book : books) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("search-view.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("/com/library/search-view.fxml"));
                     HBox searchBox = fxmlLoader.load();
                     searchController searchController = fxmlLoader.getController();
                     searchController.setData(book);

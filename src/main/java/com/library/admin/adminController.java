@@ -23,8 +23,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.library.Controller.sceneController.loadAdminLibraryScene;
-import static com.library.Controller.sceneController.loadLoginView;
+import static com.library.Controller.sceneController.*;
 
 public class adminController implements Initializable {
     @FXML
@@ -364,12 +363,10 @@ public class adminController implements Initializable {
     }
 
     public void onAdminLibraryHyperLinkClicked() {
-        Stage stage = (Stage) bookSceneHyperlink.getScene().getWindow();
         loadAdminLibraryScene(stage);
     }
 
     public void backToLogin() {
-        Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
         loadLoginView(stage);
     }
 }
