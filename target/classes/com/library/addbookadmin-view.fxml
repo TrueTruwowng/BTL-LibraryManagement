@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pane1" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/addBookAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.addBookAdminController">
+<BorderPane fx:id="pane1" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../../ScreenUI/css/addBookAdmin.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.admin.addBookAdminController">
     <center>
         <VBox prefHeight="519.0" prefWidth="993.0" BorderPane.alignment="CENTER">
             <children>

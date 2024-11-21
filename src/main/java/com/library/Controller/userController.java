@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 public class userController {
-    static User currentUser;
+    public static User currentUser;
 
     // Getter và setter cho currentUser
     public static User getCurrentUser() {
