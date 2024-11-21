@@ -27,6 +27,10 @@ import static com.library.Controller.sceneController.stage;
 
 public class settingController {
     @FXML
+    private CheckBox musicControl;
+    @FXML
+    MusicController musicController = MusicController.getInstance();
+    @FXML
     private ImageView userImageView;
     @FXML
     private ImageView smallUserImageView;
@@ -195,6 +199,18 @@ public class settingController {
             }
         }
     }
+    @FXML
+    private void muteMusic() {
+        if (musicController.isPlaying()) {
+            musicController.setMute(true);
+            musicController.pauseMusic();
+        }
+        else {
+            musicController.setMute(false);
+            musicController.resumeMusic();
+        }
+    }
+
     public void onDashboardBtnClick() {
         sceneController.handleDashboardButton(stage);
     }
