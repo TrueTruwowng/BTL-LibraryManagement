@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.*;
@@ -340,42 +341,43 @@ public class libraryAdminController implements Initializable {
         }
     }
 
-    public void searchBook(KeyEvent keyEvent) {
-        String searchTerm = ((TextField) keyEvent.getSource()).getText().toLowerCase();
+    public void searchBook(ActionEvent event) {
+        String searchTerm = bookSearchTextField.getText().trim().toLowerCase();
         ObservableList<Book> combinedResults = FXCollections.observableArrayList();
 
         if (searchTerm.isEmpty()) {
             loadBook();
             combinedResults.addAll(bookObservableList);
         } else {
-            // Tạo task mới để tìm sách
-            Task<List<Book>> task = new Task<List<Book>>() {
+            // Tạo task để tìm sách
+            Task<List<Book>> task = new Task<>() {
                 @Override
                 protected List<Book> call() throws Exception {
+                    // Tìm sách trong database
                     List<Book> dbResults = findBooksInDatabase(searchTerm);
-                    List<Book> apiResults = new ArrayList<>();
                     if (dbResults.isEmpty()) {
-                        apiResults = findBooksFromAPI(searchTerm);
+                        // Nếu không có, tìm từ API
+                        return findBooksFromAPI(searchTerm);
                     }
-                    return apiResults;
+                    return dbResults;
                 }
             };
 
             // Khi task hoàn thành, cập nhật UI
-            task.setOnSucceeded(event -> {
-                List<Book> dbResults = findBooksInDatabase(searchTerm);
-                List<Book> apiResults = task.getValue();
-                combinedResults.addAll(dbResults);
-                combinedResults.addAll(apiResults);
+            task.setOnSucceeded(workerStateEvent -> {
+                List<Book> results = task.getValue();
+                combinedResults.addAll(results);
                 tableBookView.setItems(combinedResults);
+                tableBookView.refresh();
             });
 
             // Khi task thất bại, thông báo lỗi
-            task.setOnFailed(event -> {
+            task.setOnFailed(workerStateEvent -> {
                 Throwable exception = task.getException();
                 exception.printStackTrace();
                 showAlert("Error", "Failed to search books.", Alert.AlertType.ERROR);
             });
+
 
             // Thực thi task trong background thread
             new Thread(task).start();
