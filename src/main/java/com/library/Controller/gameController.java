@@ -5,6 +5,7 @@ import com.library.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static com.library.Controller.sceneController.stage;
 
 public class gameController implements Initializable {
     @FXML
@@ -31,6 +34,15 @@ public class gameController implements Initializable {
     public JFXButton option4;
     @FXML
     public Hyperlink nextQuestionHyperlink;
+    @FXML
+    private Button dashboardBtn;
+    @FXML
+    private Button settingsBtn;
+    @FXML
+    private Button myCollectionBtn;
+    @FXML
+    private Button logoutBtn;
+
 
     private List<Question> questions = new ArrayList<>();
     private int score = 0;
@@ -112,5 +124,18 @@ public class gameController implements Initializable {
         option4.setTextFill(Color.BLACK);
 
         showQuestion();
+    }
+
+    public void onDashboardBtnClick() {
+        sceneController.handleDashboardButton(stage);
+    }
+    public void onSettingsBtnClick() {
+        sceneController.handleSettingbutton(stage);
+    }
+    public void onMyCollectionBtnClick() {
+        sceneController.handleMyCollectionButton(stage);
+    }
+    public void onLogOutBtnClk() {
+        sceneController.handleLogoutButton(stage);
     }
 }

@@ -56,6 +56,7 @@ public class dashBoardController implements Initializable {
     private Button myCollectionBtn;
     @FXML
     private Button logoutBtn;
+
     @FXML
     private ImageView smallUserImageView;
     @FXML
@@ -206,6 +207,7 @@ public class dashBoardController implements Initializable {
     public void onLogOutBtnClk() {
         sceneController.handleLogoutButton(stage);
     }
+
 
 
 

@@ -46,7 +46,6 @@ public class sceneController {
         loadScreen("/com/library/Dashboard-view.fxml", sceneController.stage, "Dashboard");
     }
 
-
     public static void loadSettingView(Stage stage) {
         loadScreen("/com/library/Setting-view.fxml", sceneController.stage, "Settings");
     }
@@ -54,6 +53,7 @@ public class sceneController {
     public static void loadMyCollectionView(Stage stage) {
         loadScreen("/com/library/MyCollection-view.fxml", sceneController.stage, "My Collection");
     }
+
     public static <T> T loadScreenWithController(String fxmlFile, Stage stage, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(sceneController.class.getResource(fxmlFile));

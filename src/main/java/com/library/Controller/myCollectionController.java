@@ -145,4 +145,5 @@ public class myCollectionController {
     public void onLogOutBtnClk() {
         sceneController.handleLogoutButton(stage);
     }
+
 }

@@ -1,17 +1,17 @@
 package com.library;
 
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-public class DatabaseConnection {
+public class databaseConnection {
     private static Connection con;
 
     public static void connectUserAccount() {
         try {
-            String url = "jdbc:sqlite:D:/OOP/BTL-LibraryManagement/src/main/resources/database/userInfo.db"; // Create connection
+            String relativePath = "src/main/resources/database/userInfo.db";
+            String url = "jdbc:sqlite:" + new File(relativePath).getAbsolutePath();//chỉnh de k phai lay duong dan tai cac may khac
 
             con = DriverManager.getConnection(url); //start to connect
             System.out.println("Connected to database");
@@ -23,14 +23,19 @@ public class DatabaseConnection {
 
     public static Connection getConnection() {
         try {
+            // Nếu kết nối bị đóng, kết nối bằng url thay vì gọi phương thức connectUserAccount
+            // (hạn chế hiện "Connected to database" ở connectUserAccount mỗi khi muốn kết nối)
             if (con == null || con.isClosed()) {
-                connectUserAccount();
+                String relativePath = "src/main/resources/database/userInfo.db";
+                String url = "jdbc:sqlite:" + new File(relativePath).getAbsolutePath();//chỉnh de k phai lay duong dan tai cac may khac
+                con = DriverManager.getConnection(url);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return con;
     }
+
     public static void updateUserPicture(String userID, byte[] newImageBytes) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
@@ -84,7 +89,6 @@ public class DatabaseConnection {
         }
     }
 
-
     public static List<Book> getBooks() throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
@@ -107,54 +111,18 @@ public class DatabaseConnection {
 
                 byte[] imageBytes = resultSet.getBytes("bookImage");
                 if (imageBytes != null) {
-                    book.setBookImage(imageBytes); // Gán giá trị bookImage cho đối tượng Book
-                }
-
-                books.add(book);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
-        }
-        return books;
-    }
-
-
-    public static List<Book> searchBooks(String searchQuery) throws SQLException {
-        if (con == null || con.isClosed()) {
-            connectUserAccount();
-        }
-
-        String sql = "SELECT * FROM book_info WHERE title LIKE ? OR author LIKE ?";
-        List<Book> books = new ArrayList<>();
-
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-            preparedStatement.setString(1, "%" + searchQuery + "%");
-            preparedStatement.setString(2, "%" + searchQuery + "%");
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Book book = new Book();
-                book.setTitle(resultSet.getString("title"));
-                book.setAuthor(resultSet.getString("author"));
-
-                // Handle the image
-                byte[] imageBytes = resultSet.getBytes("bookImage");
-                if (imageBytes != null) {
                     book.setBookImage(imageBytes);
                 }
+
                 books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
         return books;
     }
 
-    public static Book getBookByISBN(String isbn) throws SQLException {
+    static Book getBookByISBN(String isbn) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
@@ -178,16 +146,13 @@ public class DatabaseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
 
         return book;
     }
 
 
-    // Mượn sách theo tên, để trống ngày trả
-    public static void borrowBookByTitle(String title, String accountId) throws SQLException {
+    static void borrowBookByTitle(String title, String accountId) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
@@ -225,12 +190,10 @@ public class DatabaseConnection {
             insertStmt.executeUpdate();
 
             System.out.println("Mượn sách thành công!");
-        } finally {
-            closeConnection();
         }
     }
 
-    public static void updateReturnDateByISBN(String isbn, String accountId, LocalDate returnDate) throws SQLException {
+    static void updateReturnDateByISBN(String isbn, String accountId, LocalDate returnDate) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
@@ -255,7 +218,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static boolean isBookBorrowedByUser(String isbn, String accountId) throws SQLException {
+    static boolean isBookBorrowedByUser(String isbn, String accountId) throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }
@@ -270,11 +233,10 @@ public class DatabaseConnection {
                 return rs.getInt(1) > 0;
             }
             return false;
-        } finally {
-            closeConnection();
         }
     }
-    public static void updateAvailableBooks(String isbn, int quantityChange) throws SQLException {
+
+    static void updateAvailableBooks(String isbn, int quantityChange) throws SQLException {
         String query = "UPDATE book_info SET available = available + ? WHERE isbn = ?";
 
         try (Connection conn = getConnection();
@@ -283,5 +245,212 @@ public class DatabaseConnection {
             stmt.setString(2, isbn);
             stmt.executeUpdate();
         }
+    }
+
+    public static List<Book> searchBooks(String searchQuery) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        List<Book> books = new ArrayList<>();
+
+        String sql = "SELECT isbn, title, author, year, description, available, bookImage FROM book_info " +
+                "WHERE title LIKE ? OR author LIKE ? OR description LIKE ?";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            String searchTerm = "%" + searchQuery + "%";
+            preparedStatement.setString(1, searchTerm);
+            preparedStatement.setString(2, searchTerm);
+            preparedStatement.setString(3, searchTerm);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Book book = new Book();
+                    book.setIsbn(resultSet.getString("isbn"));
+                    book.setTitle(resultSet.getString("title"));
+                    book.setAuthor(resultSet.getString("author"));
+                    book.setYear(resultSet.getInt("year"));
+                    book.setDescription(resultSet.getString("description"));
+                    book.setAvailable(resultSet.getInt("available"));
+
+                    byte[] imageBytes = resultSet.getBytes("bookImage");
+                    if (imageBytes != null) {
+                        book.setBookImage(imageBytes);
+                    }
+
+                    books.add(book);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+
+    public static String countBooksBorrowing(String accountId) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String query = "SELECT COUNT(*) FROM borrowed_books WHERE account_id = ? AND return_date IS NULL";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, accountId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            return null;
+        }
+    }
+
+    // Đếm số sách đã mượn và đã trả của người dùng
+    public static String countBooksRead(String accountId) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String query = "SELECT COUNT(*) FROM borrowed_books WHERE account_id = ? AND return_date IS NOT NULL";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, accountId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            return null;
+        }
+    }
+
+    public static List<Book> borrowingBookList(String accountID) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String sql = "SELECT bi.isbn, bi.title, bi.author, bi.year, bi.description, bi.available, bi.bookImage " +
+                "FROM book_info bi " +
+                "JOIN borrowed_books bb ON bi.isbn = bb.isbn " +
+                "WHERE bb.account_id = ? AND bb.return_date IS NULL";
+
+        List<Book> books = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, accountID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Book book = new Book();
+
+                    book.setIsbn(resultSet.getString("isbn"));
+                    book.setTitle(resultSet.getString("title"));
+                    book.setAuthor(resultSet.getString("author"));
+                    book.setYear(resultSet.getInt("year"));
+                    book.setDescription(resultSet.getString("description"));
+                    book.setAvailable(resultSet.getInt("available"));
+
+                    byte[] imageBytes = resultSet.getBytes("bookImage");
+                    if (imageBytes != null) {
+                        book.setBookImage(imageBytes);
+                    }
+
+                    books.add(book);
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error while fetching borrowing book list", e);
+        }
+
+        return books;
+    }
+    public static List<Map<String, Object>> getBorrowHistory(String accountID) throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        String sql = "SELECT bb.borrow_id, bi.title, bb.borrow_date, bb.return_date " +
+                "FROM borrowed_books bb " +
+                "JOIN book_info bi ON bb.isbn = bi.isbn " +
+                "WHERE bb.account_id = ?";
+
+        List<Map<String, Object>> historyList = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, accountID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int stt = 1; // Số thứ tự
+            while (resultSet.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("stt", stt++);
+
+                // Lấy borrow_id và title
+                row.put("borrow_id", resultSet.getString("borrow_id"));
+                row.put("title", resultSet.getString("title"));
+
+                // Lấy ngày mượn (borrow_date) và chuyển đổi thành LocalDate
+                String borrowDateStr = resultSet.getString("borrow_date");
+                LocalDate borrowDate = null;
+                if (borrowDateStr != null && !borrowDateStr.isEmpty()) {
+                    borrowDate = LocalDate.parse(borrowDateStr);
+                }
+                row.put("borrow_date", borrowDate);
+
+                // Lấy ngày trả (return_date) và chuyển đổi thành LocalDate (nếu có)
+                String returnDateStr = resultSet.getString("return_date");
+                LocalDate returnDate = null;
+                if (returnDateStr != null && !returnDateStr.isEmpty()) {
+                    returnDate = LocalDate.parse(returnDateStr);
+                }
+                row.put("return_date", returnDate != null ? returnDate : "");
+
+                historyList.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return historyList;
+    }
+
+    public static List<Book> getMostBorrowedBooks() throws SQLException {
+        if (con == null || con.isClosed()) {
+            connectUserAccount();
+        }
+
+        List<Book> books = new ArrayList<>();
+
+        // SQL query để lấy top 5 sách được mượn nhiều nhất
+        String sql = "SELECT bi.isbn, bi.title, bi.author, bi.year, bi.description, bi.available, bi.bookImage, COUNT(bb.isbn) AS borrow_count " +
+                "FROM borrowed_books bb " +
+                "JOIN book_info bi ON bb.isbn = bi.isbn " +
+                "GROUP BY bb.isbn " +
+                "ORDER BY borrow_count DESC " +
+                "LIMIT 5";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setIsbn(resultSet.getString("isbn"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setYear(resultSet.getInt("year"));
+                book.setDescription(resultSet.getString("description"));
+                book.setAvailable(resultSet.getInt("available"));
+
+                byte[] imageBytes = resultSet.getBytes("bookImage");
+                if (imageBytes != null) {
+                    book.setBookImage(imageBytes);
+                }
+
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return books;
     }
 }
