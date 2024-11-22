@@ -6,10 +6,16 @@ import com.library.Book;
 import com.library.Controller.sceneController;
 import com.library.databaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import com.google.api.services.books.Books;
@@ -34,6 +40,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
@@ -352,9 +360,11 @@ public class libraryAdminController implements Initializable {
             Task<List<Book>> task = new Task<>() {
                 @Override
                 protected List<Book> call() throws Exception {
+                    Thread.sleep(1000);
                     // Tìm sách trong database
                     List<Book> dbResults = findBooksInDatabase(searchTerm);
                     if (dbResults.isEmpty()) {
+                        Thread.sleep(1000);
                         // Nếu không có, tìm từ API
                         return findBooksFromAPI(searchTerm);
                     }
@@ -362,12 +372,27 @@ public class libraryAdminController implements Initializable {
                 }
             };
 
+            // Chạy thanh Progress Bar
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
+                    new KeyFrame(Duration.seconds(10), new KeyValue(progressBar.progressProperty(), 1))
+            );
+            progressBar.setVisible(true);
+            timeline.play();
+
             // Khi task hoàn thành, cập nhật UI
             task.setOnSucceeded(workerStateEvent -> {
                 List<Book> results = task.getValue();
                 combinedResults.addAll(results);
                 tableBookView.setItems(combinedResults);
                 tableBookView.refresh();
+
+                // Ẩn sau 0,5s sau khi tìm được sách
+                timeline.stop();
+                progressBar.setProgress(1);
+                PauseTransition pause = new PauseTransition(Duration.millis(500));
+                pause.setOnFinished(event1 -> progressBar.setVisible(false));
+                pause.play();
             });
 
             // Khi task thất bại, thông báo lỗi
@@ -375,6 +400,8 @@ public class libraryAdminController implements Initializable {
                 Throwable exception = task.getException();
                 exception.printStackTrace();
                 showAlert("Error", "Failed to search books.", Alert.AlertType.ERROR);
+                timeline.stop();
+                progressBar.setVisible(false);
             });
 
 
