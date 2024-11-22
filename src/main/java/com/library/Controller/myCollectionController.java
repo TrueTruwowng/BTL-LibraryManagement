@@ -61,7 +61,7 @@ public class myCollectionController {
         for (Book book : borrowingBooks) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Book-view.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/com/library/Book-view.fxml"));
                 VBox bookBox = fxmlLoader.load();
 
                 bookController bookController = fxmlLoader.getController();
