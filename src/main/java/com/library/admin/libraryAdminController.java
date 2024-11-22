@@ -246,6 +246,10 @@ public class libraryAdminController implements Initializable {
             Books.Builder builder = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
                                                       new com.google.api.client.json.jackson2.JacksonFactory(),
                                     null);
+            builder.setHttpRequestInitializer(request -> {
+                request.setConnectTimeout(5000); // Thời gian chờ kết nối (ms)
+                request.setReadTimeout(10000);   // Thời gian chờ đọc dữ liệu (ms)
+            });
             builder.setApplicationName("Library Admin");
             builder.setGoogleClientRequestInitializer(new BooksRequestInitializer(API.getApiKey()));
             Books apiBooks = builder.build();
@@ -347,39 +351,51 @@ public class libraryAdminController implements Initializable {
         if (searchTerm.isEmpty()) {
             loadBook();
             combinedResults.addAll(bookObservableList);
+            tableBookView.setItems(combinedResults);
         } else {
-            // Tạo task để tìm sách
-            Task<List<Book>> task = new Task<>() {
+            // Task 1: Tìm trong database
+            Task<List<Book>> dbTask = new Task<>() {
                 @Override
                 protected List<Book> call() throws Exception {
-                    // Tìm sách trong database
-                    List<Book> dbResults = findBooksInDatabase(searchTerm);
-                    if (dbResults.isEmpty()) {
-                        // Nếu không có, tìm từ API
-                        return findBooksFromAPI(searchTerm);
-                    }
-                    return dbResults;
+                    return findBooksInDatabase(searchTerm);
                 }
             };
 
-            // Khi task hoàn thành, cập nhật UI
-            task.setOnSucceeded(workerStateEvent -> {
-                List<Book> results = task.getValue();
-                combinedResults.addAll(results);
+            // Task 2: Tìm trong API
+            Task<List<Book>> apiTask = new Task<>() {
+                @Override
+                protected List<Book> call() throws Exception {
+                    return findBooksFromAPI(searchTerm);
+                }
+            };
+
+            // Khi cả hai task hoàn thành
+            dbTask.setOnSucceeded(workerStateEvent -> {
+                combinedResults.addAll(dbTask.getValue());
                 tableBookView.setItems(combinedResults);
-                tableBookView.refresh();
             });
 
-            // Khi task thất bại, thông báo lỗi
-            task.setOnFailed(workerStateEvent -> {
-                Throwable exception = task.getException();
+            apiTask.setOnSucceeded(workerStateEvent -> {
+                combinedResults.addAll(apiTask.getValue());
+                tableBookView.setItems(combinedResults);
+            });
+
+            // Xử lý lỗi
+            dbTask.setOnFailed(workerStateEvent -> {
+                Throwable exception = dbTask.getException();
                 exception.printStackTrace();
-                showAlert("Error", "Failed to search books.", Alert.AlertType.ERROR);
+                showAlert("Error", "Failed to search books in database.", Alert.AlertType.ERROR);
             });
 
+            apiTask.setOnFailed(workerStateEvent -> {
+                Throwable exception = apiTask.getException();
+                exception.printStackTrace();
+                showAlert("Error", "Failed to search books from API.", Alert.AlertType.ERROR);
+            });
 
-            // Thực thi task trong background thread
-            new Thread(task).start();
+            // Chạy cả hai task trong các thread khác nhau
+            new Thread(dbTask).start();
+            new Thread(apiTask).start();
         }
     }
 
