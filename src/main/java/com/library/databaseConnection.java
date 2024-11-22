@@ -413,7 +413,7 @@ public class databaseConnection {
         return historyList;
     }
 
-    static List<Book> getMostBorrowedBooks() throws SQLException {
+    public static List<Book> getMostBorrowedBooks() throws SQLException {
         if (con == null || con.isClosed()) {
             connectUserAccount();
         }

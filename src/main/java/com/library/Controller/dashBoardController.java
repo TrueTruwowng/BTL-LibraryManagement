@@ -81,7 +81,12 @@ public class dashBoardController implements Initializable {
         if (currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
-
+        List <Book> trending = new ArrayList<>();
+        try {
+            trending = databaseConnection.getMostBorrowedBooks();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         List<Book> allBooks = null;
         try {
             // Lấy tất cả sách từ cơ sở dữ liệu
@@ -92,7 +97,7 @@ public class dashBoardController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        recentlyAdded = new ArrayList<>(allBooks);
+        recentlyAdded = new ArrayList<>(trending);
         recommended = new ArrayList<>(allBooks);
 
         int column = 0; // Đếm số cột trong GridPane
