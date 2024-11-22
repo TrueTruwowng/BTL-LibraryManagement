@@ -1,0 +1,5 @@
+Tác phẩm 'Dế Mèn Phiêu Lưu Ký' là của tác giả nào?|Tô Hoài|Nguyễn Nhật Ánh;Tô Hoài;Nam Cao;Ngô Tất Tố
+Tác phẩm 'Lão Hạc' là của tác giả nào?|Nam Cao|Nguyễn Du;Ngô Tất Tố;Vũ Trọng Phụng;Nam Cao
+Tác phẩm 'Tôi Thấy Hoa Vàng Trên Cỏ Xanh' là của tác giả nào?|Nguyễn Nhật Ánh|Tô Hoài;Nam Cao;Ngô Tất Tố;Nguyễn Nhật Ánh
+Tác phẩm 'Số Đỏ' được viết bởi ai?|Ngô Tất Tố|Nam Cao;Nguyễn Nhật Ánh;Tô Hoài;Ngô Tất Tố
+Tác phẩm 'Cuốn Theo Chiều Gió' là của tác giả nào?|Margaret Mitchell|Nguyễn Nhật Ánh;JKRowling;Tần Thủy Hoàng;Margaret Mitchell

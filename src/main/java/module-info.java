@@ -5,7 +5,6 @@ module com.library {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
-    requires java.desktop;
     requires mysql.connector.j;
     requires fontawesomefx;
     requires javafx.media;
@@ -15,7 +14,16 @@ module com.library {
     requires com.jfoenix;
     requires com.google.gson;
     requires java.sql;
+    requires javafx.graphics;
+    requires java.desktop;
+    requires com.google.api.services.books;
+    requires com.google.api.client;
+    requires com.google.api.client.json.jackson2;
 
     opens com.library to javafx.fxml;
     exports com.library;
+    exports com.library.admin;
+    opens com.library.admin to javafx.fxml;
+    exports com.library.Controller;
+    opens com.library.Controller to javafx.fxml;
 }

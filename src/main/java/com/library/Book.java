@@ -1,7 +1,5 @@
 package com.library;
 
-import javafx.scene.control.CheckBox;
-
 public class Book {
     private String isbn;
     private String title;

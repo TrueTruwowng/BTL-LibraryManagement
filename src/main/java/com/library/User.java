@@ -1,8 +1,6 @@
 package com.library;
 
-import java.io.Serializable;
-
-public class User implements Person {
+public class User {
     private  String userID;
     private String username;
     private String password;
@@ -12,7 +10,7 @@ public class User implements Person {
     private String email;
     private String phone;
 
-    User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
+    public User(String userID, String firstname, String lastname, String username, byte[] userPicture, String password, String email, String phone) {
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;

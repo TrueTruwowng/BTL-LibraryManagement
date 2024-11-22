@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.BookInfo">
+<StackPane style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.bookInfo">
     <children>
         <!-- ScrollPane bao quanh nội dung để có thể cuộn -->
         <ScrollPane prefHeight="600.0" prefWidth="900.0">
@@ -86,7 +86,7 @@
                         <String fx:value="rounded-label-returnbutton" />
                      </styleClass>
                   </Button>
-                  <TextArea fx:id="bookDescription" blendMode="DARKEN" editable="false" layoutX="344.0" layoutY="387.0" prefHeight="658.0" prefWidth="514.0" styleClass="text-area" stylesheets="@../../ScreenUI/css/AllView.css" text="Fundamentals of OOP and Data Structures in Java is a text for an introductory course on classical data structures. Part One of the book presents the basic principles of Object-Oriented Programming (OOP) and Graphical User Interface (GUI) programming with Java as the example language. Part Two introduces each of the major data structures with supporting, GUI-based laboratory programs designed to reinforce the basic concepts and principles of the text. These laboratories allow the reader to explore and experiment with the properties of each data structure. All source code for the laboratories is available on the web. By integrating the principles of OOP and GUI programming, this book takes the unique path of presenting the fundamental issues of data structures within the context of paradigms that are essential to today's professional software developer. The authors assume the reader has only an elementary understanding of Java and no experience with OOP.&#10;Source: Publisher" wrapText="true">
+                  <TextArea fx:id="bookDescription" blendMode="DARKEN" editable="false" focusTraversable="false" layoutX="344.0" layoutY="387.0" prefHeight="400.0" prefWidth="514.0" styleClass="text-area" stylesheets="@../../ScreenUI/css/AllView.css" text="Fundamentals of OOP and Data Structures in Java is a text for an introductory course on classical data structures. Part One of the book presents the basic principles of Object-Oriented Programming (OOP) and Graphical User Interface (GUI) programming with Java as the example language. Part Two introduces each of the major data structures with supporting, GUI-based laboratory programs designed to reinforce the basic concepts and principles of the text. These laboratories allow the reader to explore and experiment with the properties of each data structure. All source code for the laboratories is available on the web. By integrating the principles of OOP and GUI programming, this book takes the unique path of presenting the fundamental issues of data structures within the context of paradigms that are essential to today's professional software developer. The authors assume the reader has only an elementary understanding of Java and no experience with OOP.&#10;Source: Publisher" wrapText="true">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
