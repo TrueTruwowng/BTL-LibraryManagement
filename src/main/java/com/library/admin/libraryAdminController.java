@@ -365,6 +365,7 @@ public class libraryAdminController implements Initializable {
             Task<List<Book>> dbTask = new Task<>() {
                 @Override
                 protected List<Book> call() throws Exception {
+                    Thread.sleep(2000);
                     return findBooksInDatabase(searchTerm);
                 }
             };
@@ -377,6 +378,14 @@ public class libraryAdminController implements Initializable {
                 }
             };
 
+            // Cập nhật tiến trình progress bar
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
+                    new KeyFrame(Duration.seconds(10), new KeyValue(progressBar.progressProperty(), 1))
+            );
+            progressBar.setVisible(true);
+            timeline.play();
+
             // Khi cả hai task hoàn thành
             dbTask.setOnSucceeded(workerStateEvent -> {
                 combinedResults.addAll(dbTask.getValue());
@@ -386,6 +395,13 @@ public class libraryAdminController implements Initializable {
             apiTask.setOnSucceeded(workerStateEvent -> {
                 combinedResults.addAll(apiTask.getValue());
                 tableBookView.setItems(combinedResults);
+                tableBookView.refresh();
+                // Ẩn sau khi tìm kiếm
+                timeline.stop();
+                progressBar.setProgress(1);
+                PauseTransition pause = new PauseTransition(Duration.millis(500));
+                pause.setOnFinished(e -> progressBar.setVisible(false));
+                pause.play();
             });
 
             // Xử lý lỗi
@@ -399,6 +415,8 @@ public class libraryAdminController implements Initializable {
                 Throwable exception = apiTask.getException();
                 exception.printStackTrace();
                 showAlert("Error", "Failed to search books from API.", Alert.AlertType.ERROR);
+                timeline.stop();
+                progressBar.setVisible(false);
             });
 
             // Chạy cả hai task trong các thread khác nhau
