@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jdbc-api-1.4">
+  <library name="Jfoenix 9.0.10">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/JAR/jdbc-api-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JAR/Jfoenix 9.0.10.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

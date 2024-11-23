@@ -44,5 +44,6 @@
    <styleClass>
       <String fx:value="shadow" />
       <String fx:value="white_background" />
+      <String fx:value="round_layout_book" />
    </styleClass>
 </VBox>
