@@ -19,10 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.library.Controller.sceneController.stage;
 
@@ -95,6 +92,7 @@ public class gameController implements Initializable {
     }
 
     private void loadQuestion() {
+        //questions = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("questions.txt"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -107,6 +105,12 @@ public class gameController implements Initializable {
                     questions.add(new Question(question, answer, options));
                 }
             }
+            // Random 10 câu
+            Collections.shuffle(questions);
+            if (questions.size() > 10) {
+                questions = questions.subList(0, 10);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,7 +181,7 @@ public class gameController implements Initializable {
     }
 
     public void replayGame(ActionEvent event) {
-
+        sceneController.loadGamePlayScene(stage);
     }
 
     public void quitGame(ActionEvent event) {

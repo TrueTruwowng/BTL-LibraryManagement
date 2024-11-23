@@ -269,7 +269,7 @@
                                                       <Insets left="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Label fx:id="phoneLabel" prefHeight="26.0" prefWidth="270.0" text="0357746922">
+                                                <Label fx:id="phoneLabel" prefHeight="26.0" prefWidth="227.0" text="0357746922">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -277,6 +277,7 @@
                                                       <Insets left="10.0" />
                                                    </HBox.margin>
                                                 </Label>
+                                                <VBox alignment="BOTTOM_CENTER" prefHeight="37.0" prefWidth="241.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -306,7 +307,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="730.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditInformationButton" prefHeight="27.0" prefWidth="112.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Edit infomation">
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditInformationButton" prefHeight="27.0" prefWidth="122.0" style="-fx-background-radius: 5;" stylesheets="@../../ScreenUI/css/AllView.css" text="Edit infomation">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
@@ -318,8 +319,12 @@
                                           <String fx:value="mouse-moved" />
                                        </styleClass>
                                     </Button>
-                                    <Pane prefHeight="50.0" prefWidth="85.0" />
-                                    <CheckBox fx:id="musicControl" mnemonicParsing="false" onAction="#muteMusic" prefHeight="37.0" prefWidth="148.0" selected="true" text="Background Music" />
+                                    <Pane prefHeight="50.0" prefWidth="91.0" />
+                                    <CheckBox fx:id="musicControl" mnemonicParsing="false" onAction="#muteMusic" prefHeight="27.0" prefWidth="138.0" selected="true" style="-fx-background-radius: 5;" styleClass="selected" stylesheets="@../../ScreenUI/css/AllView.css" text="Background Music">
+                                       <font>
+                                          <Font name="Berlin Sans FB" size="14.0" />
+                                       </font>
+                                    </CheckBox>
                                  </children>
                                  <VBox.margin>
                                     <Insets top="10.0" />
