@@ -5,6 +5,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -109,6 +110,19 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
+                     <styleClass>
+                        <String fx:value="white_background" />
+                        <String fx:value="mouse-moved" />
+                     </styleClass>
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
+                     </graphic>
+                  </Button>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
                   <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
@@ -122,19 +136,6 @@
                      </styleClass>
                   </Button>
                   <Separator maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
-                     <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
-                     </graphic>
-                  </Button>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
                   <VBox prefHeight="136.0" prefWidth="164.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
@@ -317,6 +318,8 @@
                                           <String fx:value="mouse-moved" />
                                        </styleClass>
                                     </Button>
+                                    <Pane prefHeight="50.0" prefWidth="85.0" />
+                                    <CheckBox fx:id="musicControl" mnemonicParsing="false" onAction="#muteMusic" prefHeight="37.0" prefWidth="148.0" selected="true" text="Background Music" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="10.0" />

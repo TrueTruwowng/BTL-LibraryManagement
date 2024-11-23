@@ -116,7 +116,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="gameBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
+                  <Button fx:id="gameBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
                      <graphic>
                         <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
                      </graphic>

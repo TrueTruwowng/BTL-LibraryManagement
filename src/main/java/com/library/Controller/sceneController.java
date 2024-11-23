@@ -53,6 +53,9 @@ public class sceneController {
     public static void loadMyCollectionView(Stage stage) {
         loadScreen("/com/library/MyCollection-view.fxml", sceneController.stage, "My Collection");
     }
+    public static void loadGameView(Stage stage) {
+        loadScreen("/com/library/gameAll-view.fxml", sceneController.stage, "Game");
+    }
 
     public static <T> T loadScreenWithController(String fxmlFile, Stage stage, String title) {
         try {
@@ -70,6 +73,9 @@ public class sceneController {
 
     public static void handleSettingbutton(Stage stage) {
         sceneController.loadSettingView(sceneController.stage);
+    }
+    public static void hadnleGameButton(Stage stage) {
+        sceneController.loadGameView(sceneController.stage);
     }
 
     public static void handleLogoutButton(Stage stage) {

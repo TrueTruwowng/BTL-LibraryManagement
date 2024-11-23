@@ -138,4 +138,7 @@ public class gameController implements Initializable {
     public void onLogOutBtnClk() {
         sceneController.handleLogoutButton(stage);
     }
+    public void onGameBtnClick() {
+        sceneController.hadnleGameButton(stage);
+    }
 }
