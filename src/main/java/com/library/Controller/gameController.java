@@ -4,11 +4,16 @@ import com.jfoenix.controls.JFXButton;
 import com.library.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,6 +40,21 @@ public class gameController implements Initializable {
     @FXML
     public Hyperlink nextQuestionHyperlink;
     @FXML
+    public ProgressIndicator correctProgressIndicator;
+    @FXML
+    public ProgressIndicator wrongProgressIndicator;
+    @FXML
+    public JFXButton replayButton;
+    @FXML
+    public JFXButton quitButton;
+    @FXML
+    public Label resultLabel;
+    @FXML
+    public Label scoreLabel;
+    @FXML
+    public Hyperlink quitGameHyperlink;
+    public Button gameStart;
+    @FXML
     private Button dashboardBtn;
     @FXML
     private Button settingsBtn;
@@ -49,6 +69,7 @@ public class gameController implements Initializable {
     private int questionCount = 0;
     private Question currentQuestion;
 
+    // Game play
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadQuestion();
@@ -58,20 +79,18 @@ public class gameController implements Initializable {
     private void showQuestion() {
         if (questionCount < questions.size()) {
             currentQuestion = questions.get(questionCount);
-            questionLabel.setText(currentQuestion.getQuestion());
+            if (questionLabel != null) {
+                questionLabel.setText(currentQuestion.getQuestion());
+            }
             List<String> options = currentQuestion.getOptions();
 
-            option1.setText(options.get(0));
-            option2.setText(options.get(1));
-            option3.setText(options.get(2));
-            option4.setText(options.get(3));
+            if (option1 != null) option1.setText(currentQuestion.getOptions().get(0));
+            if (option2 != null) option2.setText(currentQuestion.getOptions().get(1));
+            if (option3 != null) option3.setText(currentQuestion.getOptions().get(2));
+            if (option4 != null) option4.setText(currentQuestion.getOptions().get(3));
+
         } else {
-            questionLabel.setText("Congratulations!");
-            option1.setVisible(false);
-            option2.setVisible(false);
-            option3.setVisible(false);
-            option4.setVisible(false);
-            nextQuestionHyperlink.setVisible(false);
+            showResult();
         }
     }
 
@@ -93,7 +112,7 @@ public class gameController implements Initializable {
         }
     }
 
-    public void checkAnwser(ActionEvent actionEvent) {
+    public void checkAnswer(ActionEvent actionEvent) {
         JFXButton selectedButton = (JFXButton) actionEvent.getSource();
         String selectedAnswer = selectedButton.getText();
 
@@ -118,14 +137,54 @@ public class gameController implements Initializable {
         option3.setDisable(false);
         option4.setDisable(false);
 
-        option1.setTextFill(Color.BLACK);
-        option2.setTextFill(Color.BLACK);
-        option3.setTextFill(Color.BLACK);
-        option4.setTextFill(Color.BLACK);
+        option1.setTextFill(Color.WHITE);
+        option2.setTextFill(Color.WHITE);
+        option3.setTextFill(Color.WHITE);
+        option4.setTextFill(Color.WHITE);
 
         showQuestion();
     }
 
+    // Game result
+    private void showResult() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/gameResult-view.fxml"));
+            Parent root = loader.load();
+
+            // Truyền dữ liệu kết quả
+            gameController controller = loader.getController();
+            controller.setScore(score, questions.size());
+
+            stage = (Stage) questionLabel.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setScore(int correctAnswers, int totalQuestions) {
+        int wrongAnswers = totalQuestions - correctAnswers;
+        double correctRatio = (double) correctAnswers / totalQuestions;
+        double wrongRatio = (double) wrongAnswers / totalQuestions;
+
+        // Hiển thị điểm số
+        scoreLabel.setText("Điểm của bạn: " + correctAnswers + " / " + totalQuestions);
+
+        correctProgressIndicator.setProgress(correctRatio); // Tỷ lệ trả lời đúng
+        wrongProgressIndicator.setProgress(wrongRatio); // Tỷ lệ trả lời sai
+    }
+
+    public void replayGame(ActionEvent event) {
+
+    }
+
+    public void quitGame(ActionEvent event) {
+        sceneController.hadnleGameButton(stage);
+    }
+
+    // Game home
     public void onDashboardBtnClick() {
         sceneController.handleDashboardButton(stage);
     }
@@ -140,5 +199,8 @@ public class gameController implements Initializable {
     }
     public void onGameBtnClick() {
         sceneController.hadnleGameButton(stage);
+    }
+    public void onStartGameButtonClick(ActionEvent event) {
+        sceneController.loadGamePlayScene(stage);
     }
 }
