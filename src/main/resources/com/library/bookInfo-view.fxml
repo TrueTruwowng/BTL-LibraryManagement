@@ -26,16 +26,20 @@
                             <children>
                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="314.0" layoutY="-21.0" prefHeight="89.0" prefWidth="248.0" text="TUY-LIBRARY">
                                     <font>
-                                        <Font name="Algerian" size="25.0" />
+                                        <Font name="Algerian" size="30.0" />
                                     </font>
                                 </Label>
                             </children>
                         </Pane>
-                        <ImageView fx:id="bookImage" fitHeight="318.0" fitWidth="227.0" layoutX="35.0" layoutY="68.0" pickOnBounds="true">
-                            <image>
-                                <Image url="@../../ScreenUI/Picture/bongo-cat-typing.gif" />
-                            </image>
-                        </ImageView>
+                  <Pane layoutX="35.0" layoutY="68.0">
+                     <children>
+                              <ImageView fx:id="bookImage" fitHeight="318.0" fitWidth="227.0" pickOnBounds="true">
+                                  <image>
+                                      <Image url="@../../ScreenUI/Picture/bongo-cat-typing.gif" />
+                                  </image>
+                              </ImageView>
+                     </children>
+                  </Pane>
                         <Label fx:id="bookTitle" layoutX="350.0" layoutY="68.0" prefHeight="138.0" prefWidth="526.0" text="Fundamentals of OOP and Data Structures in Java" wrapText="true">
                             <font>
                                 <Font name="Berlin Sans FB" size="38.0" />
@@ -75,7 +79,7 @@
                                 <String fx:value="rounded-label-borrowbutton" />
                             </styleClass>
                         </Button>
-                        <Button fx:id="returnButton" layoutX="33.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="44.0" prefWidth="231.0" text="TRẢ SÁCH">
+                        <Button fx:id="returnButton" layoutX="37.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="42.0" prefWidth="226.0" text="TRẢ SÁCH">
                             <stylesheets>
                                 <URL value="@../../ScreenUI/css/AllView.css" />
                                 <URL value="@../../ScreenUI/css/Label.css" />
@@ -106,12 +110,12 @@
                                 <Font name="Calibri Light" size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="503.0" prefHeight="22.0" prefWidth="126.0" text="Available Copies:">
+                        <Label layoutX="37.0" layoutY="514.0" prefHeight="22.0" prefWidth="124.0" text="Available Copies:">
                             <font>
                                 <Font name="Calibri Light Italic" size="18.0" />
                             </font>
                         </Label>
-                        <Label fx:id="bookAvailable" layoutX="161.0" layoutY="499.0" prefHeight="30.0" prefWidth="93.0" text="0">
+                        <Label fx:id="bookAvailable" layoutX="161.0" layoutY="515.0" prefHeight="18.0" prefWidth="94.0" text="0">
                             <font>
                                 <Font name="Calibri Light" size="18.0" />
                             </font>
