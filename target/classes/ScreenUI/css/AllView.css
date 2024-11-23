@@ -17,6 +17,12 @@
     -fx-border-color: #385f18;
 }
 
+.box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #385f18;
+    -fx-border-radius: 5;
+}
+
 .shadow {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0),10,0,0,10);
 
@@ -25,11 +31,12 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);
 }
 
-.box {
+/*.box {
     -fx-background-color: linear-gradient(to right,#fa709a, #fee140);
     -fx-background-radius: 15;
     -fx-padding: 15;
-}
+}*/
+
 
 .book-name {
     -fx-font-size: 18px;
