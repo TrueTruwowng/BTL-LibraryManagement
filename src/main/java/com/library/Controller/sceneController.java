@@ -96,4 +96,8 @@ public class sceneController {
     public static void loadAdminLibraryScene(Stage stage) {
         loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Library");
     }
+
+    public static void loadGamePlayScene(Stage stage) {
+        loadScreen("/com/library/gameplay-view.fxml", stage, "Game Play");
+    }
 }
