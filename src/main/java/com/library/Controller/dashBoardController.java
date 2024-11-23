@@ -40,7 +40,8 @@ public class dashBoardController implements Initializable {
 
     @FXML
     private GridPane bookContainer;
-
+    @FXML
+    private Button gameBtn;
     @FXML
     private boolean isSearchPaneVisible = false;
 
@@ -207,7 +208,9 @@ public class dashBoardController implements Initializable {
     public void onLogOutBtnClk() {
         sceneController.handleLogoutButton(stage);
     }
-
+    public void onGameBtnClick() {
+        sceneController.hadnleGameButton(stage);
+    }
 
 
 

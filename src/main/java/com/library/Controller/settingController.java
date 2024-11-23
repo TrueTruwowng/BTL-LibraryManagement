@@ -225,4 +225,7 @@ public class settingController {
     public void onLogOutBtnClk() {
         sceneController.handleLogoutButton(stage);
     }
+    public void onGameBtnClick() {
+        sceneController.hadnleGameButton(stage);
+    }
 }
