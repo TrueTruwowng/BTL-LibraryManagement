@@ -12,16 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.userController.currentUser;
 
 public class gameController implements Initializable {
     @FXML
@@ -59,6 +63,10 @@ public class gameController implements Initializable {
     private Button myCollectionBtn;
     @FXML
     private Button logoutBtn;
+    @FXML
+    private Label username;
+    @FXML
+    private ImageView smallUserImageView;
 
 
     private List<Question> questions = new ArrayList<>();
@@ -69,6 +77,10 @@ public class gameController implements Initializable {
     // Game play
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
+        if (currentUser.getUserPicture() != null) {
+            smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
+        }
         loadQuestion();
         showQuestion();
     }
