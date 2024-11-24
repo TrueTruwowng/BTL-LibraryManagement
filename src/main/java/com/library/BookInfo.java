@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static com.library.UserController.currentUser;
+import static com.library.Controller.UserController.getCurrentUser;
 
 public class BookInfo {
 
@@ -68,7 +68,7 @@ public class BookInfo {
     @FXML
     private void returnBook() {
         String isbn = bookISBN.getText();
-        String accountId = currentUser.getUserID();
+        String accountId = getCurrentUser().getUserID();
 
         if (isbn == null || isbn.isEmpty() || accountId == null || accountId.isEmpty()) {
             System.out.println("Vui lòng nhập thông tin hợp lệ!");
@@ -97,7 +97,7 @@ public class BookInfo {
     private void borrowBookByTitle() {
         try {
             String title = bookTitle.getText();
-            String accountId = currentUser.getUserID();
+            String accountId = getCurrentUser().getUserID();
 
             if (title == null || title.isEmpty() || accountId == null || accountId.isEmpty()) {
                 System.out.println("Vui lòng nhập tiêu đề hợp lệ!");
@@ -119,7 +119,7 @@ public class BookInfo {
 
     private void updateButtonStates() {
         try {
-            String accountId = currentUser.getUserID();
+            String accountId = getCurrentUser().getUserID();
             String isbn = book.getIsbn();
 
             if (accountId == null || isbn == null || isbn.isEmpty()) {

@@ -1,9 +1,10 @@
 package com.library;
 
 import java.io.IOException;
+
+import com.library.Controller.MusicController;
+import com.library.Controller.SceneController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,21 +12,24 @@ import java.sql.SQLException;
 import static com.library.DatabaseConnection.connectUserAccount;
 
 public class LibraryApplication extends Application {
+    private static SceneController sceneController;
     @Override
         public void start (Stage stage) throws IOException {
         connectUserAccount();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("login-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-            stage.setTitle("Library Application");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException var4) {
-            IOException e = var4;
-            e.printStackTrace();
-        }
 
+            MusicController.getInstance().playMusic("src/main/resources/ScreenUI/music/background_music.mp3");
+            MusicController.getInstance().setVolume(0.2);
+        Connection con = DatabaseConnection.getConnection();
+        sceneController = new SceneController();
+        sceneController.setPrimaryStage(stage);
+
+        // Tải giao diện đầu tiên
+        sceneController.loadLoginView();
+
+
+    }
+    public static SceneController getSceneController() {
+        return sceneController;
     }
 
     @Override

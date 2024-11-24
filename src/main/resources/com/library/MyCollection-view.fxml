@@ -13,12 +13,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.MyCollectionController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.MyCollectionController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -46,7 +45,7 @@
                      <children>
                         <Label fx:id="username" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="Account">
                            <font>
-                              <Font name="Times New Roman" size="14.0" />
+                              <Font name="Times New Roman" size="15.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="smallUserImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -65,7 +64,8 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="100.0" prefWidth="155.0" text="DASHBOARD">
+                  <Separator maxWidth="-Infinity" prefWidth="140.0" />
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="80.0" prefWidth="155.0" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
@@ -78,16 +78,16 @@
                         <String fx:value="mouse-moved" />
                      </styleClass>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="100.0" prefWidth="155.0" text="MY COLLECTION">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="80.0" prefWidth="155.0" style="-fx-background-radius: 10;" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -96,12 +96,12 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -109,12 +109,25 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button fx:id="gameBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
+                     <styleClass>
+                        <String fx:value="white_background" />
+                        <String fx:value="mouse-moved" />
+                     </styleClass>
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
+                     </graphic>
+                  </Button>
+                  <Separator maxWidth="-Infinity" prefWidth="120.0" />
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -122,16 +135,24 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Pane prefHeight="77.0" prefWidth="154.0" />
                   <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
-                        <Label text="Use this to report errors or suggestions" />
-                        <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
-                           <graphic>
-                              <FontAwesomeIcon glyphName="PLUS" size="12" />
-                           </graphic>
-                        </Button>
+                        <Label text="Contact to report bugs or suggestions" />
+                        <VBox prefHeight="46.0" prefWidth="154.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css">
+                           <children>
+                              <Label maxWidth="-Infinity" prefHeight="22.0" prefWidth="153.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Hotline: 19001069" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="15.0" prefWidth="153.0" text="Email: tuylibrary@gmail.com" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
@@ -140,13 +161,13 @@
          <center>
             <VBox prefHeight="671.0" prefWidth="730.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="730.0" styleClass="round_layout_achi" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="730.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
                         <VBox alignment="CENTER" prefHeight="130.0" prefWidth="373.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
                            <children>
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="120.0" text="BOOK READ">
                                  <font>
-                                    <Font name="Calibri Bold" size="14.0" />
+                                    <Font name="Calibri Bold" size="17.0" />
                                  </font>
                               </Label>
                               <Label fx:id="bookRead" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
@@ -162,9 +183,9 @@
                         <Separator maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="110.0" />
                         <VBox alignment="CENTER" prefHeight="129.0" prefWidth="365.0">
                            <children>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="138.0" text="BOOK BORROWING">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="149.0" text="BOOK BORROWING">
                                  <font>
-                                    <Font name="Calibri Bold" size="14.0" />
+                                    <Font name="Calibri Bold" size="17.0" />
                                  </font>
                               </Label>
                               <Label fx:id="bookBorrow" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" text="0">
@@ -184,20 +205,20 @@
                   </HBox>
                   <Label prefHeight="55.0" prefWidth="745.0" text="Borrowing">
                      <font>
-                        <Font name="Berlin Sans FB" size="20.0" />
+                        <Font name="Berlin Sans FB" size="25.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane fx:id="borrowingScrollPane" prefHeight="196.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
+                  <ScrollPane fx:id="borrowingScrollPane" prefHeight="216.0" prefWidth="746.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css">
                      <content>
                         <HBox fx:id="borrowingContainer" prefHeight="177.0" prefWidth="930.0" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
                      </content>
                   </ScrollPane>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="730.0" text="History">
                      <font>
-                        <Font name="Berlin Sans FB" size="20.0" />
+                        <Font name="Berlin Sans FB" size="25.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="10.0" />
@@ -205,7 +226,7 @@
                   </Label>
                   <ScrollPane fx:id="hIstoryScrollPane" prefHeight="162.0" prefWidth="746.0" stylesheets="@../../ScreenUI/css/AllView.css">
                      <content>
-                        <VBox fx:id="historyVbox" prefHeight="273.0" prefWidth="730.0" />
+                        <VBox fx:id="historyVbox" prefHeight="273.0" prefWidth="730.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css" />
                      </content>
                   </ScrollPane>
                </children>

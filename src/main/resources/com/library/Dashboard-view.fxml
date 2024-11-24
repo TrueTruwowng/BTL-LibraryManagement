@@ -2,7 +2,6 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -21,29 +20,29 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.DashBoardController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-radius: 5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.DashboardController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="900.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="164.0" text="TUYLIBRARY">
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="164.0" text="TUYLIBRARY" textFill="#0c1306">
                      <font>
-                        <Font name="Algerian" size="16.0" />
+                        <Font name="Algerian" size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                   <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="30.0">
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Separator>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
-                        <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="491.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
-                        <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="482.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
+                        <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../ScreenUI/Picture/look.png" />
                            </image>
@@ -57,7 +56,7 @@
                      <children>
                         <Label fx:id="username" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="Account">
                            <font>
-                              <Font name="Times New Roman" size="14.0" />
+                              <Font name="Times New Roman" size="15.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="smallUserImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -76,17 +75,14 @@
          <left>
             <VBox alignment="CENTER" prefHeight="560.0" prefWidth="154.0" styleClass="white_background" stylesheets="@../../ScreenUI/css/AllView.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="100.0" prefWidth="155.0" text="DASHBOARD">
+                  <Separator maxWidth="-Infinity" prefWidth="140.0" />
+                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onDashboardBtnClick" prefHeight="80.0" prefWidth="155.0" style="-fx-background-radius: 10;" stylesheets="@../../ScreenUI/css/AllView.css" text="DASHBOARD">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@../../ScreenUI/css/AllView.css" />
-                        <URL value="@../../ScreenUI/css/AllView.css" />
-                     </stylesheets>
                      <styleClass>
                         <String fx:value="white_background" />
                         <String fx:value="mouse-moved" />
@@ -94,12 +90,12 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="myCollectionBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="100.0" prefWidth="155.0" text="MY COLLECTION">
+                  <Button fx:id="myCollectionBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMyCollectionBtnClick" prefHeight="80.0" prefWidth="155.0" text="MY COLLECTION">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -107,12 +103,12 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
+                  <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onSettingsBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="SETTING">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="20" />
                      </graphic>
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                      <styleClass>
                         <String fx:value="white_background" />
@@ -120,29 +116,53 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="100.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Logout">
+                  <Button fx:id="gameBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onGameBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="GAME">
+                     <graphic>
+                        <FontAwesomeIcon glyphName="GAMEPAD" size="20" />
+                     </graphic>
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="white_background" />
+                        <String fx:value="mouse-moved" />
+                     </styleClass>
+                  </Button>
+                  <Separator maxWidth="-Infinity" prefWidth="120.0" />
+                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
+                     <styleClass>
+                        <String fx:value="white_background" />
+                        <String fx:value="mouse-moved" />
+                     </styleClass>
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                     </font>
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="white_background" />
-                        <String fx:value="mouse-moved" />
-                     </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <Pane prefHeight="100.0" prefWidth="151.0" />
-                  <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
+                  <VBox prefHeight="140.0" prefWidth="154.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
-                        <Label text="Use this to report errors or suggestions" />
-                        <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
-                           <graphic>
-                              <FontAwesomeIcon glyphName="PLUS" size="12" />
-                           </graphic>
-                        </Button>
+                        <Label text="Contact to report bugs or suggestions" />
+                        <VBox prefHeight="46.0" prefWidth="154.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css">
+                           <children>
+                              <Label maxWidth="-Infinity" prefHeight="22.0" prefWidth="153.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Hotline: 19001069" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="15.0" prefWidth="153.0" text="Email: tuylibrary@gmail.com" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
@@ -151,11 +171,11 @@
          <center>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="1.0" prefHeight="559.0" prefWidth="746.0">
+                  <VBox layoutX="1.0" prefHeight="559.0" prefWidth="746.0" stylesheets="@../../ScreenUI/css/AllView.css">
                      <children>
                         <Label prefHeight="50.0" prefWidth="182.0" text="Trending">
                            <font>
-                              <Font name="Berlin Sans FB" size="21.0" />
+                              <Font name="Berlin Sans FB" size="25.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="10.0" />
@@ -174,7 +194,7 @@
                            <children>
                               <Label prefHeight="50.0" prefWidth="182.0" text="Latest Stories">
                                  <font>
-                                    <Font name="Berlin Sans FB" size="21.0" />
+                                    <Font name="Berlin Sans FB" size="25.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="10.0" />

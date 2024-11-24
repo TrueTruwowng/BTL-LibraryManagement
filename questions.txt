@@ -1,0 +1,100 @@
+Tác phẩm 'Dế Mèn Phiêu Lưu Ký' là của tác giả nào?|Tô Hoài|Nguyễn Nhật Ánh;Tô Hoài;Nam Cao;Ngô Tất Tố
+Tác phẩm 'Lão Hạc' là của tác giả nào?|Nam Cao|Nguyễn Du;Ngô Tất Tố;Vũ Trọng Phụng;Nam Cao
+Tác phẩm 'Tôi Thấy Hoa Vàng Trên Cỏ Xanh' là của tác giả nào?|Nguyễn Nhật Ánh|Tô Hoài;Nam Cao;Ngô Tất Tố;Nguyễn Nhật Ánh
+Tác phẩm 'Số Đỏ' được viết bởi ai?|Ngô Tất Tố|Nam Cao;Nguyễn Nhật Ánh;Tô Hoài;Ngô Tất Tố
+Tác phẩm 'Cuốn Theo Chiều Gió' là của tác giả nào?|Margaret Mitchell|Nguyễn Nhật Ánh;JKRowling;Tần Thủy Hoàng;Margaret Mitchell
+Tác phẩm 'Đất Rừng Phương Nam' là của tác giả nào?|Đoàn Giỏi|Nguyễn Nhật Ánh;Đoàn Giỏi;Tô Hoài;Nam Cao
+Tác phẩm 'Chí Phèo' được viết bởi ai?|Nam Cao|Nguyễn Du;Nam Cao;Ngô Tất Tố;Vũ Trọng Phụng
+Tác phẩm 'Harry Potter' là của tác giả nào?|J.K. Rowling|J.K. Rowling;George Orwell;Ernest Hemingway;Leo Tolstoy
+Tác phẩm 'Chiến Tranh Và Hòa Bình' là của tác giả nào?|Leo Tolstoy|Fyodor Dostoevsky;Leo Tolstoy;Victor Hugo;Mark Twain
+Tác phẩm 'Bố Già (The Godfather)' được viết bởi ai?|Mario Puzo|J.D. Salinger;Mario Puzo;Stephen King;Arthur Conan Doyle
+Tác phẩm '1984' là của tác giả nào?|George Orwell|George Orwell;J.K. Rowling;Ernest Hemingway;Jane Austen
+Tác phẩm 'Pride and Prejudice' (Kiêu Hãnh và Định Kiến) là của tác giả nào?|Jane Austen|Jane Austen;Charlotte Brontë;Emily Brontë;Charles Dickens
+Tác phẩm 'Sherlock Holmes' được viết bởi ai?|Arthur Conan Doyle|Agatha Christie;Arthur Conan Doyle;Ian Fleming;Robert Ludlum
+Tác phẩm 'Đồi Gió Hú' (Wuthering Heights) là của ai?|Emily Brontë|Emily Brontë;Charlotte Brontë;Jane Austen;Louisa May Alcott
+Tác phẩm 'Những Người Khốn Khổ' là của tác giả nào?|Victor Hugo|Charles Dickens;Victor Hugo;Fyodor Dostoevsky;Mark Twain
+Tác phẩm 'Don Quixote' là của tác giả nào?|Miguel de Cervantes|Miguel de Cervantes;Victor Hugo;Homer;Mark Twain
+Tác phẩm 'Nhà Giả Kim' (The Alchemist) là của tác giả nào?|Paulo Coelho|Gabriel Garcia Marquez;Paulo Coelho;Jorge Amado;Isabel Allende
+Tác phẩm 'Cuộc Đời Của Pi' (Life of Pi) được viết bởi ai?|Yann Martel|Yann Martel;Kazuo Ishiguro;Khaled Hosseini;Haruki Murakami
+Tác phẩm 'Rừng Nauy' (Norwegian Wood) là của tác giả nào?|Haruki Murakami|Kazuo Ishiguro;Haruki Murakami;Banana Yoshimoto;Yukio Mishima
+Tác phẩm 'Bắt Trẻ Đồng Xanh' (The Catcher in the Rye) là của ai?|J.D. Salinger|J.D. Salinger;F. Scott Fitzgerald;Ernest Hemingway;John Steinbeck
+Tác phẩm 'Cánh Đồng Bất Tận' là của tác giả nào?|Nguyễn Ngọc Tư|Nguyễn Nhật Ánh;Nguyễn Ngọc Tư;Đoàn Giỏi;Tô Hoài
+Tác phẩm 'Kính Vạn Hoa' là của ai?|Nguyễn Nhật Ánh|Nguyễn Nhật Ánh;Nguyễn Huy Thiệp;Tô Hoài;Nam Cao
+Tác phẩm 'Nỗi Buồn Chiến Tranh' là của tác giả nào?|Bảo Ninh|Bảo Ninh;Nguyễn Huy Thiệp;Tô Hoài;Nam Cao
+Tác phẩm 'Mắt Biếc' là của ai?|Nguyễn Nhật Ánh|Nguyễn Nhật Ánh;Nam Cao;Nguyễn Huy Thiệp;Tô Hoài
+Tác phẩm 'Chiếc Thuyền Ngoài Xa' là của tác giả nào?|Nguyễn Minh Châu|Nguyễn Minh Châu;Nguyễn Huy Thiệp;Bảo Ninh;Tô Hoài
+Tác phẩm 'Trăm Năm Cô Đơn' là của ai?|Gabriel Garcia Marquez|Gabriel Garcia Marquez;Isabel Allende;Pablo Neruda;Jorge Amado
+Tác phẩm 'Hoàng Tử Bé' (The Little Prince) được viết bởi ai?|Antoine de Saint-Exupéry|Antoine de Saint-Exupéry;Victor Hugo;Gabriel Garcia Marquez;Jorge Amado
+Tác phẩm 'Chúa Ruồi' (Lord of the Flies) là của ai?|William Golding|William Golding;George Orwell;F. Scott Fitzgerald;J.D. Salinger
+Tác phẩm 'Nhà Thờ Đức Bà Paris' là của tác giả nào?|Victor Hugo|Victor Hugo;Charles Dickens;Leo Tolstoy;Fyodor Dostoevsky
+Tác phẩm 'Những Cuộc Phiêu Lưu Của Huckleberry Finn' là của ai?|Mark Twain|Mark Twain;Charles Dickens;Homer;William Faulkner
+Tác phẩm 'Moby Dick' là của tác giả nào?|Herman Melville|Herman Melville;Mark Twain;Charles Dickens;Ernest Hemingway
+Tác phẩm 'Frankenstein' là của ai?|Mary Shelley|Mary Shelley;Jane Austen;Charlotte Brontë;Emily Brontë
+Tác phẩm 'Dracula' là của tác giả nào?|Bram Stoker|Bram Stoker;Mary Shelley;Robert Louis Stevenson;Arthur Conan Doyle
+Tác phẩm 'Ánh Trăng' là của tác giả nào?|Nguyễn Duy|Nguyễn Duy;Nguyễn Bính;Hàn Mặc Tử;Tố Hữu
+Tác phẩm 'Biết Đâu Địa Ngục' là của ai?|Nguyễn Xuân Khánh|Nguyễn Xuân Khánh;Bảo Ninh;Nguyễn Huy Thiệp;Nguyễn Ngọc Tư
+Tác phẩm 'Người Thầy Đầu Tiên' là của tác giả nào?|Chingiz Aitmatov|Chingiz Aitmatov;Lev Tolstoy;Nguyễn Nhật Ánh;Victor Hugo
+Tác phẩm 'Dế Tròn' là của ai?|Tô Hoài|Nguyễn Nhật Ánh;Tô Hoài;Nguyễn Huy Thiệp;Nguyễn Du
+Tác phẩm 'Người Đua Diều' (The Kite Runner) là của tác giả nào?|Khaled Hosseini|Khaled Hosseini;Haruki Murakami;Yann Martel;Kazuo Ishiguro
+Tác phẩm 'Người Vô Hình' (The Invisible Man) là của ai?|H.G. Wells|H.G. Wells;George Orwell;Jules Verne;Isaac Asimov
+Tác phẩm '20.000 Dặm Dưới Đáy Biển' là của tác giả nào?|Jules Verne|Jules Verne;H.G. Wells;Arthur C. Clarke;Isaac Asimov
+Tác phẩm 'Túp Lều Bác Tom' (Uncle Tom's Cabin) là của ai?|Harriet Beecher Stowe|Harriet Beecher Stowe;Jane Austen;Mark Twain;Victor Hugo
+Tác phẩm 'Cuộc Sống Bí Ẩn Của Cây' (The Hidden Life of Trees) là của tác giả nào?|Peter Wohlleben|Peter Wohlleben;Yuval Noah Harari;Jane Goodall;Stephen Hawking
+Tác phẩm 'Homo Deus' là của ai?|Yuval Noah Harari|Yuval Noah Harari;Stephen Hawking;Haruki Murakami;Isabel Allende
+Tác phẩm 'Lược Sử Thời Gian' (A Brief History of Time) là của tác giả nào?|Stephen Hawking|Stephen Hawking;Carl Sagan;Neil deGrasse Tyson;Richard Feynman
+Tác phẩm 'Công Chúa Nhỏ' (The Little Princess) là của ai?|Frances Hodgson Burnett|Frances Hodgson Burnett;Louisa May Alcott;Lucy Maud Montgomery;Jane Austen
+Tác phẩm 'Anne Tóc Đỏ Dưới Chái Nhà Xanh' là của tác giả nào?|Lucy Maud Montgomery|Lucy Maud Montgomery;Louisa May Alcott;Frances Hodgson Burnett;Jane Austen
+Tác phẩm 'Vạn Lý Trường Thành' là của tác giả nào?|Howard Blum|Howard Blum;John Keay;Simon Winchester;Peter Frankopan
+Tác phẩm 'Lời Hồi Đáp 1988' là của ai?|Kim Ae-ran|Kim Ae-ran;Han Kang;Shin Kyung-sook;Cho Nam-joo
+Tác phẩm 'Người Xa Lạ' (The Stranger) là của tác giả nào?|Albert Camus|Albert Camus;Jean-Paul Sartre;Franz Kafka;Fyodor Dostoevsky
+Tác phẩm 'Hóa Thân' (The Metamorphosis) là của ai?|Franz Kafka|Franz Kafka;Albert Camus;Jean-Paul Sartre;Hermann Hesse
+Tác phẩm 'Những Đứa Con Của Nửa Đêm' (Midnight's Children) là của tác giả nào?|Salman Rushdie|Salman Rushdie;Kazuo Ishiguro;Jhumpa Lahiri;Arundhati Roy
+Tác phẩm 'Chung Cư Xanh' là của ai?|Bảo Ninh|Bảo Ninh;Nguyễn Xuân Khánh;Nguyễn Ngọc Tư;Nguyễn Huy Thiệp
+Tác phẩm 'Trái Tim Của Bóng Tối' (Heart of Darkness) là của tác giả nào?|Joseph Conrad|Joseph Conrad;Graham Greene;William Golding;E.M. Forster
+Tác phẩm 'Án Mạng Trên Sông Nile' là của ai?|Agatha Christie|Agatha Christie;Arthur Conan Doyle;Edgar Allan Poe;Mary Shelley
+Tác phẩm 'Cuốn Sổ Tay Vàng' (The Golden Notebook) là của tác giả nào?|Doris Lessing|Doris Lessing;Virginia Woolf;Margaret Atwood;Toni Morrison
+Tác phẩm 'Ngôi Nhà Nhỏ Trên Thảo Nguyên' là của ai?|Laura Ingalls Wilder|Laura Ingalls Wilder;Lucy Maud Montgomery;Louisa May Alcott;Frances Hodgson Burnett
+Tác phẩm 'Những Người Dublin' (Dubliners) là của tác giả nào?|James Joyce|James Joyce;T.S. Eliot;Ezra Pound;William Butler Yeats
+Tác phẩm 'Trại Súc Vật' (Animal Farm) là của ai?|George Orwell|George Orwell;Aldous Huxley;H.G. Wells;Ray Bradbury
+Tác phẩm 'Đường Xưa Mây Trắng' là của ai?|Thích Nhất Hạnh|Thích Nhất Hạnh;Nguyễn Du;Nguyễn Nhật Ánh;Nam Cao
+Tác phẩm 'Mùa Lá Rụng Trong Vườn' là của tác giả nào?|Ma Văn Kháng|Ma Văn Kháng;Nguyễn Minh Châu;Nguyễn Khải;Tô Hoài
+Tác phẩm 'Sơn Tinh Thủy Tinh' là truyện thuộc thể loại gì?|Truyền thuyết|Truyền thuyết;Cổ tích;Ngụ ngôn;Thần thoại
+Tác phẩm 'Dế Choắt' xuất hiện trong truyện nào?|Dế Mèn Phiêu Lưu Ký|Dế Mèn Phiêu Lưu Ký;Lão Hạc;Chiếc Thuyền Ngoài Xa;Mắt Biếc
+Tác phẩm 'Bố Già' (The Godfather) là của tác giả nào?|Mario Puzo|Mario Puzo;Dan Brown;Stephen King;John Grisham
+Tác phẩm 'Mật Mã Da Vinci' (The Da Vinci Code) là của ai?|Dan Brown|Dan Brown;Mario Puzo;Stephen King;J.K. Rowling
+Tác phẩm 'Harry Potter và Hòn Đá Phù Thủy' là của tác giả nào?|J.K. Rowling|J.K. Rowling;C.S. Lewis;Tolkien;Philip Pullman
+Tác phẩm 'Chúa Tể Những Chiếc Nhẫn' là của ai?|J.R.R. Tolkien|J.R.R. Tolkien;C.S. Lewis;J.K. Rowling;George R.R. Martin
+Tác phẩm 'Biểu Tượng Thất Truyền' (The Lost Symbol) là của tác giả nào?|Dan Brown|Dan Brown;John Grisham;Ken Follett;Mario Puzo
+Tác phẩm 'Trăm Năm Cô Đơn' (One Hundred Years of Solitude) là của ai?|Gabriel García Márquez|Gabriel García Márquez;Jorge Luis Borges;Isabel Allende;Pablo Neruda
+Tác phẩm 'Tình Yêu Thời Thổ Tả' (Love in the Time of Cholera) là của tác giả nào?|Gabriel García Márquez|Gabriel García Márquez;Mario Vargas Llosa;Isabel Allende;Julio Cortázar
+Tác phẩm 'Cánh Đồng Bất Tận' là của ai?|Nguyễn Ngọc Tư|Nguyễn Ngọc Tư;Nguyễn Nhật Ánh;Nguyễn Huy Thiệp;Bảo Ninh
+Tác phẩm 'Rừng Na Uy' là của tác giả nào?|Haruki Murakami|Haruki Murakami;Yukio Mishima;Kazuo Ishiguro;Banana Yoshimoto
+Tác phẩm 'Kafka Bên Bờ Biển' là của ai?|Haruki Murakami|Haruki Murakami;Yukio Mishima;Kazuo Ishiguro;Banana Yoshimoto
+Tác phẩm 'Đồi Gió Hú' (Wuthering Heights) là của tác giả nào?|Emily Brontë|Emily Brontë;Charlotte Brontë;Jane Austen;Mary Shelley
+Tác phẩm 'Kiêu Hãnh và Định Kiến' (Pride and Prejudice) là của ai?|Jane Austen|Jane Austen;Charlotte Brontë;Emily Brontë;Mary Shelley
+Tác phẩm 'Những Người Khốn Khổ' (Les Misérables) là của tác giả nào?|Victor Hugo|Victor Hugo;Alexandre Dumas;Jules Verne;Emile Zola
+Tác phẩm 'Thằng Gù Nhà Thờ Đức Bà' (The Hunchback of Notre-Dame) là của ai?|Victor Hugo|Victor Hugo;Alexandre Dumas;Jules Verne;Emile Zola
+Tác phẩm 'Ba Người Lính Ngự Lâm' (The Three Musketeers) là của tác giả nào?|Alexandre Dumas|Alexandre Dumas;Victor Hugo;Jules Verne;Emile Zola
+Tác phẩm 'Chiếc Lá Cuối Cùng' là của ai?|O. Henry|O. Henry;Ernest Hemingway;Mark Twain;Jack London
+Tác phẩm 'Giã Biệt Vũ Khí' (A Farewell to Arms) là của tác giả nào?|Ernest Hemingway|Ernest Hemingway;F. Scott Fitzgerald;John Steinbeck;William Faulkner
+Tác phẩm 'Cuộc Đời Của Pi' (Life of Pi) là của ai?|Yann Martel|Yann Martel;Kazuo Ishiguro;Salman Rushdie;Arundhati Roy
+Tác phẩm 'Điều Kỳ Diệu Ở Tiệm Tạp Hóa Namiya' là của tác giả nào?|Keigo Higashino|Keigo Higashino;Higuchi Ichiyo;Banana Yoshimoto;Yukio Mishima
+Tác phẩm 'Sông Đông Êm Đềm' là của ai?|Mikhail Sholokhov|Mikhail Sholokhov;Leo Tolstoy;Fyodor Dostoevsky;Anton Chekhov
+Tác phẩm 'Chiến Tranh Và Hòa Bình' là của tác giả nào?|Leo Tolstoy|Leo Tolstoy;Fyodor Dostoevsky;Anton Chekhov;Mikhail Sholokhov
+Tác phẩm 'Tội Ác Và Trừng Phạt' (Crime and Punishment) là của ai?|Fyodor Dostoevsky|Fyodor Dostoevsky;Leo Tolstoy;Anton Chekhov;Nikolai Gogol
+Tác phẩm 'Người Tù Khổ Sai' (Papillon) là của tác giả nào?|Henri Charrière|Henri Charrière;Albert Camus;Jean-Paul Sartre;Victor Hugo
+Tác phẩm 'Nhà Giả Kim' (The Alchemist) là của ai?|Paulo Coelho|Paulo Coelho;Gabriel García Márquez;Jorge Amado;Mario Vargas Llosa
+Tác phẩm 'Đỉnh Cao Chói Lọi' (Atlas Shrugged) là của tác giả nào?|Ayn Rand|Ayn Rand;George Orwell;Aldous Huxley;Ray Bradbury
+Tác phẩm '1984' là của ai?|George Orwell|George Orwell;Aldous Huxley;Ray Bradbury;Philip K. Dick
+Tác phẩm 'Thế Giới Mới Tươi Đẹp' (Brave New World) là của tác giả nào?|Aldous Huxley|Aldous Huxley;George Orwell;Ray Bradbury;Philip K. Dick
+Tác phẩm 'Fahrenheit 451' là của ai?|Ray Bradbury|Ray Bradbury;George Orwell;Aldous Huxley;Philip K. Dick
+Tác phẩm 'Mắt Biếc' là của tác giả nào?|Nguyễn Nhật Ánh|Nguyễn Nhật Ánh;Nguyễn Ngọc Tư;Tô Hoài;Nguyễn Huy Thiệp
+Tác phẩm 'Thằng Quỷ Nhỏ' là của ai?|Nguyễn Nhật Ánh|Nguyễn Nhật Ánh;Nguyễn Ngọc Tư;Tô Hoài;Nguyễn Huy Thiệp
+Tác phẩm 'Chí Phèo' là của tác giả nào?|Nam Cao|Nam Cao;Ngô Tất Tố;Tô Hoài;Nguyễn Nhật Ánh
+Tác phẩm 'Vợ Chồng A Phủ' là của ai?|Tô Hoài|Tô Hoài;Nam Cao;Nguyễn Công Hoan;Ngô Tất Tố
+Tác phẩm 'Người Đọc' (The Reader) là của tác giả nào?|Bernhard Schlink|Bernhard Schlink;Günter Grass;Patrick Süskind;Franz Kafka
+Tác phẩm 'Kẻ Trộm Sách' (The Book Thief) là của ai?|Markus Zusak|Markus Zusak;John Green;Jodi Picoult;Lois Lowry
+Tác phẩm 'Tầng Đầu Địa Ngục' là của tác giả nào?|Nguyễn Văn Thọ|Nguyễn Văn Thọ;Nguyễn Minh Châu;Nguyễn Khải;Nguyễn Huy Thiệp
+Tác phẩm 'Ông Già Và Biển Cả' (The Old Man and the Sea) là của tác giả nào?|Ernest Hemingway|Ernest Hemingway;Mark Twain;F. Scott Fitzgerald;William Faulkner
+Tác phẩm 'Đảo Giấu Vàng' (Treasure Island) là của ai?|Robert Louis Stevenson|Robert Louis Stevenson;Jules Verne;Jonathan Swift;Daniel Defoe
+Tác phẩm 'Tiếng Chim Hót Trong Bụi Mận Gai' (The Thorn Birds) là của tác giả nào?|Colleen McCullough|Colleen McCullough;Margaret Mitchell;Harper Lee;Emily Brontë

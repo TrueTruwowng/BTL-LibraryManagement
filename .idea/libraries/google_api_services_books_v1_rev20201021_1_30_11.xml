@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="google-api-services-books-v1-rev20201021-1.30.11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JAR/google-api-services-books-v1-rev20201021-1.30.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

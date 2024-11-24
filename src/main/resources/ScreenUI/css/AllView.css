@@ -9,8 +9,20 @@
 
 .round_layout {
     -fx-border-radius: 50;
-    -fx-border-color: #D7D7D7D7;
+    -fx-border-color: #385f18;
 }
+
+.round_layout_book {
+    -fx-border-radius: 5;
+    -fx-border-color: #385f18;
+}
+
+.box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #385f18;
+    -fx-border-radius: 5;
+}
+
 .shadow {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0),10,0,0,10);
 
@@ -19,21 +31,23 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);
 }
 
-.box {
+/*.box {
     -fx-background-color: linear-gradient(to right,#fa709a, #fee140);
     -fx-background-radius: 15;
     -fx-padding: 15;
-}
+}*/
+
 
 .book-name {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #fef67c;
+
 }
 
 .author-name {
     -fx-font-size: 16px;
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: #fef67c;
 }
 
 .rating-image {
@@ -41,11 +55,14 @@
 }
 
 .selected {
-    -fx-background-color: #eefeee
+    -fx-background-color: #395f18;
+    -fx-text-fill: #fef67c;
 }
 
 .mouse-moved:hover {
-    -fx-background-color: #eefeee;
+    -fx-background-color: #395f18;
+    -fx-text-fill: #fef67c;
+    -fx-border-radius: 10;
 }
 
 .round_layout_achi {
@@ -64,4 +81,7 @@
 
 .search-result-background {
     -fx-background-color: #f5f5f5;
+}
+.backgr {
+    -fx-background-color: #FEFEFE;
 }
