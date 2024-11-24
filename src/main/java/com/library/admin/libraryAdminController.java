@@ -3,8 +3,8 @@ package com.library.admin;
 import com.jfoenix.controls.JFXButton;
 import com.library.API;
 import com.library.Book;
-import com.library.Controller.sceneController;
-import com.library.databaseConnection;
+import com.library.Controller.SceneController;
+import com.library.DatabaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -13,9 +13,7 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import com.google.api.services.books.Books;
@@ -27,7 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,10 +32,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -46,7 +40,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 
-import static com.library.Controller.sceneController.*;
+import static com.library.Controller.SceneController.*;
 
 public class libraryAdminController implements Initializable {
     @FXML
@@ -120,7 +114,7 @@ public class libraryAdminController implements Initializable {
     private void loadBook() {
         //Lấy dữ liệu từ database
         String sqlite = "SELECT * FROM book_info";
-        try (Connection connection = databaseConnection.getConnection();
+        try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -164,7 +158,7 @@ public class libraryAdminController implements Initializable {
         }
 
         String query = "DELETE FROM book_info WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement statement = con.prepareStatement(query)) {
             statement.setString(1, selectedBook.getIsbn());
             int rowsDeleted = statement.executeUpdate();
@@ -189,7 +183,7 @@ public class libraryAdminController implements Initializable {
         }
 
         String query = "DELETE FROM book_info WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             for (Book book : selectedBooks) {
@@ -220,7 +214,7 @@ public class libraryAdminController implements Initializable {
             searchTerm = "%";
         }
 
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             // Chèn từ khoá vào ? trong truy vấn SQL
             preparedStatement.setString(1, "%" + searchTerm + "%");
@@ -322,7 +316,7 @@ public class libraryAdminController implements Initializable {
     // Kiểm tra xem database đã có sách chưa
     public boolean isBookExists(Book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             ResultSet rs = preparedStatement.executeQuery();
@@ -338,7 +332,7 @@ public class libraryAdminController implements Initializable {
     // Tăng số sách nếu đã có trong database
     public void updateBookAvailable(Book book) {
         String query = "UPDATE book_info SET available = available + 1 WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             int rowsUpdated = preparedStatement.executeUpdate();
@@ -427,7 +421,7 @@ public class libraryAdminController implements Initializable {
 
     public void addBook(ActionEvent actionEvent) throws IOException {
         // Load file fxml khác
-        sceneController.loadScreen("/com/library/addbookadmin-view.fxml",stage,"ADD BOOK");
+        SceneController.loadScreen("/com/library/addbookadmin-view.fxml",stage,"ADD BOOK");
     }
 
     @FXML
@@ -442,7 +436,7 @@ public class libraryAdminController implements Initializable {
             updateBookAvailable(selectedBook);
         } else {
             String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            try (Connection con = databaseConnection.getConnection();
+            try (Connection con = DatabaseConnection.getConnection();
                  PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
 
                 insertStmt.setString(1, selectedBook.getIsbn());

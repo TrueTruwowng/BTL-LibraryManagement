@@ -2,18 +2,13 @@ package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
 import com.library.Book;
-import com.library.Controller.sceneController;
-import com.library.databaseConnection;
+import com.library.Controller.SceneController;
+import com.library.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.library.Controller.sceneController.stage;
+import static com.library.Controller.SceneController.stage;
 
 public class addBookAdminController implements Initializable {
     @FXML
@@ -53,7 +48,7 @@ public class addBookAdminController implements Initializable {
 
 
     public void backToLibrary(ActionEvent actionEvent) throws IOException {
-        sceneController.loadAdminLibraryScene(stage);
+        SceneController.loadAdminLibraryScene(stage);
     }
 
     public void cancelSaveBookToLibrary(ActionEvent actionEvent) {
@@ -62,7 +57,7 @@ public class addBookAdminController implements Initializable {
 
     public boolean isBookExists(Book book) {
         String query = "SELECT COUNT(*) FROM book_info WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, book.getIsbn());
             ResultSet rs = preparedStatement.executeQuery();
@@ -77,7 +72,7 @@ public class addBookAdminController implements Initializable {
 
     public void updateBookAvailable(Book book) {
         String query = "UPDATE book_info SET available = available + ? WHERE isbn = ?";
-        try (Connection con = databaseConnection.getConnection();
+        try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setInt(1, book.getAvailable()); // Số lượng cần cộng
             preparedStatement.setString(2, book.getIsbn());   // ISBN của sách
@@ -112,7 +107,7 @@ public class addBookAdminController implements Initializable {
         if (isBookExists(book)) {
             updateBookAvailable(book);
         } else {
-            try (Connection con = databaseConnection.getConnection()) {
+            try (Connection con = DatabaseConnection.getConnection()) {
                 String insertQuery = "INSERT INTO book_info (isbn, title, author, year, available, description, bookImage) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement insertStmt = con.prepareStatement(insertQuery);
                 insertStmt.setString(1, book.getIsbn());

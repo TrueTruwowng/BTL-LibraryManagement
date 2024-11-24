@@ -2,7 +2,7 @@ package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
 import com.library.User;
-import com.library.databaseConnection;
+import com.library.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -23,7 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.library.Controller.sceneController.*;
+import static com.library.Controller.SceneController.*;
 
 public class adminController implements Initializable {
     @FXML
@@ -73,7 +72,7 @@ public class adminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumns();
-        databaseConnection.connectUserAccount();
+        DatabaseConnection.connectUserAccount();
         loadUsers();
     }
 
@@ -89,7 +88,7 @@ public class adminController implements Initializable {
 
     private void loadUsers() {
         // Kết nối tới database
-        Connection connection = databaseConnection.getConnection();
+        Connection connection = DatabaseConnection.getConnection();
         if (connection == null) {
             System.out.println("Kết nối database thất bại");
             showAlert("Thông báo", "Kết nối thất bại", Alert.AlertType.ERROR);
@@ -135,7 +134,7 @@ public class adminController implements Initializable {
             // Tạo câu lệnh SQL để chèn dữ liệu vào bảng "users"
             String sql = "INSERT INTO user_account (account_id, firstname, lastname, username, password, userPicture, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try (Connection connection = databaseConnection.getConnection();
+            try (Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 String accountId = generateUserId();
 
@@ -181,7 +180,7 @@ public class adminController implements Initializable {
 
             // Kiểm tra username
             String checkUsernameQuery = "SELECT account_id FROM user_account WHERE username = ? AND account_id != ?";
-            try (Connection connection = databaseConnection.getConnection();
+            try (Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement checkStatement = connection.prepareStatement(checkUsernameQuery)) {
 
                 checkStatement.setString(1, username);
@@ -201,7 +200,7 @@ public class adminController implements Initializable {
 
             String sqlite = "UPDATE user_account SET  username = ?, email = ?, phone = ?, password = ? WHERE account_id = ? OR username = ?";
 
-            try (Connection connection = databaseConnection.getConnection();
+            try (Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sqlite)) {
 
                 preparedStatement.setString(5, selectedUser.getUserID());
@@ -245,7 +244,7 @@ public class adminController implements Initializable {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Xóa người dùng từ database
                 String sql = "DELETE FROM user_account WHERE username = ?";
-                try (Connection connection = databaseConnection.getConnection();
+                try (Connection connection = DatabaseConnection.getConnection();
                      PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                     preparedStatement.setString(1, selectedUser.getUsername());
@@ -298,7 +297,7 @@ public class adminController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                try (Connection con = databaseConnection.getConnection()) {
+                try (Connection con = DatabaseConnection.getConnection()) {
                     String query = "DELETE FROM user_account WHERE account_id = ?";
                     PreparedStatement preparedStatement = con.prepareStatement(query);
 

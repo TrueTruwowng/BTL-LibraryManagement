@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../ScreenUI/css/game.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.gameController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../ScreenUI/css/game.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.GameController">
     <children>
         <Label fx:id="resultLabel" alignment="CENTER" layoutX="150.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Result" AnchorPane.topAnchor="30.0" />
         <Label fx:id="scoreLabel" alignment="CENTER" layoutX="150.0" layoutY="101.0" prefHeight="30.0" prefWidth="300.0" style="-fx-font-size: 18px;" text="Score:" />
