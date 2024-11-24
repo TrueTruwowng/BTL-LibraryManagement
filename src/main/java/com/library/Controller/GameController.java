@@ -1,14 +1,13 @@
 package com.library.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.LibraryApplication;
 import com.library.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -17,17 +16,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
+import java.io.*;
 import java.util.*;
 
-import static com.library.Controller.SceneController.stage;
 import static com.library.Controller.UserController.currentUser;
 
-public class GameController implements Initializable {
+public class GameController extends SceneController {
+
     @FXML
     public Label questionLabel;
     @FXML
@@ -54,35 +49,23 @@ public class GameController implements Initializable {
     public Label scoreLabel;
     @FXML
     public Hyperlink quitGameHyperlink;
-    public Button gameStart;
-    @FXML
-    private Button dashboardBtn;
-    @FXML
-    private Button settingsBtn;
-    @FXML
-    private Button myCollectionBtn;
-    @FXML
-    private Button logoutBtn;
     @FXML
     private Label username;
     @FXML
     private ImageView smallUserImageView;
-
 
     private List<Question> questions = new ArrayList<>();
     private int score = 0;
     private int questionCount = 0;
     private Question currentQuestion;
 
-    // Game play
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (username != null) {
+    @FXML
+    public void initialize() {
+        if (username != null && currentUser != null) {
             username.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         }
 
-        // Kiểm tra và thiết lập smallUserImageView
-        if (smallUserImageView != null && currentUser.getUserPicture() != null) {
+        if (smallUserImageView != null && currentUser != null && currentUser.getUserPicture() != null) {
             smallUserImageView.setImage(new Image(new ByteArrayInputStream(currentUser.getUserPicture())));
         }
 
@@ -90,26 +73,7 @@ public class GameController implements Initializable {
         showQuestion();
     }
 
-    private void showQuestion() {
-        if (questionCount < questions.size()) {
-            currentQuestion = questions.get(questionCount);
-            if (questionLabel != null) {
-                questionLabel.setText(currentQuestion.getQuestion());
-            }
-            List<String> options = currentQuestion.getOptions();
-
-            if (option1 != null) option1.setText(currentQuestion.getOptions().get(0));
-            if (option2 != null) option2.setText(currentQuestion.getOptions().get(1));
-            if (option3 != null) option3.setText(currentQuestion.getOptions().get(2));
-            if (option4 != null) option4.setText(currentQuestion.getOptions().get(3));
-
-        } else {
-            showResult();
-        }
-    }
-
     private void loadQuestion() {
-        //questions = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("questions.txt"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -122,15 +86,56 @@ public class GameController implements Initializable {
                     questions.add(new Question(question, answer, options));
                 }
             }
-            // Random 10 câu
             Collections.shuffle(questions);
             if (questions.size() > 10) {
                 questions = questions.subList(0, 10);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showQuestion() {
+        if (questionLabel!=null) {
+            if (questionCount < questions.size()) {
+                currentQuestion = questions.get(questionCount);
+                questionLabel.setText(currentQuestion.getQuestion());
+
+                List<String> options = currentQuestion.getOptions();
+                option1.setText(options.get(0));
+                option2.setText(options.get(1));
+                option3.setText(options.get(2));
+                option4.setText(options.get(3));
+            } else {
+                showResult();
+            }
+        }
+    }
+
+    private void showResult() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/gameResult-view.fxml"));
+            Parent root = loader.load();
+
+            GameController controller = loader.getController();
+            controller.setScore(score, questions.size());
+
+            stage = (Stage) questionLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setScore(int correctAnswers, int totalQuestions) {
+        int wrongAnswers = totalQuestions - correctAnswers;
+        double correctRatio = (double) correctAnswers / totalQuestions;
+        double wrongRatio = (double) wrongAnswers / totalQuestions;
+
+        scoreLabel.setText("Score: " + correctAnswers + " / " + totalQuestions);
+        correctProgressIndicator.setProgress(correctRatio);
+        wrongProgressIndicator.setProgress(wrongRatio);
     }
 
     public void checkAnswer(ActionEvent actionEvent) {
@@ -144,6 +149,10 @@ public class GameController implements Initializable {
             selectedButton.setTextFill(Color.RED);
         }
 
+        disableOptions();
+    }
+
+    private void disableOptions() {
         option1.setDisable(true);
         option2.setDisable(true);
         option3.setDisable(true);
@@ -152,76 +161,58 @@ public class GameController implements Initializable {
 
     public void nextQuestion(ActionEvent actionEvent) {
         questionCount++;
+        enableOptions();
+        resetOptionColors();
+        showQuestion();
+    }
 
+    private void enableOptions() {
         option1.setDisable(false);
         option2.setDisable(false);
         option3.setDisable(false);
         option4.setDisable(false);
+    }
 
+    private void resetOptionColors() {
         option1.setTextFill(Color.WHITE);
         option2.setTextFill(Color.WHITE);
         option3.setTextFill(Color.WHITE);
         option4.setTextFill(Color.WHITE);
-
-        showQuestion();
     }
 
-    // Game result
-    private void showResult() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/gameResult-view.fxml"));
-            Parent root = loader.load();
-
-            // Truyền dữ liệu kết quả
-            GameController controller = loader.getController();
-            controller.setScore(score, questions.size());
-
-            stage = (Stage) questionLabel.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setScore(int correctAnswers, int totalQuestions) {
-        int wrongAnswers = totalQuestions - correctAnswers;
-        double correctRatio = (double) correctAnswers / totalQuestions;
-        double wrongRatio = (double) wrongAnswers / totalQuestions;
-
-        // Hiển thị điểm số
-        scoreLabel.setText("Điểm của bạn: " + correctAnswers + " / " + totalQuestions);
-
-        correctProgressIndicator.setProgress(correctRatio); // Tỷ lệ trả lời đúng
-        wrongProgressIndicator.setProgress(wrongRatio); // Tỷ lệ trả lời sai
+    public void onStartGameButtonClick(ActionEvent event) {
+        LibraryApplication.getSceneController().loadGamePlayScene();
     }
 
     public void replayGame(ActionEvent event) {
-        SceneController.loadGamePlayScene(stage);
+        LibraryApplication.getSceneController().loadGamePlayScene();
     }
 
     public void quitGame(ActionEvent event) {
-        SceneController.hadnleGameButton(stage);
+        LibraryApplication.getSceneController().loadDashboardView();
+    }
+    @FXML
+    public void onDashboardBtnClick() {
+        LibraryApplication.getSceneController().loadDashboardView();
     }
 
-    // Game home
-    public void onDashboardBtnClick() {
-        SceneController.handleDashboardButton(stage);
-    }
+    @FXML
     public void onSettingsBtnClick() {
-        SceneController.handleSettingbutton(stage);
+        LibraryApplication.getSceneController().loadSettingView();
     }
+
+    @FXML
     public void onMyCollectionBtnClick() {
-        SceneController.handleMyCollectionButton(stage);
+        LibraryApplication.getSceneController().loadMyCollectionView();
     }
-    public void onLogOutBtnClk() {
-        SceneController.handleLogoutButton(stage);
+
+    @FXML
+    public void onLogOutBtnClick() {
+        LibraryApplication.getSceneController().loadLoginView();
     }
+
+    @FXML
     public void onGameBtnClick() {
-        SceneController.hadnleGameButton(stage);
-    }
-    public void onStartGameButtonClick(ActionEvent event) {
-        SceneController.loadGamePlayScene(stage);
+        LibraryApplication.getSceneController().loadGameView();
     }
 }

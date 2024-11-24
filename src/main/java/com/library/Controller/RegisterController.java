@@ -15,10 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-import static com.library.Controller.SceneController.stage;
-import static com.library.Controller.SceneController.loadLoginView;
 
-public class RegisterController {
+public class RegisterController extends SceneController {
     @FXML
     private Label RegisterMessageLabelXMark;
 
@@ -127,7 +125,7 @@ public class RegisterController {
 
     public void onHyperLinkClick() {
         Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-        loadLoginView(stage);  // Sử dụng SceneLoader thay vì tự mình load
+        loadLoginView();  // Sử dụng SceneLoader thay vì tự mình load
     }
 
 
@@ -167,8 +165,8 @@ public class RegisterController {
             fadeOutLabel.play();
             fadeOutIcon.play();
         });
-        SceneController.stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-        fadeOutLabel.setOnFinished(event -> loadLoginView(stage));
+        stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
+        fadeOutLabel.setOnFinished(event -> loadLoginView());
 
         fadeInLabel.play();
     }

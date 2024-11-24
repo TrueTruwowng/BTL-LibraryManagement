@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.library.Book;
 import com.library.Controller.SceneController;
 import com.library.DatabaseConnection;
+import com.library.LibraryApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,9 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.library.Controller.SceneController.stage;
 
-public class addBookAdminController implements Initializable {
+public class addBookAdminController extends SceneController implements Initializable {
     @FXML
     private TextField bookIsbnTextField;
     @FXML
@@ -48,7 +48,7 @@ public class addBookAdminController implements Initializable {
 
 
     public void backToLibrary(ActionEvent actionEvent) throws IOException {
-        SceneController.loadAdminLibraryScene(stage);
+        LibraryApplication.getSceneController().loadAdminLibraryScene();
     }
 
     public void cancelSaveBookToLibrary(ActionEvent actionEvent) {

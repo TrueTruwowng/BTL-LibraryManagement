@@ -46,20 +46,24 @@ public class SearchController {
 
     private void onBookClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("BookInfo-view.fxml"));
+            // Tải FXML từ đường dẫn tuyệt đối
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/library/BookInfo-view.fxml"));
             Scene scene = new Scene(loader.load());
+
+            // Lấy controller và truyền dữ liệu cho nó
             BookInfo bookInfoController = loader.getController();
             bookInfoController.setBookData(this.book);  // Truyền đối tượng book vào BookInfo
 
-            // Tạo một cửa sổ mới (Stage)
+            // Tạo và hiển thị cửa sổ mới (Stage)
             Stage newStage = new Stage();
             newStage.setTitle("Book Info");
             newStage.setScene(scene);
-            newStage.show();  // Hiển thị cửa sổ mới
+            newStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }

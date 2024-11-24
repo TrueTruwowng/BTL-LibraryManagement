@@ -129,7 +129,7 @@
                      </styleClass>
                   </Button>
                   <Separator maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
+                  <Button fx:id="logoutBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
                      <styleClass>
                         <String fx:value="white_background" />
                         <String fx:value="mouse-moved" />

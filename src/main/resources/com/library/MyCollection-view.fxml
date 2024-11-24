@@ -122,7 +122,7 @@
                      </graphic>
                   </Button>
                   <Separator maxWidth="-Infinity" prefWidth="120.0" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClk" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLogOutBtnClick" prefHeight="80.0" prefWidth="155.0" stylesheets="@../../ScreenUI/css/AllView.css" text="LOGOUT">
                      <graphic>
                         <FontAwesomeIcon glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
