@@ -2,13 +2,13 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -37,15 +37,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Separator>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0" styleClass="round_layout" stylesheets="@../../ScreenUI/css/AllView.css">
-                     <children>
-                        <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="482.0" promptText="Search" styleClass="transperent" stylesheets="@../../ScreenUI/css/AllView.css" />
-                        <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../ScreenUI/Picture/look.png" />
-                           </image>
-                        </ImageView>
-                     </children>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="534.0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -140,16 +132,29 @@
                      </styleClass>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
+                  <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
-                        <Label text="Use this to report errors or suggestions" />
-                        <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
-                           <graphic>
-                              <FontAwesomeIcon glyphName="PLUS" size="12" />
-                           </graphic>
-                        </Button>
+                        <Label text="Contact to report bugs or suggestions" />
+                        <VBox prefHeight="46.0" prefWidth="154.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css">
+                           <children>
+                              <Label maxWidth="-Infinity" prefHeight="22.0" prefWidth="153.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Hotline: 19001069" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="15.0" prefWidth="153.0" text="Email: tuylibrary@gmail.com" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
+                     <stylesheets>
+                        <URL value="@../../ScreenUI/css/menu.css" />
+                        <URL value="@../../ScreenUI/css/AllView.css" />
+                     </stylesheets>
                   </VBox>
                </children>
             </VBox>

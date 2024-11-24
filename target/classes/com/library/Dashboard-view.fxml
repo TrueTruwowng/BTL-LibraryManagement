@@ -142,15 +142,27 @@
                      </graphic>
                   </Button>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="120.0" />
-                  <VBox prefHeight="142.0" prefWidth="138.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
+                  <VBox prefHeight="140.0" prefWidth="154.0" styleClass="report_container" stylesheets="@../../ScreenUI/css/menu.css">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report/Suggestions Bug ?" />
-                        <Label text="Use this to report errors or suggestions" />
-                        <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
-                           <graphic>
-                              <FontAwesomeIcon glyphName="PLUS" size="12" />
-                           </graphic>
-                        </Button>
+                        <Label text="Contact to report bugs or suggestions" />
+                        <VBox prefHeight="46.0" prefWidth="154.0" styleClass="round_layout_book" stylesheets="@../../ScreenUI/css/AllView.css">
+                           <children>
+                              <Label maxWidth="-Infinity" prefHeight="22.0" prefWidth="153.0" stylesheets="@../../ScreenUI/css/AllView.css" text="Hotline: 19001069" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="15.0" prefWidth="153.0" text="Email: tuylibrary@gmail.com" textFill="#132a13">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
