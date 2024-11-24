@@ -1,5 +1,6 @@
 package com.library.Controller;
 
+import com.library.LibraryApplication;
 import com.library.User;
 import com.library.DatabaseConnection;
 import javafx.application.Platform;
@@ -23,9 +24,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.library.Controller.SceneController.stage;
-
-public class SettingController {
+public class SettingController extends SceneController {
     @FXML
     private CheckBox musicControl;
     @FXML
@@ -47,8 +46,6 @@ public class SettingController {
     @FXML
     private Label phoneLabel;
     private final String imagesDirectory = "D:/OOP/BTL-LibraryManagement/src/main/resources/ScreenUI/Picture/Avatar";
-    private ListView<Path> imageListView;
-
 
     @FXML
     public void initialize() {
@@ -68,6 +65,7 @@ public class SettingController {
             }
         }
     }
+
     @FXML
     public void handleUpdateUserPicture() {
         Task<List<Path>> loadImagesTask = new Task<>() {
@@ -159,8 +157,7 @@ public class SettingController {
         } catch (IOException | SQLException e) {
             Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Error", "Failed to update user picture."));
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             DatabaseConnection.closeConnection();
         }
     }
@@ -174,12 +171,12 @@ public class SettingController {
     }
 
     public void handleEditInformationButton() {
-        Stage editStage = new Stage();
-        EditController editController = (EditController) SceneController.loadScreenWithController("/com/library/EditInfo-view.fxml", editStage, "EditInfo.fxml");
-        assert editController != null;
-        editController.setSettingController(this);
-        editStage.show();
+        EditController editController = loadScreenWithController("/com/library/EditInfo-view.fxml", "Edit Info");
+        if (editController != null) {
+            editController.setSettingController(this);
+        }
     }
+
 
     public void refreshUserInfo() {
         User currentUser = UserController.getCurrentUser();
@@ -197,33 +194,40 @@ public class SettingController {
             }
         }
     }
+
     @FXML
     private void muteMusic() {
         if (musicController.isPlaying()) {
             musicController.setMute(true);
             musicController.pauseMusic();
-        }
-        else {
+        } else {
             musicController.setMute(false);
             musicController.resumeMusic();
         }
     }
 
+    @FXML
     public void onDashboardBtnClick() {
-        SceneController.handleDashboardButton(stage);
+        LibraryApplication.getSceneController().loadDashboardView();
     }
 
+    @FXML
     public void onSettingsBtnClick() {
-        SceneController.handleSettingbutton(stage);
-    }
-    public void onMyCollectionBtnClick() {
-        SceneController.handleMyCollectionButton(stage);
+        LibraryApplication.getSceneController().loadSettingView();
     }
 
-    public void onLogOutBtnClk() {
-        SceneController.handleLogoutButton(stage);
+    @FXML
+    public void onMyCollectionBtnClick() {
+        LibraryApplication.getSceneController().loadMyCollectionView();
     }
+
+    @FXML
+    public void onLogOutBtnClick() {
+        LibraryApplication.getSceneController().loadLoginView();
+    }
+
+    @FXML
     public void onGameBtnClick() {
-        SceneController.hadnleGameButton(stage);
+        LibraryApplication.getSceneController().loadGameView();
     }
 }

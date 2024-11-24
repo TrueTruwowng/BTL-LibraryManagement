@@ -5,6 +5,7 @@ import com.library.API;
 import com.library.Book;
 import com.library.Controller.SceneController;
 import com.library.DatabaseConnection;
+import com.library.LibraryApplication;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -42,7 +43,7 @@ import java.util.ResourceBundle;
 
 import static com.library.Controller.SceneController.*;
 
-public class libraryAdminController implements Initializable {
+public class libraryAdminController extends SceneController implements Initializable {
     @FXML
     public JFXButton addBookButton;
     @FXML
@@ -80,7 +81,6 @@ public class libraryAdminController implements Initializable {
 
     @FXML
     private ProgressBar progressBar;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumn();
@@ -421,7 +421,7 @@ public class libraryAdminController implements Initializable {
 
     public void addBook(ActionEvent actionEvent) throws IOException {
         // Load file fxml khác
-        SceneController.loadScreen("/com/library/addbookadmin-view.fxml",stage,"ADD BOOK");
+        LibraryApplication.getSceneController().loadScreen("/com/library/addbookadmin-view.fxml","ADD BOOK");
     }
 
     @FXML
@@ -490,11 +490,11 @@ public class libraryAdminController implements Initializable {
 
     public void onAdminHyperLinkClicked() {
         Stage stage = (Stage) adminSceneHyperlink.getScene().getWindow();
-        loadAdminScene(stage);
+        LibraryApplication.getSceneController().loadAdminScene();
     }
 
     public void backToLogin() {
         Stage stage = (Stage) logoutHyperLink.getScene().getWindow();
-        loadLoginView(stage);
+        LibraryApplication.getSceneController().loadLoginView();
     }
 }

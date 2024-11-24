@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import static com.library.DatabaseConnection.connectUserAccount;
 
 public class LibraryApplication extends Application {
+    private static SceneController sceneController;
     @Override
         public void start (Stage stage) throws IOException {
         connectUserAccount();
@@ -19,10 +20,16 @@ public class LibraryApplication extends Application {
             MusicController.getInstance().playMusic("src/main/resources/ScreenUI/music/background_music.mp3");
             MusicController.getInstance().setVolume(0.2);
         Connection con = DatabaseConnection.getConnection();
-        SceneController.setPrimaryStage(stage);
-        SceneController.loadLoginView(stage);
+        sceneController = new SceneController();
+        sceneController.setPrimaryStage(stage);
+
+        // Tải giao diện đầu tiên
+        sceneController.loadLoginView();
 
 
+    }
+    public static SceneController getSceneController() {
+        return sceneController;
     }
 
     @Override

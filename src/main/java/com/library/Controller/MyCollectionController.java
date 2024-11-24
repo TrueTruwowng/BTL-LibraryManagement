@@ -1,6 +1,7 @@
 package com.library.Controller;
 
 import com.library.Book;
+import com.library.LibraryApplication;
 import com.library.User;
 import com.library.DatabaseConnection;
 import javafx.fxml.FXML;
@@ -13,16 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import static com.library.Controller.SceneController.stage;
-import static com.library.Controller.UserController.currentUser;
-
-public class MyCollectionController {
+public class MyCollectionController extends SceneController {
     @FXML
     private VBox historyVbox;
     @FXML
@@ -35,10 +34,10 @@ public class MyCollectionController {
     private Label bookBorrow;
     @FXML
     private ScrollPane borrowingScrollPane;
+    @FXML
+    private HBox borrowingContainer;
 
     @FXML
-    private HBox borrowingContainer; 
-
     public void initialize() throws SQLException {
         User currentUser = UserController.getCurrentUser();
         if (currentUser.getUserPicture() != null) {
@@ -49,10 +48,9 @@ public class MyCollectionController {
         bookBorrow.setText(DatabaseConnection.countBooksBorrowing(currentUser.getUserID()));
         historyVbox.getStylesheets().add(getClass().getResource("/ScreenUI/css/tableStyle.css").toExternalForm());
 
-        List <Book> borrowingBooks = DatabaseConnection.borrowingBookList(currentUser.getUserID());
+        List<Book> borrowingBooks = DatabaseConnection.borrowingBookList(currentUser.getUserID());
         loadBorrowingBooks(borrowingBooks);
         displayBorrowHistory();
-
     }
 
     private void loadBorrowingBooks(List<Book> borrowingBooks) {
@@ -76,7 +74,9 @@ public class MyCollectionController {
 
         borrowingScrollPane.setContent(borrowingContainer);
     }
+
     public void displayBorrowHistory() throws SQLException {
+        User currentUser = UserController.getCurrentUser();
         List<Map<String, Object>> historyList = DatabaseConnection.getBorrowHistory(currentUser.getUserID());
 
         historyVbox.getChildren().clear();
@@ -125,28 +125,34 @@ public class MyCollectionController {
         Label label = new Label(text);
         label.setPrefWidth(150);
         label.setWrapText(true);
-        label.setAlignment(Pos.CENTER); // Căn giữa nội dung
+        label.setAlignment(Pos.CENTER);
         label.getStyleClass().add(isHeader ? "table-header-label" : "table-row-label");
 
         return label;
     }
 
-
-
+    @FXML
     public void onDashboardBtnClick() {
-        SceneController.handleDashboardButton(stage);
-    }
-    public void onSettingsBtnClick() {
-        SceneController.handleSettingbutton(stage);
-    }
-    public void onMyCollectionBtnClick() {
-        SceneController.handleMyCollectionButton(stage);
-    }
-    public void onLogOutBtnClk() {
-        SceneController.handleLogoutButton(stage);
-    }
-    public void onGameBtnClick() {
-        SceneController.hadnleGameButton(stage);
+        LibraryApplication.getSceneController().loadDashboardView();
     }
 
+    @FXML
+    public void onSettingsBtnClick() {
+        LibraryApplication.getSceneController().loadSettingView();
+    }
+
+    @FXML
+    public void onMyCollectionBtnClick() {
+        LibraryApplication.getSceneController().loadMyCollectionView();
+    }
+
+    @FXML
+    public void onLogOutBtnClick() {
+        LibraryApplication.getSceneController().loadLoginView();
+    }
+
+    @FXML
+    public void onGameBtnClick() {
+        LibraryApplication.getSceneController().loadGameView();
+    }
 }

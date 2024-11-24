@@ -2,6 +2,7 @@ package com.library.Controller;
 
 import com.library.Book;
 import com.library.DatabaseConnection;
+import com.library.LibraryApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.library.Controller.SceneController.stage;
 import static com.library.Controller.UserController.currentUser;
 
-public class DashboardController implements Initializable {
+public class DashboardController extends SceneController implements Initializable {
     @FXML
     private AnchorPane searchPane;
     @FXML
@@ -196,20 +196,29 @@ public class DashboardController implements Initializable {
 
 
 
+    @FXML
     public void onDashboardBtnClick() {
-        SceneController.handleDashboardButton(stage);
+        LibraryApplication.getSceneController().loadDashboardView();
     }
+
+    @FXML
     public void onSettingsBtnClick() {
-        SceneController.handleSettingbutton(stage);
+        LibraryApplication.getSceneController().loadSettingView();
     }
+
+    @FXML
     public void onMyCollectionBtnClick() {
-        SceneController.handleMyCollectionButton(stage);
+        LibraryApplication.getSceneController().loadMyCollectionView();
     }
-    public void onLogOutBtnClk() {
-        SceneController.handleLogoutButton(stage);
+
+    @FXML
+    public void onLogOutBtnClick() {
+        LibraryApplication.getSceneController().loadLoginView();
     }
+
+    @FXML
     public void onGameBtnClick() {
-        SceneController.hadnleGameButton(stage);
+        LibraryApplication.getSceneController().loadGameView();
     }
 
 

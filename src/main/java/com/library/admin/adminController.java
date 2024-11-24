@@ -1,6 +1,8 @@
 package com.library.admin;
 
 import com.jfoenix.controls.JFXButton;
+import com.library.Controller.SceneController;
+import com.library.LibraryApplication;
 import com.library.User;
 import com.library.DatabaseConnection;
 import javafx.collections.FXCollections;
@@ -24,7 +26,7 @@ import java.util.UUID;
 
 import static com.library.Controller.SceneController.*;
 
-public class adminController implements Initializable {
+public class adminController extends SceneController implements Initializable {
     @FXML
     public Hyperlink bookSceneHyperlink;
     @FXML
@@ -362,10 +364,10 @@ public class adminController implements Initializable {
     }
 
     public void onAdminLibraryHyperLinkClicked() {
-        loadAdminLibraryScene(stage);
+        LibraryApplication.getSceneController().loadAdminLibraryScene();
     }
 
     public void backToLogin() {
-        loadLoginView(stage);
+        LibraryApplication.getSceneController().loadLoginView();
     }
 }

@@ -1,33 +1,28 @@
 package com.library.Controller;
 
+import com.library.LibraryApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class SceneController {
-    public static Stage stage = null;
-    public static void setPrimaryStage(Stage stage) {
-        if (SceneController.stage == null) {
-            SceneController.stage = stage;
-            SceneController.stage.getIcons().add(
-                    new Image(SceneController.class.getResourceAsStream("/ScreenUI/Picture/Avatar.png")));
+    protected Stage stage;
+
+    public void setPrimaryStage(Stage stage) {
+        if (this.stage == null) { // Chỉ gán nếu chưa được thiết lập
+            this.stage = stage;
         }
     }
+    public void loadScreen(String fxmlFile, String title) {
+        if (stage == null) {
+            throw new IllegalStateException("Stage is not initialized. Call setPrimaryStage() first.");
+        }
 
-    public static void loadScreen(String fxmlFile, Stage stage, String title) {
         try {
-            if (stage == null) {
-                if (SceneController.stage == null) {
-                    SceneController.stage = new Stage();
-                }
-                stage = SceneController.stage;
-            }
-
-            // Load FXML và tạo Scene mới
-            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
             stage.setScene(new Scene(root));
             stage.setTitle(title);
@@ -37,33 +32,50 @@ public class SceneController {
         }
     }
 
-    // Methods for loading different views
-    public static void loadLoginView(Stage stage) {
-        loadScreen("/com/library/login-view.fxml", SceneController.stage, "Login");
+    // Các phương thức điều hướng cụ thể
+    public void loadLoginView() {
+        loadScreen("/com/library/login-view.fxml", "Login");
     }
 
-    public static void loadDashboardView(Stage stage) {
-        loadScreen("/com/library/Dashboard-view.fxml", SceneController.stage, "Dashboard");
+    public void loadDashboardView() {
+        loadScreen("/com/library/Dashboard-view.fxml", "Dashboard");
     }
 
-    public static void loadSettingView(Stage stage) {
-        loadScreen("/com/library/Setting-view.fxml", SceneController.stage, "Settings");
+    public void loadSettingView() {
+        loadScreen("/com/library/Setting-view.fxml", "Settings");
     }
 
-    public static void loadMyCollectionView(Stage stage) {
-        loadScreen("/com/library/MyCollection-view.fxml", SceneController.stage, "My Collection");
-    }
-    public static void loadGameView(Stage stage) {
-        loadScreen("/com/library/gameAll-view.fxml", SceneController.stage, "Game");
+    public void loadMyCollectionView() {
+        loadScreen("/com/library/MyCollection-view.fxml", "My Collection");
     }
 
-    public static <T> T loadScreenWithController(String fxmlFile, Stage stage, String title) {
+    public void loadGameView() {
+        loadScreen("/com/library/gameAll-view.fxml", "Game");
+    }
+
+    public void loadGamePlayScene() {
+        loadScreen("/com/library/gameplay-view.fxml", "Game Play");
+    }
+
+    public void loadAdminScene() {
+        loadScreen("/com/library/admin-view.fxml", "Admin");
+    }
+
+    public void loadAdminLibraryScene() {
+        loadScreen("/com/library/libraryadmin-view.fxml", "Admin Library");
+    }
+
+    public <T> T loadScreenWithController(String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-            stage.show();
+
+            // Tạo một Stage mới cho cửa sổ
+            Stage newStage = new Stage();
+            newStage.setTitle(title);
+            newStage.setScene(new Scene(root));
+            newStage.show();
+
             return loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,33 +83,5 @@ public class SceneController {
         }
     }
 
-    public static void handleSettingbutton(Stage stage) {
-        SceneController.loadSettingView(SceneController.stage);
-    }
-    public static void hadnleGameButton(Stage stage) {
-        SceneController.loadGameView(SceneController.stage);
-    }
 
-    public static void handleLogoutButton(Stage stage) {
-        SceneController.loadLoginView(SceneController.stage);
-    }
-
-    public static void handleMyCollectionButton(Stage stage) {
-        SceneController.loadMyCollectionView(SceneController.stage);
-    }
-    public static void handleDashboardButton(Stage stage) {
-        SceneController.loadDashboardView(SceneController.stage);
-    }
-
-    public static void loadAdminScene(Stage stage) {
-        loadScreen("/com/library/admin-view.fxml", stage, "Admin");
-    }
-
-    public static void loadAdminLibraryScene(Stage stage) {
-        loadScreen("/com/library/libraryadmin-view.fxml", stage, "Admin Library");
-    }
-
-    public static void loadGamePlayScene(Stage stage) {
-        loadScreen("/com/library/gameplay-view.fxml", stage, "Game Play");
-    }
 }

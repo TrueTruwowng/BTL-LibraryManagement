@@ -1,4 +1,5 @@
 package com.library.Controller;
+import com.library.LibraryApplication;
 import com.library.User;
 import com.library.DatabaseConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -20,9 +21,9 @@ import javafx.util.Duration;
 
 import static com.library.Controller.UserController.currentUser;
 import static com.library.DatabaseConnection.connectUserAccount;
-import static com.library.Controller.SceneController.stage;
 
-public class LoginController {
+public class LoginController extends SceneController {
+    private Stage stage;
     @FXML
     private Label LoginMessageLabelXmark;
     @FXML
@@ -230,9 +231,7 @@ public class LoginController {
                 User currentUser1 = currentUser;
                 showSuccessful();
                 PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
-                pause.setOnFinished(event -> {
-                    SceneController.loadDashboardView(stage);
-                });
+                pause.setOnFinished(event -> LibraryApplication.getSceneController().loadDashboardView());
                 pause.play();
             } else {
                 showError(); // Show error animation if validation fails
@@ -253,7 +252,7 @@ public class LoginController {
 
                 PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
                 pause.setOnFinished(event -> {
-                    SceneController.loadAdminLibraryScene(stage);
+                    LibraryApplication.getSceneController().loadAdminLibraryScene();
                 });
                 pause.play();
             } else {
