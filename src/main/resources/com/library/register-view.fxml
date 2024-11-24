@@ -21,12 +21,12 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
          <image>
-            <Image url="@../../ScreenUI/Picture/House.gif" />
+            <Image url="@../../ScreenUI/Picture/cute-corgi-swimming_800.gif" />
          </image>
       </ImageView>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="HARD_LIGHT" fill="#fffffff2" height="484.0" layoutX="138.0" layoutY="64.5" opacity="0.9" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="625.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="64.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="HARD_LIGHT" fill="#fffffff2" height="484.0" layoutX="138.0" layoutY="64.5" opacity="0.75" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="625.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="64.0">
                <effect>
                   <Blend mode="RED" />
                </effect></Rectangle>

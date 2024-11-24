@@ -19,12 +19,12 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
          <image>
-            <Image url="@../../ScreenUI/Picture/LoginBackgroundGIF.gif" />
+            <Image url="@../../ScreenUI/Picture/pigeon-relaxing_800.gif" />
          </image>
       </ImageView>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" StackPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="517.0" layoutX="227.0" layoutY="48.0" opacity="0.9" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="446.0" AnchorPane.bottomAnchor="34.5" AnchorPane.leftAnchor="226.5" AnchorPane.rightAnchor="226.5" AnchorPane.topAnchor="47.5" />
+            <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="517.0" layoutX="227.0" layoutY="48.0" opacity="0.75" stroke="BLACK" strokeLineJoin="BEVEL" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="446.0" AnchorPane.bottomAnchor="34.5" AnchorPane.leftAnchor="226.5" AnchorPane.rightAnchor="226.5" AnchorPane.topAnchor="47.5" />
             <Button fx:id="LoginButton" layoutX="399.0" layoutY="376.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="30.0" prefWidth="102.0" styleClass="rounded-label-loginbutton" stylesheets="@../../ScreenUI/css/Label.css" text="LOGIN" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
