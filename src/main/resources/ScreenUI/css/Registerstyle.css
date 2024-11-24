@@ -1,5 +1,5 @@
 .body {
-    -fx-background-image: url("D:/OOP/BTL-LibraryManagement/src/main/resources/ScreenUI/Picture/LoginBackground.jpg");
+    -fx-background-image: "@../../ScreenUI/Picture/Register_background.png";
     -fx-background-size: cover; /* Để ảnh chiếm toàn bộ không gian */
 
     /* Để ảnh căn giữa */
