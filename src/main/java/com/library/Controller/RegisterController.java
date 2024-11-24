@@ -1,6 +1,7 @@
 package com.library.Controller;
 
 import com.library.DatabaseConnection;
+import com.library.LibraryApplication;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
+
 
 
 public class RegisterController extends SceneController {
@@ -125,7 +127,7 @@ public class RegisterController extends SceneController {
 
     public void onHyperLinkClick() {
         Stage stage = (Stage) BacktoLoginHyperlink.getScene().getWindow();
-        loadLoginView();  // Sử dụng SceneLoader thay vì tự mình load
+        LibraryApplication.getSceneController().loadLoginView();  // Sử dụng SceneLoader thay vì tự mình load
     }
 
 
