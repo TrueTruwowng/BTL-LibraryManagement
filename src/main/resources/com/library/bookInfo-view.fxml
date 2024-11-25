@@ -65,7 +65,7 @@
                                 <Font name="Berlin Sans FB" size="22.0" />
                             </font>
                         </Label>
-                        <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="MƯỢN SÁCH">
+                        <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="BORROW BOOK">
                             <font>
                                 <Font name="Arial" size="12.0" />
                             </font>
@@ -79,7 +79,7 @@
                                 <String fx:value="rounded-label-borrowbutton" />
                             </styleClass>
                         </Button>
-                        <Button fx:id="returnButton" layoutX="37.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="42.0" prefWidth="226.0" text="TRẢ SÁCH">
+                        <Button fx:id="returnButton" layoutX="37.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="42.0" prefWidth="226.0" text="RETURN BOOK">
                             <stylesheets>
                                 <URL value="@../../ScreenUI/css/AllView.css" />
                                 <URL value="@../../ScreenUI/css/Label.css" />
