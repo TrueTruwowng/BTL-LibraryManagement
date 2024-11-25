@@ -176,7 +176,7 @@ public class DashboardController extends SceneController implements Initializabl
         searchLayout.getChildren().clear();
 
         if (books.isEmpty()) {
-            Label noResultsLabel = new Label("Không tìm thấy kết quả.");
+            Label noResultsLabel = new Label("No results found");
             searchLayout.getChildren().add(noResultsLabel);
         } else {
             try {

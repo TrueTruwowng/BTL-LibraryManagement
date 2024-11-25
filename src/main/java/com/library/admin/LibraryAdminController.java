@@ -43,7 +43,7 @@ import java.util.ResourceBundle;
 
 import static com.library.Controller.SceneController.*;
 
-public class libraryAdminController extends SceneController implements Initializable {
+public class LibraryAdminController extends SceneController implements Initializable {
     @FXML
     public JFXButton addBookButton;
     @FXML
@@ -337,12 +337,12 @@ public class libraryAdminController extends SceneController implements Initializ
             preparedStatement.setString(1, book.getIsbn());
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Số lượng sách đã được cập nhật.");
+                System.out.println("Book quantity has been updated");
                 tableBookView.refresh();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
+            showAlert("Error", "Update failed", Alert.AlertType.ERROR);
         }
     }
 
