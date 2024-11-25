@@ -71,7 +71,7 @@ public class BookInfo {
         String accountId = getCurrentUser().getUserID();
 
         if (isbn == null || isbn.isEmpty() || accountId == null || accountId.isEmpty()) {
-            System.out.println("Vui lòng nhập thông tin hợp lệ!");
+            System.out.println("Please enter valid information");
             return;
         }
 
@@ -81,14 +81,14 @@ public class BookInfo {
 
             DatabaseConnection.updateAvailableBooks(isbn, 1); // Tăng số lượng sách có sẵn (1 cuốn)
 
-            showAlert("Trả sách thành công!", Alert.AlertType.INFORMATION);
+            showAlert("Return successfully", Alert.AlertType.INFORMATION);
 
             // Cập nhật lại trạng thái sách trong giao diện
             book.setAvailable(book.getAvailable() + 1);
             setBookData(book);
         } catch (SQLException e) {
-            System.out.println("Lỗi khi trả sách: " + e.getMessage());
-            showAlert("Có lỗi xảy ra khi trả sách!", Alert.AlertType.ERROR);
+            System.out.println("Error: " + e.getMessage());
+            showAlert("Return failed", Alert.AlertType.ERROR);
         }
     }
 
@@ -100,20 +100,20 @@ public class BookInfo {
             String accountId = getCurrentUser().getUserID();
 
             if (title == null || title.isEmpty() || accountId == null || accountId.isEmpty()) {
-                System.out.println("Vui lòng nhập tiêu đề hợp lệ!");
+                System.out.println("Please enter valid information");
                 return;
             }
 
             DatabaseConnection.borrowBookByTitle(title, accountId);
 
-            showAlert("Mượn sách thành công!", Alert.AlertType.INFORMATION);
+            showAlert("Borrow book successfully", Alert.AlertType.INFORMATION);
 
             // Cập nhật lại trạng thái sách
             book.setAvailable(book.getAvailable() - 1);
             setBookData(book);
         } catch (SQLException e) {
-            System.out.println("Lỗi khi mượn sách theo Title: " + e.getMessage());
-            showAlert("Có lỗi xảy ra khi mượn sách!", Alert.AlertType.ERROR);
+            System.out.println("Error: " + e.getMessage());
+            showAlert("Borrow failed", Alert.AlertType.ERROR);
         }
     }
 
@@ -123,7 +123,7 @@ public class BookInfo {
             String isbn = book.getIsbn();
 
             if (accountId == null || isbn == null || isbn.isEmpty()) {
-                System.out.println("Dữ liệu không hợp lệ!");
+                System.out.println("Invalid information");
                 return;
             }
 
@@ -134,7 +134,7 @@ public class BookInfo {
             borrowButton.setDisable(isBorrowed || !isAvailable);
             returnButton.setDisable(!isBorrowed);
         } catch (SQLException e) {
-            System.out.println("Lỗi khi kiểm tra trạng thái sách: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
     private void showAlert(String message, Alert.AlertType alertType) {
