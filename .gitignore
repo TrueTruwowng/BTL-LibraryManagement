@@ -6,3 +6,6 @@
 *.db
 *.db
 *.db
+*.db
+*.db
+.DS_Store

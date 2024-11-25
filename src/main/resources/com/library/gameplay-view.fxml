@@ -6,18 +6,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../ScreenUI/css/game.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.GameController">
+<AnchorPane prefHeight="478.0" prefWidth="829.0" stylesheets="@../../ScreenUI/css/game.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.GameController">
    <children>
-      <Label fx:id="questionLabel" alignment="CENTER" layoutX="269.0" layoutY="71.0" text="Label" wrapText="true" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0" />
-      <JFXButton fx:id="option1" layoutX="71.0" layoutY="149.0" onAction="#checkAnswer" prefHeight="50.0" prefWidth="200.0" textFill="WHITE" AnchorPane.leftAnchor="50.0" />
-      <JFXButton fx:id="option2" layoutX="375.0" layoutY="149.0" onAction="#checkAnswer" prefHeight="50.0" prefWidth="200.0" textFill="WHITE" AnchorPane.rightAnchor="50.0" />
-      <JFXButton fx:id="option4" layoutX="375.0" layoutY="226.0" onAction="#checkAnswer" prefHeight="50.0" prefWidth="200.0" textFill="WHITE" AnchorPane.rightAnchor="50.0" />
-      <JFXButton fx:id="option3" layoutX="71.0" layoutY="226.0" onAction="#checkAnswer" prefHeight="50.0" prefWidth="200.0" text="Button" textFill="WHITE" AnchorPane.leftAnchor="50.0" />
-      <Hyperlink fx:id="nextQuestionHyperlink" layoutX="520.0" layoutY="363.0" onAction="#nextQuestion" text="Next" AnchorPane.rightAnchor="25.0">
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="70.0" layoutY="21.0" prefHeight="114.0" prefWidth="690.0" text="Label" wrapText="true" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="69.20000000000005" AnchorPane.topAnchor="21.0">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Label>
+      <JFXButton fx:id="option1" layoutX="72.0" layoutY="165.0" onAction="#checkAnswer" prefHeight="104.0" prefWidth="266.0" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="72.0" />
+      <JFXButton fx:id="option2" layoutX="490.0" layoutY="165.0" onAction="#checkAnswer" prefHeight="104.0" prefWidth="266.0" textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="72.60000000000002" />
+      <JFXButton fx:id="option4" layoutX="491.0" layoutY="309.0" onAction="#checkAnswer" prefHeight="104.0" prefWidth="266.0" textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="72.0" />
+      <JFXButton fx:id="option3" layoutX="72.0" layoutY="309.0" onAction="#checkAnswer" prefHeight="104.0" prefWidth="266.0" text="Button" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="72.0" />
+      <Hyperlink fx:id="nextQuestionHyperlink" layoutX="771.0" layoutY="430.0" onAction="#nextQuestion" text="Next" AnchorPane.rightAnchor="14.799999999999955">
          <font>
             <Font size="16.0" />
          </font></Hyperlink>
-      <Hyperlink fx:id="quitGameHyperlink" layoutX="36.0" layoutY="363.0" onAction="#quitGame" text="Quit" AnchorPane.leftAnchor="25.0">
+      <Hyperlink fx:id="quitGameHyperlink" layoutX="14.0" layoutY="430.0" onAction="#quitGame" text="Quit" AnchorPane.leftAnchor="14.0">
          <font>
             <Font size="16.0" />
          </font></Hyperlink>

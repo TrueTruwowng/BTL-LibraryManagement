@@ -98,3 +98,38 @@ Tác phẩm 'Tầng Đầu Địa Ngục' là của tác giả nào?|Nguyễn V�
 Tác phẩm 'Ông Già Và Biển Cả' (The Old Man and the Sea) là của tác giả nào?|Ernest Hemingway|Ernest Hemingway;Mark Twain;F. Scott Fitzgerald;William Faulkner
 Tác phẩm 'Đảo Giấu Vàng' (Treasure Island) là của ai?|Robert Louis Stevenson|Robert Louis Stevenson;Jules Verne;Jonathan Swift;Daniel Defoe
 Tác phẩm 'Tiếng Chim Hót Trong Bụi Mận Gai' (The Thorn Birds) là của tác giả nào?|Colleen McCullough|Colleen McCullough;Margaret Mitchell;Harper Lee;Emily Brontë
+Tác phẩm 'Truyện Kiều' được Nguyễn Du sáng tác vào khoảng năm nào?|1820|1815;1820;1830;1845
+Tác phẩm 'Tắt Đèn' của Ngô Tất Tố ra đời năm nào?|1939|1936;1937;1939;1940
+'Số Đỏ' của Vũ Trọng Phụng được viết trong thời gian nào?|1936|1935;1936;1938;1940
+Tác phẩm 'Lão Hạc' của Nam Cao được viết vào năm nào?|1943|1940;1941;1943;1945
+Tập thơ 'Nhật Ký Trong Tù' được Chủ tịch Hồ Chí Minh sáng tác vào khoảng thời gian nào?|1942-1943|1940-1941;1942-1943;1943-1944;1945
+Nhân vật chính của 'Truyện Kiều' là ai?|Thúy Kiều|Thúy Vân;Thúy Kiều;Hoạn Thư;Kim Trọng
+Trong tác phẩm 'Chí Phèo', nhân vật chính chết bằng cách nào?|Bị giết bởi Bá Kiến|Bị giết bởi Bá Kiến;Tự tử;Chết do bệnh;Không rõ nguyên nhân
+'Tắt Đèn' phản ánh điều gì về xã hội Việt Nam?|Sự áp bức của chế độ thực dân phong kiến|Sự đấu tranh của nông dân;Sự áp bức của chế độ thực dân phong kiến;Tình yêu quê hương đất nước;Cảnh chiến tranh
+Tác phẩm 'Rừng Xà Nu' miêu tả cuộc chiến đấu của dân tộc nào?|Dân tộc Xô Man|Dân tộc Xô Man;Dân tộc Ê-đê;Dân tộc Mường;Dân tộc Dao
+Tập thơ 'Nhật Ký Trong Tù' gửi gắm thông điệp gì?|Tinh thần lạc quan, yêu nước|Tinh thần lạc quan, yêu nước;Phê phán xã hội phong kiến;Tình yêu đôi lứa;Tình cảm gia đình
+Nhân vật Bá Kiến xuất hiện trong tác phẩm nào?|Chí Phèo|Lão Hạc;Chí Phèo;Vợ Nhặt;Vợ Chồng A Phủ
+Nhân vật Huấn Cao là hình tượng của ai trong lịch sử?|Cao Bá Quát|Nguyễn Trãi;Nguyễn Du;Cao Bá Quát;Nguyễn Đình Chiểu
+Nhân vật chính trong 'Vợ Nhặt' là ai?|Tràng|Bá Kiến;Chí Phèo;Tràng;Huấn Cao
+Ai là người đã đỡ đầu Thúy Kiều khi lưu lạc?|Từ Hải|Kim Trọng;Từ Hải;Thúy Vân;Mã Giám Sinh
+Nhân vật Dế Mèn trong 'Dế Mèn Phiêu Lưu Ký' có tính cách gì nổi bật?|Kiêu ngạo, ham học hỏi|Kiêu ngạo, ham học hỏi;Lười biếng, nhút nhát;Gan dạ, bảo thủ;Hiền lành, chăm chỉ
+Ai là nhà văn của dòng văn học hiện thực phê phán ở Việt Nam?|Nam Cao|Nam Cao;Tô Hoài;Ngô Tất Tố;Thạch Lam
+Nhà thơ nào được gọi là “ông hoàng thơ tình Việt Nam”?|Xuân Diệu|Xuân Diệu;Hàn Mặc Tử;Huy Cận;Tố Hữu
+Nguyễn Tuân nổi tiếng với phong cách viết nào?|Chủ nghĩa xê dịch và tùy bút|Chủ nghĩa hiện thực;Chủ nghĩa lãng mạn;Chủ nghĩa xê dịch và tùy bút;Chủ nghĩa phê phán
+Tác giả nào được xem là biểu tượng của phong trào thơ mới?|Thế Lữ|Huy Cận;Xuân Diệu;Hàn Mặc Tử;Thế Lữ
+Thạch Lam thuộc nhóm văn học nào ở Việt Nam?|Tự Lực Văn Đoàn|Tự Lực Văn Đoàn;Hội Nhà Văn Hà Nội;Nhóm Phong Hóa;Tân Văn Đàn
+Tác phẩm 'Vợ Chồng A Phủ' thuộc thể loại gì?|Truyện ngắn|Tiểu thuyết;Thơ;Truyện ngắn;Hồi ký
+'Chí Phèo' của Nam Cao thuộc thể loại nào?|Truyện ngắn|Tiểu thuyết;Truyện ngắn;Tùy bút;Thơ
+Tác phẩm 'Sống Mòn' thuộc dòng văn học gì?|Hiện thực phê phán|Hiện thực phê phán;Lãng mạn;Cách mạng;Tâm lý
+Thơ của Xuân Diệu thuộc dòng thơ nào?|Lãng mạn và hiện thực|Lãng mạn và hiện thực;Cách mạng và hiện thực;Siêu thực và hiện thực;Tâm lý và cách mạng
+Tác phẩm 'Những Ngày Thơ Ấu' của Nguyên Hồng thuộc thể loại gì?|Hồi ký|Tiểu thuyết;Hồi ký;Truyện ngắn;Tùy bút
+Ai là nhà văn có nhiều tác phẩm viết về đề tài miền núi?|Tô Hoài|Nam Cao;Nguyễn Tuân;Nguyễn Huy Tưởng;Tô Hoài
+Trong 'Vợ Nhặt', hoàn cảnh xã hội nào đã làm thay đổi nhân vật Tràng?|Nạn đói 1945|Nạn đói 1945;Chiến tranh Đông Dương;Cải cách ruộng đất;Hòa bình lập lại
+Trong 'Truyện Kiều', Thúy Kiều đã gặp ai để chuộc cha?|Mã Giám Sinh|Từ Hải;Mã Giám Sinh;Hoạn Thư;Kim Trọng
+Tác phẩm 'Vợ Chồng A Phủ' được lấy bối cảnh ở đâu?|Tây Bắc|Tây Bắc;Đông Bắc;Trung Bộ;Tây Nguyên
+'Tắt Đèn' của Ngô Tất Tố có nhân vật chính là ai?|Chị Dậu|Chị Dậu;Bá Kiến;Chí Phèo;Tràng
+Trong 'Chí Phèo', làng Vũ Đại có thể hiện điều gì về xã hội?|Xung đột giai cấp giữa người nông dân và địa chủ|Tình yêu quê hương;Sự đoàn kết nông dân;Xung đột giai cấp giữa người nông dân và địa chủ;Sự phản kháng chế độ
+'Người Lái Đò Sông Đà' tập trung miêu tả điều gì?|Vẻ đẹp hùng vĩ và dữ dội của thiên nhiên Tây Bắc|Tình cảm gia đình;Cuộc sống nông thôn;Vẻ đẹp hùng vĩ và dữ dội của thiên nhiên Tây Bắc;Sự giao thoa văn hóa
+Trong 'Rừng Xà Nu', cây xà nu là biểu tượng cho điều gì?|Sự kiên cường của con người Tây Nguyên|Sự đau khổ;Sự tự do;Sự kiên cường của con người Tây Nguyên;Sự đoàn kết của dân tộc
+Nhân vật Phùng trong 'Chiếc Thuyền Ngoài Xa' làm nghề gì?|Nhiếp ảnh gia|Nhà báo;Nhiếp ảnh gia;Giáo viên;Nhà văn
+'Lão Hạc' của Nam Cao có nội dung chính gì?|Tình yêu thương của một người cha dành cho con trai|Tình bạn;Tình yêu quê hương;Tình yêu thương của một người cha dành cho con trai;Cuộc đấu tranh giai cấp

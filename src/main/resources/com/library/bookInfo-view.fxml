@@ -45,27 +45,27 @@
                                 <Font name="Berlin Sans FB" size="38.0" />
                             </font>
                         </Label>
-                        <Label layoutX="350.0" layoutY="203.0" prefHeight="22.0" prefWidth="38.0" text="ISBN:">
+                        <Label layoutX="350.0" layoutY="203.0" prefHeight="22.0" prefWidth="52.0" text="ISBN:">
                             <font>
-                                <Font name="Calibri Light Italic" size="18.0" />
+                                <Font name="Calibri Bold Italic" size="18.0" />
                             </font>
                         </Label>
                         <Label layoutX="350.0" layoutY="274.0" text="Author:">
                             <font>
-                                <Font name="Calibri Light Italic" size="18.0" />
+                                <Font name="Calibri Bold Italic" size="18.0" />
                             </font>
                         </Label>
                         <Label layoutX="348.0" layoutY="240.0" text="Published Date:">
                             <font>
-                                <Font name="Calibri Light Italic" size="18.0" />
+                                <Font name="Calibri Bold Italic" size="18.0" />
                             </font>
                         </Label>
                         <Label layoutX="349.0" layoutY="348.0" text="Description:">
                             <font>
-                                <Font name="Berlin Sans FB" size="22.0" />
+                                <Font name="Calibri Bold Italic" size="22.0" />
                             </font>
                         </Label>
-                        <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="BORROW BOOK">
+                        <Button fx:id="borrowButton" layoutX="35.0" layoutY="395.0" mnemonicParsing="false" onAction="#borrowBookByTitle" prefHeight="42.0" prefWidth="226.0" text="BORROW">
                             <font>
                                 <Font name="Arial" size="12.0" />
                             </font>
@@ -79,7 +79,7 @@
                                 <String fx:value="rounded-label-borrowbutton" />
                             </styleClass>
                         </Button>
-                        <Button fx:id="returnButton" layoutX="37.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="42.0" prefWidth="226.0" text="RETURN BOOK">
+                        <Button fx:id="returnButton" layoutX="37.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="42.0" prefWidth="226.0" text="RETURN">
                             <stylesheets>
                                 <URL value="@../../ScreenUI/css/AllView.css" />
                                 <URL value="@../../ScreenUI/css/Label.css" />
