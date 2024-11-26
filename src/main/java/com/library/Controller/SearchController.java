@@ -31,6 +31,7 @@ public class SearchController {
     private Book book;
 
     public void setData(Book book) {
+        this.book = book;
         if (book.getBookImage() != null) {
             bookImage.setImage(new Image(new ByteArrayInputStream(book.getBookImage())));
         } else {
