@@ -33,6 +33,8 @@ The application is designed for users and admins, allowing them to both manage t
   7. Play game: Go to GAME to experience our game, the instructions are clearly presented there, you just need to click "Start Game" button to start the game.
   8. Logout: you just need to click "LOGOUT" it will take you back to login.
 # Demo
+https://github.com/user-attachments/assets/995df50c-4e86-4dd6-882e-e5acc5c7e5f7
+
 # Future improvements
 1. Optimize book search algorithm.
 2. Expand database.
