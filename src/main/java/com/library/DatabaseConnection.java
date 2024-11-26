@@ -169,7 +169,7 @@ public class DatabaseConnection {
             ResultSet rs = getISBNStmt.executeQuery();
 
             if (!rs.next()) {
-                System.out.println("Không tìm thấy sách hoặc sách đã hết.");
+                System.out.println("No books found");
                 return;
             }
 
@@ -189,7 +189,7 @@ public class DatabaseConnection {
             insertStmt.setString(4, borrowDate.toString());
             insertStmt.executeUpdate();
 
-            System.out.println("Mượn sách thành công!");
+            System.out.println("Borrow successfully");
         }
     }
 
@@ -209,9 +209,9 @@ public class DatabaseConnection {
 
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Cập nhật ngày trả sách thành công!");
+                System.out.println("Successfully updated the return date");
             } else {
-                System.out.println("Không tìm thấy bản ghi phù hợp để trả sách!");
+                System.out.println("Found no books to return");
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
-public class addBookAdminController extends SceneController implements Initializable {
+public class AddBookAdminController extends SceneController implements Initializable {
     @FXML
     private TextField bookIsbnTextField;
     @FXML
@@ -78,11 +78,11 @@ public class addBookAdminController extends SceneController implements Initializ
             preparedStatement.setString(2, book.getIsbn());   // ISBN của sách
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Số lượng sách đã được cập nhật.");
+                System.out.println("Book quantity has been updated");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Error", "Không được cập nhật", Alert.AlertType.ERROR);
+            showAlert("Error", "Update failed", Alert.AlertType.ERROR);
         }
 
     }
@@ -96,7 +96,7 @@ public class addBookAdminController extends SceneController implements Initializ
         String bookDescription = bookDescriptionTextField.getText();
 
         if (bookIsbn.isEmpty() || bookTitle.isEmpty() || bookAuthor.isEmpty() || bookYear.isEmpty() || bookQuantity.isEmpty()) {
-            showAlert("Lỗi", "Hãy điền đầy đủ", Alert.AlertType.ERROR);
+            showAlert("Error", "Please fill in all fields", Alert.AlertType.ERROR);
             return;
         }
 
