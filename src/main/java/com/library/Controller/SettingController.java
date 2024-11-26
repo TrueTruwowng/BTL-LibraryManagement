@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class SettingController extends SceneController {
     private Label emailLabel;
     @FXML
     private Label phoneLabel;
-    private final String imagesDirectory = "D:/OOP/BTL-LibraryManagement/src/main/resources/ScreenUI/Picture/Avatar";
+    private final String imagesDirectory = "/ScreenUI/Picture/Avatar";
 
     @FXML
     public void initialize() {
@@ -70,8 +71,8 @@ public class SettingController extends SceneController {
     public void handleUpdateUserPicture() {
         Task<List<Path>> loadImagesTask = new Task<>() {
             @Override
-            protected List<Path> call() throws IOException {
-                return Files.list(Path.of(imagesDirectory))
+            protected List<Path> call() throws IOException, URISyntaxException {
+                return Files.list(Path.of(getClass().getResource(imagesDirectory).toURI()))
                         .filter(Files::isRegularFile)
                         .collect(Collectors.toList());
             }
