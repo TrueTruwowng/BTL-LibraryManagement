@@ -59,6 +59,7 @@ public class LoginController extends SceneController {
 
     public void showSuccessful() {
         // Hiển thị các thành phần trạng thái thành công
+        LoginMessageLabelXmark.setText("Login Successfully!");
         LoginMessageLabelCheckMark.setVisible(true);
         StatusIconCheckMark.setVisible(true);
 
