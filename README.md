@@ -26,8 +26,8 @@ The application is designed for users and admins, allowing them to both manage t
 - For client:
   1. Search for books: Use the search bar at the top to search for books by title or author. The app will display a list of matching books.
   2. View book details: Tap or click on a book to see more information, including availability.
-  3. Borrow a book: Check the "Available Copies" section. If there are copies, tap the "Mượn sách" button. The app will update the number of copies available and save it to My collection’s Borrowing.
-  4. Return a book: Check the books you have borrowed in My Collection's Borrowing, if you want to return them, tap Book Info then tap the "Trả sách" button. The app will update the number of copies available and remove the book from your Borrowing.
+  3. Borrow a book: Check the "Available Copies" section. If there are copies, tap the "Borrow" button. The app will update the number of copies available and save it to My collection’s Borrowing.
+  4. Return a book: Check the books you have borrowed in My Collection's Borrowing, if you want to return them, tap Book Info then tap the "Return" button. The app will update the number of copies available and remove the book from your Borrowing.
   5. Check history: Go to My Collection to check your recent book borrowing and returning activities.
   6. Edit personal information: Go to SETTING then click "Edit infomation" to edit information, besides you can click "Change Avatar" to change avatar and the option to turn on or off background music by clicking "Background music".
   7. Play game: Go to GAME to experience our game, the instructions are clearly presented there, you just need to click "Start Game" button to start the game.
