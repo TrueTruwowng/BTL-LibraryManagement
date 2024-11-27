@@ -39,7 +39,11 @@ import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.library.Controller.SceneController.*;
 
@@ -75,6 +79,7 @@ public class LibraryAdminController extends SceneController implements Initializ
     private TextField bookSearchTextField;
     @FXML
     private FontAwesomeIcon searchIcon;
+    private final Map<String, List<Book>> cache = new ConcurrentHashMap<>(); // Bộ nhớ đệm cho API
 
     ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
     ObservableList<Book> suggestedBookObservableList = FXCollections.observableArrayList();
@@ -241,59 +246,61 @@ public class LibraryAdminController extends SceneController implements Initializ
     }
 
     public List<Book> findBooksFromAPI(String searchTerm) {
-        List<Book> books = new ArrayList<>();
+        if (cache.containsKey(searchTerm)) {
+            return cache.get(searchTerm); // Trả về từ cache nếu đã có
+        }
 
+        final int pageSize = 40; // Tối đa mỗi lần gọi
+        final int maxResults = 40; // Số kết quả tối đa
+        final int numPages = maxResults / pageSize;
+
+        ForkJoinPool customThreadPool = new ForkJoinPool(8); // Tăng số luồng xử lý song song
+        List<Book> books = customThreadPool.submit(() ->
+                IntStream.range(0, numPages)
+                        .parallel()
+                        .mapToObj(pageIndex -> fetchBooksFromAPI(searchTerm, pageIndex * pageSize, pageSize))
+                        .flatMap(List::stream)
+                        .collect(Collectors.toList())
+        ).join();
+
+        cache.put(searchTerm, books); // Lưu kết quả vào cache
+        return books;
+    }
+
+    private List<Book> fetchBooksFromAPI(String searchTerm, int startIndex, int maxResults) {
+        List<Book> books = new ArrayList<>();
         try {
-            // Khởi tạo Books API
             Books.Builder builder = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
-                    new com.google.api.client.json.jackson2.JacksonFactory(),
-                    null);
-            builder.setHttpRequestInitializer(request -> {
-                request.setConnectTimeout(5000); // Thời gian chờ kết nối (ms)
-                request.setReadTimeout(10000);   // Thời gian chờ đọc dữ liệu (ms)
-            });
+                    new com.google.api.client.json.jackson2.JacksonFactory(), null);
             builder.setApplicationName("Library Admin");
             builder.setGoogleClientRequestInitializer(new BooksRequestInitializer(API.getApiKey()));
             Books apiBooks = builder.build();
 
-            // Gửi yêu cầu tìm kiếm
             Books.Volumes.List volumesList = apiBooks.volumes().list(searchTerm);
-            volumesList.setMaxResults(40L);
+            volumesList.setStartIndex((long) startIndex);
+            volumesList.setMaxResults((long) maxResults);
             Volumes volumes = volumesList.execute();
 
-            if (volumes.getItems() != null && volumes.getTotalItems() > 0) {
-                for (Volume volume : volumes.getItems()) {
+            if (volumes.getItems() != null) {
+                volumes.getItems().parallelStream().forEach(volume -> {
                     Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
-
-                    // Lấy thông tin sách
-                    String isbn = volumeInfo.getIndustryIdentifiers() != null
-                            ? volumeInfo.getIndustryIdentifiers().get(0).getIdentifier() : "Unknown";
-
-                    String title = volumeInfo.getTitle() != null ? volumeInfo.getTitle() : "Unknown";
-
-                    String author = (volumeInfo.getAuthors() != null && !volumeInfo.getAuthors().isEmpty())
-                            ? volumeInfo.getAuthors().get(0) : "Unknown";
-
-                    // Lấy ngày/tháng/năm xuất bản
-                    String publishedDate = "Unknown";
-                    if (volumeInfo.getPublishedDate() != null) {
-                        publishedDate = volumeInfo.getPublishedDate(); // API trả về ngày dưới dạng chuỗi
+                    try {
+                        books.add(new Book(
+                                volumeInfo.getIndustryIdentifiers() != null
+                                        ? volumeInfo.getIndustryIdentifiers().get(0).getIdentifier() : "Unknown",
+                                volumeInfo.getTitle() != null ? volumeInfo.getTitle() : "Unknown",
+                                (volumeInfo.getAuthors() != null && !volumeInfo.getAuthors().isEmpty())
+                                        ? volumeInfo.getAuthors().get(0) : "Unknown",
+                                volumeInfo.getPublishedDate() != null ? volumeInfo.getPublishedDate() : "Unknown",
+                                1,
+                                volumeInfo.getDescription() != null ? volumeInfo.getDescription() : "No description available",
+                                volumeInfo.getImageLinks() != null && volumeInfo.getImageLinks().getThumbnail() != null
+                                        ? downloadImage(volumeInfo.getImageLinks().getThumbnail()) : null
+                        ));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    // Lấy mô tả sách
-                    String description = volumeInfo.getDescription() != null ? volumeInfo.getDescription() : "No description available";
-
-                    // Lấy ảnh thumbnail
-                    byte[] image = null;
-                    if (volumeInfo.getImageLinks() != null && volumeInfo.getImageLinks().getThumbnail() != null) {
-                        String imageUrl = volumeInfo.getImageLinks().getThumbnail();
-                        image = downloadImage(imageUrl);
-                    }
-
-                    // Tạo đối tượng Book
-                    Book book = new Book(isbn, title, author, publishedDate, 1, description, image);
-                    books.add(book);
-                }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -302,17 +309,27 @@ public class LibraryAdminController extends SceneController implements Initializ
     }
 
 
+
     private byte[] downloadImage(String imageUrl) {
+        CompletableFuture<byte[]> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(imageUrl);
+                BufferedImage bufferedImage = ImageIO.read(url);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+                return byteArrayOutputStream.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+
         try {
-            URL url = new URL(imageUrl);
-            BufferedImage bufferedImage = ImageIO.read(url);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
-            return byteArrayOutputStream.toByteArray();
+            return future.get();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     // Kiểm tra xem database đã có sách chưa
@@ -352,73 +369,34 @@ public class LibraryAdminController extends SceneController implements Initializ
         String searchTerm = bookSearchTextField.getText().trim().toLowerCase();
         ObservableList<Book> combinedResults = FXCollections.observableArrayList();
 
-        if (searchTerm.isEmpty()) {
-            loadBook();
-            combinedResults.addAll(bookObservableList);
+        Task<List<Book>> searchTask = new Task<>() {
+            @Override
+            protected List<Book> call() throws Exception {
+                ExecutorService executor = Executors.newFixedThreadPool(2);
+                Future<List<Book>> dbFuture = executor.submit(() -> findBooksInDatabase(searchTerm));
+                Future<List<Book>> apiFuture = executor.submit(() -> findBooksFromAPI(searchTerm));
+
+                List<Book> combined = new ArrayList<>();
+                combined.addAll(dbFuture.get());
+                combined.addAll(apiFuture.get());
+                executor.shutdown();
+                return combined;
+            }
+        };
+
+        progressBar.setVisible(true);
+        searchTask.setOnSucceeded(workerStateEvent -> {
+            combinedResults.addAll(searchTask.getValue());
             tableBookView.setItems(combinedResults);
-        } else {
-            // Task 1: Tìm trong database
-            Task<List<Book>> dbTask = new Task<>() {
-                @Override
-                protected List<Book> call() throws Exception {
-                    Thread.sleep(2000);
-                    return findBooksInDatabase(searchTerm);
-                }
-            };
+            progressBar.setVisible(false);
+        });
 
-            // Task 2: Tìm trong API
-            Task<List<Book>> apiTask = new Task<>() {
-                @Override
-                protected List<Book> call() throws Exception {
-                    return findBooksFromAPI(searchTerm);
-                }
-            };
+        searchTask.setOnFailed(workerStateEvent -> {
+            progressBar.setVisible(false);
+            showAlert("Error", "Search failed. Please try again later.", Alert.AlertType.ERROR);
+        });
 
-            // Cập nhật tiến trình progress bar
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                    new KeyFrame(Duration.seconds(10), new KeyValue(progressBar.progressProperty(), 1))
-            );
-            progressBar.setVisible(true);
-            timeline.play();
-
-            // Khi cả hai task hoàn thành
-            dbTask.setOnSucceeded(workerStateEvent -> {
-                combinedResults.addAll(dbTask.getValue());
-                tableBookView.setItems(combinedResults);
-            });
-
-            apiTask.setOnSucceeded(workerStateEvent -> {
-                combinedResults.addAll(apiTask.getValue());
-                tableBookView.setItems(combinedResults);
-                tableBookView.refresh();
-                // Ẩn sau khi tìm kiếm
-                timeline.stop();
-                progressBar.setProgress(1);
-                PauseTransition pause = new PauseTransition(Duration.millis(500));
-                pause.setOnFinished(e -> progressBar.setVisible(false));
-                pause.play();
-            });
-
-            // Xử lý lỗi
-            dbTask.setOnFailed(workerStateEvent -> {
-                Throwable exception = dbTask.getException();
-                exception.printStackTrace();
-                showAlert("Error", "Failed to search books in database.", Alert.AlertType.ERROR);
-            });
-
-            apiTask.setOnFailed(workerStateEvent -> {
-                Throwable exception = apiTask.getException();
-                exception.printStackTrace();
-                showAlert("Error", "Failed to search books from API.", Alert.AlertType.ERROR);
-                timeline.stop();
-                progressBar.setVisible(false);
-            });
-
-            // Chạy cả hai task trong các thread khác nhau
-            new Thread(dbTask).start();
-            new Thread(apiTask).start();
-        }
+        new Thread(searchTask).start();
     }
 
     public void addBook(ActionEvent actionEvent) throws IOException {
