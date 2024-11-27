@@ -73,7 +73,7 @@
                   <Font name="Book Antiqua Bold Italic" size="12.0" />
                </font>
             </FontAwesomeIcon>
-            <Label fx:id="LoginMessageLabelCheckMark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="674.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="211.0" styleClass="rounded-label-check-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Login Successful!" textFill="#56f700" wrapText="true">
+            <Label fx:id="LoginMessageLabelCheckMark" alignment="BASELINE_RIGHT" contentDisplay="CENTER" layoutX="674.0" layoutY="12.0" opacity="0.47" prefHeight="72.0" prefWidth="211.0" styleClass="rounded-label-check-mark" stylesheets="@../../ScreenUI/css/Label.css" text="Login Successfully!" textFill="#56f700" wrapText="true">
                <font>
                   <Font name="Britannic Bold" size="17.0" />
                </font>

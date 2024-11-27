@@ -46,7 +46,7 @@ public class BookInfo {
         if (book != null) {
             bookTitle.setText(book.getTitle());
             bookAuthor.setText(book.getAuthor());
-            bookYear.setText(Integer.toString(book.getYear()));
+            bookYear.setText(book.getYear());
             bookISBN.setText(book.getIsbn());
             bookAvailable.setText(Integer.toString(book.getAvailable()));
             bookDescription.setText(book.getDescription());
