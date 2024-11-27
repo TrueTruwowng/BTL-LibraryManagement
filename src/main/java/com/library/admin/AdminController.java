@@ -24,9 +24,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.library.Controller.SceneController.*;
-
-public class adminController extends SceneController implements Initializable {
+public class AdminController extends SceneController implements Initializable {
     @FXML
     public Hyperlink bookSceneHyperlink;
     @FXML
@@ -92,8 +90,8 @@ public class adminController extends SceneController implements Initializable {
         // Kết nối tới database
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) {
-            System.out.println("Kết nối database thất bại");
-            showAlert("Thông báo", "Kết nối thất bại", Alert.AlertType.ERROR);
+            System.out.println("Connection failed");
+            showAlert("Error", "Connection failed", Alert.AlertType.ERROR);
             return;
         }
 
