@@ -100,8 +100,23 @@ public class AddBookAdminController extends SceneController implements Initializ
             return;
         }
 
-        int year = Integer.parseInt(bookYear);
-        int quantity = Integer.parseInt(bookQuantity);
+        int year;
+        int quantity;
+
+        try {
+            year = Integer.parseInt(bookYear);
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Year must be a valid number.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        try {
+            quantity = Integer.parseInt(bookQuantity);
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Quantity must be a valid number.", Alert.AlertType.ERROR);
+            return;
+        }
+
         Book book = new Book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
 
         if (isBookExists(book)) {
