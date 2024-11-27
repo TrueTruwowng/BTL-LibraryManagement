@@ -4,14 +4,14 @@ public class Book {
     private String isbn;
     private String title;
     private String author;
-    private int year;
+    private String year;
     private String description;
     private int available;
     private byte[] bookImage;
 
     public Book() {}
 
-    public Book(String isbn, String title, String author, int year, int available, String description, byte[] bookImage) {
+    public Book(String isbn, String title, String author, String year, int available, String description, byte[] bookImage) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -52,11 +52,11 @@ public class Book {
         this.bookImage = bookImage; // Gán mảng byte cho bookImage
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

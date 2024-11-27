@@ -105,7 +105,7 @@ public class DatabaseConnection {
                 book.setIsbn(resultSet.getString("isbn"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
-                book.setYear(resultSet.getInt("year"));
+                book.setYear(resultSet.getString("year"));
                 book.setDescription(resultSet.getString("description"));
                 book.setAvailable(resultSet.getInt("available"));
 
@@ -137,7 +137,7 @@ public class DatabaseConnection {
                     book = new Book();
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
-                    book.setYear(resultSet.getInt("year"));
+                    book.setYear(resultSet.getString("year"));
                     book.setBookImage(resultSet.getBytes("bookImage"));
                     book.setAvailable(resultSet.getInt("available"));
                     book.setIsbn(resultSet.getString("isbn"));
@@ -269,7 +269,7 @@ public class DatabaseConnection {
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
-                    book.setYear(resultSet.getInt("year"));
+                    book.setYear(resultSet.getString("year"));
                     book.setDescription(resultSet.getString("description"));
                     book.setAvailable(resultSet.getInt("available"));
 
@@ -345,7 +345,7 @@ public class DatabaseConnection {
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
-                    book.setYear(resultSet.getInt("year"));
+                    book.setYear(resultSet.getString("year"));
                     book.setDescription(resultSet.getString("description"));
                     book.setAvailable(resultSet.getInt("available"));
 
@@ -436,7 +436,7 @@ public class DatabaseConnection {
                 book.setIsbn(resultSet.getString("isbn"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
-                book.setYear(resultSet.getInt("year"));
+                book.setYear(resultSet.getString("year"));
                 book.setDescription(resultSet.getString("description"));
                 book.setAvailable(resultSet.getInt("available"));
 
