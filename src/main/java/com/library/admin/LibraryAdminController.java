@@ -124,7 +124,7 @@ public class LibraryAdminController extends SceneController implements Initializ
                 String isbn = resultSet.getString("isbn");
                 String title = resultSet.getString("title");
                 String author = resultSet.getString("author");
-                int year = resultSet.getInt("year");
+                String year = resultSet.getString("year");
                 int available = resultSet.getInt("available");
                 String description = resultSet.getString("description");
                 byte[] image = resultSet.getBytes("bookImage");
@@ -226,7 +226,7 @@ public class LibraryAdminController extends SceneController implements Initializ
                 String isbn = rs.getString("isbn");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
-                int year = rs.getInt("year");
+                String year = rs.getString("year");
                 String description = rs.getString("description");
                 int available = rs.getInt("available");
                 byte[] image = rs.getBytes("bookImage");
@@ -240,14 +240,14 @@ public class LibraryAdminController extends SceneController implements Initializ
         return books;
     }
 
-    // Tìm sách từ API
     public List<Book> findBooksFromAPI(String searchTerm) {
         List<Book> books = new ArrayList<>();
 
         try {
+            // Khởi tạo Books API
             Books.Builder builder = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
-                                                      new com.google.api.client.json.jackson2.JacksonFactory(),
-                                    null);
+                    new com.google.api.client.json.jackson2.JacksonFactory(),
+                    null);
             builder.setHttpRequestInitializer(request -> {
                 request.setConnectTimeout(5000); // Thời gian chờ kết nối (ms)
                 request.setReadTimeout(10000);   // Thời gian chờ đọc dữ liệu (ms)
@@ -256,6 +256,7 @@ public class LibraryAdminController extends SceneController implements Initializ
             builder.setGoogleClientRequestInitializer(new BooksRequestInitializer(API.getApiKey()));
             Books apiBooks = builder.build();
 
+            // Gửi yêu cầu tìm kiếm
             Books.Volumes.List volumesList = apiBooks.volumes().list(searchTerm);
             volumesList.setMaxResults(40L);
             Volumes volumes = volumesList.execute();
@@ -273,24 +274,24 @@ public class LibraryAdminController extends SceneController implements Initializ
                     String author = (volumeInfo.getAuthors() != null && !volumeInfo.getAuthors().isEmpty())
                             ? volumeInfo.getAuthors().get(0) : "Unknown";
 
-                    int year = 0;
+                    // Lấy ngày/tháng/năm xuất bản
+                    String publishedDate = "Unknown";
                     if (volumeInfo.getPublishedDate() != null) {
-                        try {
-                            // Lấy năm
-                            year = Integer.parseInt(volumeInfo.getPublishedDate().split("-")[0]);
-                        } catch (NumberFormatException e) {
-                            year = 0;
-                        }
+                        publishedDate = volumeInfo.getPublishedDate(); // API trả về ngày dưới dạng chuỗi
                     }
+
+                    // Lấy mô tả sách
                     String description = volumeInfo.getDescription() != null ? volumeInfo.getDescription() : "No description available";
 
+                    // Lấy ảnh thumbnail
                     byte[] image = null;
                     if (volumeInfo.getImageLinks() != null && volumeInfo.getImageLinks().getThumbnail() != null) {
                         String imageUrl = volumeInfo.getImageLinks().getThumbnail();
                         image = downloadImage(imageUrl);
                     }
 
-                    Book book = new Book(isbn, title, author, year, 1, description, image);
+                    // Tạo đối tượng Book
+                    Book book = new Book(isbn, title, author, publishedDate, 1, description, image);
                     books.add(book);
                 }
             }
@@ -299,6 +300,7 @@ public class LibraryAdminController extends SceneController implements Initializ
         }
         return books;
     }
+
 
     private byte[] downloadImage(String imageUrl) {
         try {
@@ -442,7 +444,7 @@ public class LibraryAdminController extends SceneController implements Initializ
                 insertStmt.setString(1, selectedBook.getIsbn());
                 insertStmt.setString(2, selectedBook.getTitle());
                 insertStmt.setString(3, selectedBook.getAuthor());
-                insertStmt.setInt(4, selectedBook.getYear());
+                insertStmt.setString(4, selectedBook.getYear());
                 insertStmt.setInt(5, selectedBook.getAvailable());
                 insertStmt.setString(6, selectedBook.getDescription());
                 insertStmt.setBytes(7, selectedBook.getBookImage());

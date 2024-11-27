@@ -95,13 +95,27 @@ public class AddBookAdminController extends SceneController implements Initializ
         String bookQuantity = bookQuantityTextField.getText();
         String bookDescription = bookDescriptionTextField.getText();
 
+        // Kiểm tra các trường không được để trống
         if (bookIsbn.isEmpty() || bookTitle.isEmpty() || bookAuthor.isEmpty() || bookYear.isEmpty() || bookQuantity.isEmpty()) {
             showAlert("Error", "Please fill in all fields", Alert.AlertType.ERROR);
             return;
         }
 
-        int year = Integer.parseInt(bookYear);
+        // Kiểm tra bookYear có phải là số hay không
+        if (!bookYear.matches("\\d{4}")) { // Chỉ chấp nhận năm với 4 chữ số
+            showAlert("Error", "Year must be a 4-digit number.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Kiểm tra bookQuantity có phải là số hay không
+        if (!bookQuantity.matches("\\d+")) { // Chỉ chấp nhận số nguyên dương
+            showAlert("Error", "Quantity must be a positive number.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        String year = bookYear;
         int quantity = Integer.parseInt(bookQuantity);
+
         Book book = new Book(bookIsbn, bookTitle, bookAuthor, year, quantity, bookDescription, null);
 
         if (isBookExists(book)) {
@@ -113,7 +127,7 @@ public class AddBookAdminController extends SceneController implements Initializ
                 insertStmt.setString(1, book.getIsbn());
                 insertStmt.setString(2, book.getTitle());
                 insertStmt.setString(3, book.getAuthor());
-                insertStmt.setInt(4, book.getYear());
+                insertStmt.setString(4, book.getYear());
                 insertStmt.setInt(5, book.getAvailable());
                 insertStmt.setString(6, book.getDescription());
                 insertStmt.setBytes(7, book.getBookImage());
@@ -130,6 +144,7 @@ public class AddBookAdminController extends SceneController implements Initializ
             }
         }
     }
+
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
