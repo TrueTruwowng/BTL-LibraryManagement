@@ -246,6 +246,11 @@ public class LibraryAdminController extends SceneController implements Initializ
     }
 
     public List<Book> findBooksFromAPI(String searchTerm) {
+        // Nếu searchTerm trống, trả về tất cả sách từ database
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return findBooksInDatabase(searchTerm);
+        }
+
         if (cache.containsKey(searchTerm)) {
             return cache.get(searchTerm); // Trả về từ cache nếu đã có
         }
